@@ -15,8 +15,8 @@
 
       <h2>Case Study: IRS Audits &amp; Tax Payments</h2>
 
-      <p style="font-size:0.9rem; text-align:center; color:#4a4a4a; margin:0.3rem auto; max-width:780px;">
-        Do audits increase future tax payments? Comparing non-random vs. randomized audits shows why parallel trends matter.
+      <p style="font-size:0.85rem; text-align:center; color:#4a4a4a; margin:0.3rem auto; max-width:780px;">
+        Boning, Hendren, Sprung-Keyser &amp; Stuart (<em>QJE</em>, 2025): Do audits increase future tax payments?
       </p>
 
       <div class="two-columns" style="gap:2rem; align-items:flex-start; margin-top:0.5rem;">
@@ -47,13 +47,14 @@
       <div class="notes-overlay">
         <div class="notes-modal">
           <button class="notes-close">&times;</button>
-          <h3>Lecture Notes: Why Two Figures?</h3>
-          <p><strong>The left figure</strong> shows what happens when you study <em>all</em> IRS audits. These audits are not randomly assigned&mdash;the IRS targets people who look suspicious. As a result, the audited taxpayers had recently experienced an income bump (which may have triggered the audit). This creates a clear pre-trend violation: the treatment group's income was already declining relative to the control group before the audit.</p>
-          <p><strong>The right figure</strong> uses only the National Research Program (NRP) audits, which <em>are</em> randomly assigned. With random assignment, there is no reason for the treatment and control groups to differ before the audit. Sure enough, the pre-trends are flat near zero.</p>
+          <h3>Lecture Notes: Boning, Hendren, Sprung-Keyser &amp; Stuart (QJE, 2025)</h3>
+          <p><strong>Citation:</strong> &ldquo;A Welfare Analysis of Tax Audits Across the Income Distribution,&rdquo; <em>Quarterly Journal of Economics</em>, Vol.&nbsp;140, Issue&nbsp;1, pp.&nbsp;63&ndash;142.</p>
+          <p><strong>The left figure</strong> shows what happens when you study <em>all</em> IRS audits. Operational audits are not randomly assigned&mdash;the IRS targets people who look suspicious. As a result, audited taxpayers had recently experienced an income bump (which likely triggered the audit). This creates a clear pre-trend violation: the treatment group&rsquo;s income was already diverging from the control group before the audit occurred.</p>
+          <p><strong>The right figure</strong> uses only the National Research Program (NRP) audits, which <em>are</em> randomly assigned. The NRP selects a stratified random sample of returns for review to estimate the &ldquo;tax gap.&rdquo; With random assignment, there is no reason for treatment and control groups to differ before the audit. Sure enough, the pre-trends are flat near zero.</p>
           <div class="example-box">
-            The NRP results show that audits do increase long-run tax payments&mdash;audited taxpayers pay about $300 more per year for over a decade. This is likely because the audit uncovered previously unreported income, and taxpayers now know the IRS is aware of it.
+            <strong>Key finding:</strong> Audited taxpayers pay about $300 more per year in additional taxes, and this effect persists for at least 14 years with no visible decay. In present value, these deterrence effects raise 3.2&times; as much revenue as the initial audit itself. Returns to audits rise sharply with income: every $1 spent auditing taxpayers above the 90th percentile yields about $12 in revenue.
           </div>
-          <p>This is a vivid illustration of why pre-trends matter: the non-random audits would give a misleading picture because selection into treatment is correlated with the outcome trajectory. The randomized audits give us the clean answer.</p>
+          <p><strong>Why this matters for DID:</strong> The non-random audits would give a misleading picture because selection into treatment is correlated with the outcome trajectory. An earlier study (DeBacker et al., 2018) used NRP data but omitted year-since-audit fixed effects and found a <em>negative</em> deterrence effect for high-income taxpayers&mdash;that result disappears with the correct specification. This illustrates how specification choices in event studies can matter enormously.</p>
         </div>
       </div>
 
