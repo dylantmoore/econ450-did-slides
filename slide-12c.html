@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>"No Causes In, No Causes Out"</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="slide-container" data-current-slide="12" data-total-slides="28" data-prev-slide="slide-12.html" data-next-slide="slide-12b.html">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+
+      <h2 style="font-size:1.7rem">&ldquo;No Causes In, No Causes Out&rdquo;</h2>
+
+      <p style="text-align:center; font-size:0.95rem; color:#666; margin:-0.3rem auto 1.2rem; font-style:italic;">
+        &mdash; Nancy Cartwright, philosopher of science
+      </p>
+
+      <svg viewBox="0 0 820 220" width="820" height="220" style="display:block;margin:0 auto 0.8rem;max-width:100%">
+        <!-- LEFT BOX: Data alone -->
+        <rect x="20" y="30" width="220" height="160" rx="10" fill="#f5f5f3" stroke="#ccc" stroke-width="1.5"/>
+        <text x="130" y="75" text-anchor="middle" font-size="18" fill="#333" font-weight="700">Data alone</text>
+        <text x="130" y="105" text-anchor="middle" font-size="13" fill="#666">patterns, correlations,</text>
+        <text x="130" y="122" text-anchor="middle" font-size="13" fill="#666">associations</text>
+        <text x="130" y="160" text-anchor="middle" font-size="12" fill="#999" font-style="italic">descriptive, not causal</text>
+
+        <!-- PLUS SIGN -->
+        <text x="290" y="120" text-anchor="middle" font-size="32" fill="#0072B2" font-weight="700">+</text>
+
+        <!-- MIDDLE BOX: Causal assumptions -->
+        <rect x="330" y="30" width="220" height="160" rx="10" fill="rgba(0,114,178,0.07)" stroke="#0072B2" stroke-width="1.5"/>
+        <text x="440" y="68" text-anchor="middle" font-size="16" fill="#0072B2" font-weight="700">Causal</text>
+        <text x="440" y="88" text-anchor="middle" font-size="16" fill="#0072B2" font-weight="700">Assumptions</text>
+        <text x="440" y="118" text-anchor="middle" font-size="12" fill="#555">parallel trends,</text>
+        <text x="440" y="134" text-anchor="middle" font-size="12" fill="#555">exclusion restrictions,</text>
+        <text x="440" y="150" text-anchor="middle" font-size="12" fill="#555">exogeneity, ...</text>
+        <text x="440" y="175" text-anchor="middle" font-size="11" fill="#0072B2" font-style="italic">these are what you bring</text>
+
+        <!-- ARROW -->
+        <line x1="570" y1="110" x2="630" y2="110" stroke="#009E73" stroke-width="3" marker-end="url(#arrowGreen)"/>
+        <defs>
+          <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <path d="M0,0 L10,3.5 L0,7 Z" fill="#009E73"/>
+          </marker>
+        </defs>
+
+        <!-- RIGHT BOX: Causal inference -->
+        <rect x="640" y="50" width="160" height="120" rx="10" fill="rgba(0,158,115,0.08)" stroke="#009E73" stroke-width="2"/>
+        <text x="720" y="95" text-anchor="middle" font-size="17" fill="#009E73" font-weight="700">Causal</text>
+        <text x="720" y="118" text-anchor="middle" font-size="17" fill="#009E73" font-weight="700">Inference</text>
+        <text x="720" y="150" text-anchor="middle" font-size="11" fill="#009E73" font-style="italic">the goal</text>
+      </svg>
+
+      <div class="fragment" style="max-width:780px; margin:0 auto; padding:0.8rem 1.2rem; background:rgba(0,114,178,0.06); border-left:4px solid #0072B2; border-radius:4px; font-size:1rem; line-height:1.6;">
+        There is no such thing as purely &ldquo;data-driven&rdquo; causal inference. Every causal claim combines <strong>data</strong> with <strong>assumptions</strong> that cannot themselves be tested with data alone.
+      </div>
+
+      <p class="fragment" style="text-align:center; font-size:1rem; margin-top:0.6rem; max-width:780px; margin-left:auto; margin-right:auto; line-height:1.5;">
+        In DID, that assumption is <strong>parallel trends</strong>. So how do we build confidence in it?
+      </p>
+
+      <button class="lecture-notes-btn" title="Lecture Notes">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Lecture Notes
+      </button>
+      <div class="notes-overlay">
+        <div class="notes-modal">
+          <button class="notes-close">&times;</button>
+          <h3>Lecture Notes: Cartwright's Principle</h3>
+          <p>Nancy Cartwright is a philosopher of science who has written extensively about causal reasoning. Her phrase &ldquo;no causes in, no causes out&rdquo; captures a deep point: <strong>you cannot extract causal knowledge from a statistical procedure unless you feed causal assumptions into that procedure.</strong></p>
+          <p>This applies to every causal method in econometrics&mdash;DID, instrumental variables, regression discontinuity, randomized experiments. Even randomized experiments require the assumption that randomization was implemented correctly and that there is no attrition or noncompliance that violates the design.</p>
+          <div class="example-box">
+            <strong>Why this matters for DID:</strong> Students sometimes think that if the pre-trends look parallel, they have &ldquo;proven&rdquo; that the design works. But parallel pre-trends are <em>evidence in favor of</em> the assumption, not proof. The assumption is about what <em>would have happened</em>&mdash;a counterfactual&mdash;and no amount of data can directly verify a counterfactual.
+          </div>
+          <p>The right mindset is: causal inference is always a combination of data and judgment. Your job is to make the strongest case you can, knowing that certainty is not available.</p>
+        </div>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number" id="slide-number">12c / 28</span>
+      </footer>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

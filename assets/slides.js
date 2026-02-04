@@ -157,6 +157,7 @@ class LectureNotesModal {
 
     this.btn.addEventListener('click', () => this.open());
     this.overlay.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent click from bubbling to slide (which would advance)
       if (e.target === this.overlay) this.close();
     });
     const closeBtn = this.overlay.querySelector('.notes-close');
@@ -198,6 +199,7 @@ class DetailButtons {
     });
     document.querySelectorAll('.notes-overlay').forEach(overlay => {
       overlay.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent click from bubbling to slide (which would advance)
         if (e.target === overlay) this.close();
       });
       const closeBtn = overlay.querySelector('.notes-close');
