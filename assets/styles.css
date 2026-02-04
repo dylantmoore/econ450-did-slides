@@ -501,6 +501,25 @@ code, .mono {
   color: #333;
 }
 
+/* Inline detail buttons (for cards with individual popups) */
+.detail-btn {
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 0.3rem 0.8rem;
+  border-radius: 14px;
+  cursor: pointer;
+  font-family: var(--font-main);
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: background 0.2s;
+  margin-top: 0.4rem;
+}
+
+.detail-btn:hover {
+  background: #005a8f;
+}
+
 /* Print styles */
 @media print {
   .nav-controls,

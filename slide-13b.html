@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study: IRS Audits</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="slide-container" data-current-slide="13" data-total-slides="27" data-prev-slide="slide-13.html" data-next-slide="slide-14.html">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+
+      <h2>Case Study: IRS Audits &amp; Tax Payments</h2>
+
+      <p style="font-size:0.9rem; text-align:center; color:#4a4a4a; margin:0.3rem auto; max-width:780px;">
+        Do audits increase future tax payments? Comparing non-random vs. randomized audits shows why parallel trends matter.
+      </p>
+
+      <div class="two-columns" style="gap:2rem; align-items:flex-start; margin-top:0.5rem;">
+
+        <!-- Left: Non-random audits (bad pre-trends) -->
+        <div class="fragment" style="text-align:center;">
+          <h3 style="color:#D55E00; margin-bottom:0.3rem; font-size:1rem;">Non-Random Audits</h3>
+          <img src="images/irs-nonrandom.png" alt="Event study of non-random IRS audits showing pre-trend violations" style="max-width:100%; border-radius:6px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+          <p style="font-size:0.8rem; color:#D55E00; font-weight:600; margin-top:0.3rem; line-height:1.3;">
+            Pre-trends are violated: audited taxpayers had a bump in income before being selected for audit.
+          </p>
+        </div>
+
+        <!-- Right: NRP randomized audits (good pre-trends) -->
+        <div class="fragment" style="text-align:center;">
+          <h3 style="color:#009E73; margin-bottom:0.3rem; font-size:1rem;">Randomized (NRP) Audits</h3>
+          <img src="images/irs-nrp-random.png" alt="Event study of NRP randomized audits showing flat pre-trends" style="max-width:100%; border-radius:6px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+          <p style="font-size:0.8rem; color:#009E73; font-weight:600; margin-top:0.3rem; line-height:1.3;">
+            NRP audits are randomly assigned: pre-trends are flat and effects are credibly causal.
+          </p>
+        </div>
+      </div>
+
+      <button class="lecture-notes-btn" title="Lecture Notes">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Lecture Notes
+      </button>
+      <div class="notes-overlay">
+        <div class="notes-modal">
+          <button class="notes-close">&times;</button>
+          <h3>Lecture Notes: Why Two Figures?</h3>
+          <p><strong>The left figure</strong> shows what happens when you study <em>all</em> IRS audits. These audits are not randomly assigned&mdash;the IRS targets people who look suspicious. As a result, the audited taxpayers had recently experienced an income bump (which may have triggered the audit). This creates a clear pre-trend violation: the treatment group's income was already declining relative to the control group before the audit.</p>
+          <p><strong>The right figure</strong> uses only the National Research Program (NRP) audits, which <em>are</em> randomly assigned. With random assignment, there is no reason for the treatment and control groups to differ before the audit. Sure enough, the pre-trends are flat near zero.</p>
+          <div class="example-box">
+            The NRP results show that audits do increase long-run tax payments&mdash;audited taxpayers pay about $300 more per year for over a decade. This is likely because the audit uncovered previously unreported income, and taxpayers now know the IRS is aware of it.
+          </div>
+          <p>This is a vivid illustration of why pre-trends matter: the non-random audits would give a misleading picture because selection into treatment is correlated with the outcome trajectory. The randomized audits give us the clean answer.</p>
+        </div>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number" id="slide-number">13b / 27</span>
+      </footer>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

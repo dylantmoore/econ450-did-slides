@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Levels vs. Percentage Changes</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="slide-container" data-current-slide="10" data-total-slides="27" data-prev-slide="slide-10.html" data-next-slide="slide-11.html">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+
+      <h2>Levels vs. Percentage Changes</h2>
+
+      <div class="two-columns" style="gap:2.5rem; align-items:flex-start; margin-top:0.5rem;">
+
+        <!-- Left: Same baseline (doesn't matter) -->
+        <div style="text-align:center;">
+          <h3 style="color:#009E73; margin-bottom:0.3rem; font-size:1.1rem;">Same Baseline: No Difference</h3>
+          <svg viewBox="0 0 380 260" width="380" height="260" style="max-width:100%; font-family:'Segoe UI',system-ui,sans-serif;">
+            <rect x="0" y="0" width="380" height="260" fill="#fafafa" rx="6"/>
+            <!-- Axes -->
+            <line x1="55" y1="15" x2="55" y2="220" stroke="#333" stroke-width="1.2"/>
+            <line x1="55" y1="220" x2="360" y2="220" stroke="#333" stroke-width="1.2"/>
+            <!-- X labels -->
+            <text x="140" y="238" text-anchor="middle" fill="#555" font-size="11">Pre</text>
+            <text x="280" y="238" text-anchor="middle" fill="#555" font-size="11">Post</text>
+            <!-- Y labels -->
+            <text x="48" y="199" text-anchor="end" fill="#555" font-size="10">10</text>
+            <text x="48" y="139" text-anchor="end" fill="#555" font-size="10">20</text>
+            <text x="48" y="79" text-anchor="end" fill="#555" font-size="10">30</text>
+
+            <!-- Both start at 10 (y=195), control goes to 20 (y=135) -->
+            <!-- Control line -->
+            <line x1="140" y1="195" x2="280" y2="135" stroke="#D55E00" stroke-width="2.5"/>
+            <circle cx="140" cy="195" r="5" fill="#D55E00"/>
+            <circle cx="280" cy="135" r="5" fill="#D55E00"/>
+            <text x="295" y="140" font-size="11" fill="#D55E00" font-weight="600">Control</text>
+
+            <!-- Treatment starts at 10 (y=195) -->
+            <circle cx="140" cy="195" r="5" fill="#009E73" stroke="white" stroke-width="2"/>
+
+            <!-- Counterfactual: both level and % give same result: 20 (y=135) -->
+            <line x1="140" y1="195" x2="280" y2="135" stroke="#009E73" stroke-width="2" stroke-dasharray="6,4" opacity="0.5"/>
+            <circle cx="280" cy="135" r="4" fill="none" stroke="#009E73" stroke-width="2" stroke-dasharray="3,2" opacity="0.6"/>
+
+            <!-- Label -->
+            <text x="210" y="110" text-anchor="middle" font-size="10" fill="#009E73" font-style="italic">+10 level = +100%</text>
+            <text x="210" y="123" text-anchor="middle" font-size="10" fill="#009E73" font-style="italic">Same answer either way</text>
+
+            <!-- Check mark -->
+            <text x="345" y="25" font-size="22" fill="#009E73" font-weight="bold">&#x2713;</text>
+          </svg>
+          <p style="font-size:0.85rem; color:#555; max-width:340px; margin:0.3rem auto 0; line-height:1.4;">
+            When both groups start at the same level, parallel trends in levels and percentage changes are identical.
+          </p>
+        </div>
+
+        <!-- Right: Different baselines (matters!) -->
+        <div style="text-align:center;">
+          <h3 style="color:#D55E00; margin-bottom:0.3rem; font-size:1.1rem;">Different Baselines: It Matters</h3>
+          <svg viewBox="0 0 380 260" width="380" height="260" style="max-width:100%; font-family:'Segoe UI',system-ui,sans-serif;">
+            <rect x="0" y="0" width="380" height="260" fill="#fafafa" rx="6"/>
+            <!-- Axes -->
+            <line x1="55" y1="15" x2="55" y2="220" stroke="#333" stroke-width="1.2"/>
+            <line x1="55" y1="220" x2="360" y2="220" stroke="#333" stroke-width="1.2"/>
+            <!-- X labels -->
+            <text x="140" y="238" text-anchor="middle" fill="#555" font-size="11">Pre</text>
+            <text x="280" y="238" text-anchor="middle" fill="#555" font-size="11">Post</text>
+            <!-- Y labels -->
+            <text x="48" y="199" text-anchor="end" fill="#555" font-size="10">10</text>
+            <text x="48" y="139" text-anchor="end" fill="#555" font-size="10">20</text>
+            <text x="48" y="79" text-anchor="end" fill="#555" font-size="10">30</text>
+            <text x="48" y="19" text-anchor="end" fill="#555" font-size="10">40</text>
+
+            <!-- Control: starts at 10 (y=195), goes to 20 (y=135) -->
+            <line x1="140" y1="195" x2="280" y2="135" stroke="#D55E00" stroke-width="2.5"/>
+            <circle cx="140" cy="195" r="5" fill="#D55E00"/>
+            <circle cx="280" cy="135" r="5" fill="#D55E00"/>
+            <text x="295" y="140" font-size="10" fill="#D55E00" font-weight="600">Control</text>
+
+            <!-- Treatment: starts at 20 (y=135) -->
+            <circle cx="140" cy="135" r="5" fill="#009E73"/>
+            <text x="118" y="128" text-anchor="end" font-size="10" fill="#009E73" font-weight="600">Treatment</text>
+
+            <!-- Counterfactual A: Level PT → +10 → 30 (y=75) -->
+            <line x1="140" y1="135" x2="280" y2="75" stroke="#0072B2" stroke-width="2.5" stroke-dasharray="6,4"/>
+            <circle cx="280" cy="75" r="4" fill="none" stroke="#0072B2" stroke-width="2" stroke-dasharray="3,2"/>
+            <text x="295" y="70" font-size="10" fill="#0072B2" font-weight="600">30</text>
+            <text x="295" y="82" font-size="9" fill="#0072B2" font-style="italic">(+10 level)</text>
+
+            <!-- Counterfactual B: % PT → +100% → 40 (y=15) -->
+            <line x1="140" y1="135" x2="280" y2="15" stroke="#CC79A7" stroke-width="2.5" stroke-dasharray="6,4"/>
+            <circle cx="280" cy="15" r="4" fill="none" stroke="#CC79A7" stroke-width="2" stroke-dasharray="3,2"/>
+            <text x="295" y="10" font-size="10" fill="#CC79A7" font-weight="600">40</text>
+            <text x="295" y="22" font-size="9" fill="#CC79A7" font-style="italic">(+100%)</text>
+
+            <!-- Big double-headed arrow between the two counterfactuals -->
+            <line x1="268" y1="75" x2="268" y2="20" stroke="#D55E00" stroke-width="2"/>
+            <text x="243" y="50" text-anchor="end" font-size="10" fill="#D55E00" font-weight="bold">Gap = 10</text>
+
+            <!-- Warning -->
+            <text x="345" y="245" font-size="22" fill="#D55E00" font-weight="bold">!</text>
+          </svg>
+          <p style="font-size:0.85rem; color:#555; max-width:340px; margin:0.3rem auto 0; line-height:1.4;">
+            When baselines differ, the two assumptions produce <strong>different counterfactuals</strong> and different treatment effect estimates.
+          </p>
+        </div>
+      </div>
+
+      <div class="fragment" style="margin-top:0.8rem; padding:0.7rem 1.2rem; background:rgba(0,114,178,0.06); border-left:4px solid #0072B2; border-radius:4px; font-size:0.95rem; line-height:1.5;">
+        In practice, economists often default to assuming percentage changes are parallel (equivalent to taking logs of the outcome variable). But the right choice depends on context.
+      </div>
+
+      <button class="lecture-notes-btn" title="Lecture Notes">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Lecture Notes
+      </button>
+      <div class="notes-overlay">
+        <div class="notes-modal">
+          <button class="notes-close">&times;</button>
+          <h3>Lecture Notes: When Does This Matter?</h3>
+          <p>This subtlety only arises when the treatment and control groups have <strong>different starting levels</strong>. When they start at the same place (as in the step-by-step DID example), the level change and percentage change coincide exactly.</p>
+          <p>But in most real-world applications, the groups do start at different levels. In that case, you are making a choice&mdash;often implicitly&mdash;about which version of parallel trends to assume.</p>
+          <div class="example-box">
+            <strong>Log transformation:</strong> When researchers take the log of the outcome variable before running their regression, they are effectively assuming parallel trends in percentage terms. This is very common in applied work and is often the default. But there is nothing automatically correct about it&mdash;you need a substantive reason.
+          </div>
+          <p>The key point: <strong>there is nothing neutral here.</strong> Both assumptions are assumptions, and they give different answers. You need context-specific intuition about which one is more plausible.</p>
+        </div>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number" id="slide-number">10b / 27</span>
+      </footer>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

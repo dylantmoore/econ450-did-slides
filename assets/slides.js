@@ -185,8 +185,39 @@ class LectureNotesModal {
   }
 }
 
+// Inline detail button handler (for slides with multiple detail popups)
+class DetailButtons {
+  constructor() {
+    this.activeOverlay = null;
+    document.querySelectorAll('.detail-btn[data-detail]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-detail');
+        const overlay = document.getElementById(id);
+        if (overlay) this.open(overlay);
+      });
+    });
+    document.querySelectorAll('.notes-overlay').forEach(overlay => {
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) this.close();
+      });
+      const closeBtn = overlay.querySelector('.notes-close');
+      if (closeBtn) closeBtn.addEventListener('click', () => this.close());
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.activeOverlay) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        this.close();
+      }
+    }, true);
+  }
+  open(overlay) { this.activeOverlay = overlay; overlay.classList.add('open'); }
+  close() { if (this.activeOverlay) { this.activeOverlay.classList.remove('open'); this.activeOverlay = null; } }
+}
+
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   window.slidePresenter = new SlidePresenter();
   window.lectureNotes = new LectureNotesModal();
+  window.detailButtons = new DetailButtons();
 });
