@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Difference-in-Differences & Event Studies — A Visual Guide</title>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Source+Code+Pro:wght@400;600&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]});"></script>
+  <style>
+    :root {
+      --green: #009E73;
+      --orange: #D55E00;
+      --blue: #0072B2;
+      --cyan: #56B4E9;
+      --bg: #FAFAF8;
+      --text: #1a1a1a;
+      --muted: #666;
+      --font-main: 'EB Garamond', Georgia, serif;
+      --font-mono: 'Source Code Pro', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-main);
+      font-size: 1.15rem;
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    /* Progress bar */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: var(--blue);
+      width: 0%;
+      z-index: 1000;
+      transition: width 0.1s ease-out;
+    }
+
+    /* Hero section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(180deg, #e8f4f8 0%, var(--bg) 100%);
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 1rem;
+    }
+
+    .hero .subtitle {
+      font-size: 1.3rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero .attribution {
+      font-style: italic;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      animation: bounce 2s infinite;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
+    }
+
+    /* Main content container */
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Sections */
+    section {
+      padding: 3rem 0;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    section.short {
+      padding: 2rem 0;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: var(--blue);
+      margin-bottom: 1.2rem;
+      border-bottom: 2px solid var(--blue);
+      padding-bottom: 0.3rem;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      color: var(--text);
+      margin: 1.2rem 0 0.8rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    /* Cards */
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 1.2rem 1.5rem;
+      margin: 1.2rem 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      border-left: 4px solid var(--blue);
+    }
+
+    .card.green { border-left-color: var(--green); }
+    .card.orange { border-left-color: var(--orange); }
+    .card.cyan { border-left-color: var(--cyan); }
+
+    /* Equation boxes */
+    .equation-box {
+      background: #f0f0f0;
+      padding: 1.2rem 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+      margin: 1.5rem 0;
+      font-size: 1.05rem;
+    }
+
+    /* Blockquote */
+    blockquote {
+      background: rgba(0, 114, 178, 0.08);
+      border-left: 4px solid var(--blue);
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* Visualization containers */
+    .viz-container {
+      margin: 1.5rem 0;
+    }
+
+    .viz-container svg {
+      width: 100%;
+      max-width: 800px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* Two columns */
+    .two-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    @media (max-width: 700px) {
+      .two-columns { grid-template-columns: 1fr; }
+    }
+
+    /* Lists */
+    ul {
+      margin: 1rem 0 1.2rem 1.5rem;
+    }
+
+    li {
+      margin-bottom: 0.4rem;
+    }
+
+    /* Highlight text */
+    .highlight {
+      background: linear-gradient(180deg, transparent 60%, rgba(86, 180, 233, 0.3) 60%);
+    }
+
+    .green-text { color: var(--green); font-weight: 600; }
+    .orange-text { color: var(--orange); font-weight: 600; }
+    .blue-text { color: var(--blue); font-weight: 600; }
+
+    /* Dividers */
+    .divider {
+      padding: 4rem 0;
+      text-align: center;
+    }
+
+    .divider-text {
+      font-size: 1.6rem;
+      color: var(--blue);
+      font-weight: 600;
+      padding: 1.5rem 2rem;
+      border-top: 2px solid var(--blue);
+      border-bottom: 2px solid var(--blue);
+      display: inline-block;
+    }
+
+    /* Table styles */
+    .did-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.2rem 0;
+      font-size: 1rem;
+    }
+
+    .did-table th, .did-table td {
+      padding: 0.7rem 1rem;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    .did-table th {
+      background: #f0f0f0;
+      font-weight: 600;
+    }
+
+    .did-table .result-row td {
+      background: rgba(0, 114, 178, 0.1);
+      font-weight: 600;
+      color: var(--blue);
+    }
+
+    /* Tip grid */
+    .tip-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    @media (max-width: 700px) {
+      .tip-grid { grid-template-columns: 1fr; }
+    }
+
+    .tip-card {
+      padding: 1rem 1.2rem;
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    .tip-card h4 {
+      margin: 0 0 0.4rem;
+      font-size: 1rem;
+    }
+
+    .tip-card p {
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #444;
+    }
+
+    /* Takeaways */
+    .takeaway {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      background: #fff;
+      border-radius: 6px;
+      margin-bottom: 0.8rem;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    .takeaway-num {
+      font-size: 1.2rem;
+      font-weight: 700;
+      min-width: 1.5rem;
+    }
+
+    /* Example cards */
+    .example-card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1rem 1.3rem;
+      margin-bottom: 1rem;
+      background: #fafafa;
+    }
+
+    .example-card strong {
+      font-size: 1.05rem;
+    }
+
+    .example-card p {
+      margin: 0.4rem 0 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    footer.site-footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+      border-top: 1px solid #ddd;
+      margin-top: 3rem;
+    }
+
+    footer.site-footer a {
+      color: var(--blue);
+    }
+
+    /* Back to top button */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--blue);
+      color: white;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      font-size: 1.2rem;
+    }
+
+    .back-to-top.visible { opacity: 1; }
+    .back-to-top:hover { background: #005a8f; }
+
+    /* Sticky visualization sections */
+    .sticky-section {
+      display: flex;
+      gap: 2rem;
+      min-height: 100vh;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .sticky-viz {
+      position: sticky;
+      top: 10vh;
+      height: 80vh;
+      flex: 1.3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sticky-viz svg {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .scroll-steps {
+      flex: 1;
+      padding: 15vh 0;
+    }
+
+    .step {
+      min-height: 50vh;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0.25;
+      transition: opacity 0.4s ease;
+    }
+
+    .step.active { opacity: 1; }
+
+    .step h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .step p {
+      font-size: 1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    @media (max-width: 900px) {
+      .sticky-section {
+        flex-direction: column;
+        padding: 1rem;
+      }
+      .sticky-viz {
+        position: relative;
+        top: 0;
+        height: auto;
+        min-height: 40vh;
+      }
+      .scroll-steps { padding: 2rem 0; }
+      .step { min-height: auto; padding: 1rem 0; }
+    }
+
+    /* SVG animation classes */
+    .fade-in {
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    .fade-in.show { opacity: 1; }
+
+    .draw-line {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      transition: stroke-dashoffset 1.2s ease;
+    }
+    .draw-line.show { stroke-dashoffset: 0; }
+  </style>
+</head>
+
+<body>
+  <div class="progress-bar" id="progress"></div>
+
+  <!-- Hero -->
+  <header class="hero">
+    <h1>Difference-in-Differences<br>&amp; Event Studies</h1>
+    <p class="subtitle">ECON 450 — Applied Econometrics</p>
+    <p class="attribution">Based on slides by Ellen Stuart, University of Sydney</p>
+    <div class="scroll-hint">↓ Scroll to explore</div>
+  </header>
+
+  <div class="content">
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- SECTION 1: POTENTIAL OUTCOMES REVIEW                            -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+
+    <section id="causal-question">
+      <h2>The Causal Question</h2>
+      <p>We want to know: <strong>What is the effect of a treatment on an outcome?</strong></p>
+
+      <div class="two-columns">
+        <div class="card green">
+          <h3 style="color: var(--green); margin-top: 0;">World with Treatment</h3>
+          <p style="font-size: 1.3em; text-align: center; margin: 0.5rem 0;">\(Y_i(1)\)</p>
+          <p style="margin: 0;">What happens to a person if they <strong>receive</strong> treatment</p>
+        </div>
+        <div class="card orange">
+          <h3 style="color: var(--orange); margin-top: 0;">World without Treatment</h3>
+          <p style="font-size: 1.3em; text-align: center; margin: 0.5rem 0;">\(Y_i(0)\)</p>
+          <p style="margin: 0;">What happens to the <strong>same person</strong> if they do <strong>NOT</strong> receive treatment</p>
+        </div>
+      </div>
+
+      <blockquote>
+        The fundamental problem of causal inference: we can never observe both \(Y_i(1)\) and \(Y_i(0)\) for the same unit.
+      </blockquote>
+    </section>
+
+    <section id="treatment-effects">
+      <h2>Average Treatment Effects</h2>
+
+      <div class="card">
+        <p style="margin: 0 0 0.3rem;"><strong class="blue-text">Average Treatment Effect (ATE)</strong></p>
+        <p style="font-size: 1.15em; text-align: center; margin: 0.5rem 0;">
+          $$\text{ATE} = \mathbb{E}\big[Y_i(1) - Y_i(0)\big]$$
+        </p>
+        <p style="margin: 0;">The average effect across the <strong>entire population</strong></p>
+      </div>
+
+      <div class="card green">
+        <p style="margin: 0 0 0.3rem;"><strong class="green-text">Average Treatment Effect on the Treated (ATT)</strong></p>
+        <p style="font-size: 1.15em; text-align: center; margin: 0.5rem 0;">
+          $$\text{ATT} = \mathbb{E}\big[Y_i(1) - Y_i(0) \mid D_i = 1\big]$$
+        </p>
+        <p style="margin: 0;">The average effect for those who <strong>actually received treatment</strong></p>
+      </div>
+
+      <div class="card cyan" style="text-align: center;">
+        <strong>DID estimates the ATT</strong> — the effect for the treated group
+      </div>
+    </section>
+
+    <section id="selection-problem">
+      <h2>The Selection Problem</h2>
+
+      <p><strong>Naive comparison:</strong></p>
+      <div class="equation-box">
+        $$\mathbb{E}[Y \mid D=1] - \mathbb{E}[Y \mid D=0]$$
+      </div>
+
+      <p>But this gives us:</p>
+      <div class="equation-box">
+        $$\underbrace{\color{#0072B2}{\text{ATT}}}_{\text{Causal effect}} + \underbrace{\color{#D55E00}{\mathbb{E}[Y(0)|D=1] - \mathbb{E}[Y(0)|D=0]}}_{\color{#D55E00}{\text{Selection bias}}}$$
+      </div>
+
+      <p><strong class="orange-text">Selection bias</strong> arises because treated and control groups may differ <em>even without treatment</em>. People who choose treatment are often systematically different.</p>
+
+      <p style="font-size: 1.1em; text-align: center; margin-top: 1.5rem;">
+        <strong>We need a strategy to eliminate selection bias…</strong>
+      </p>
+    </section>
+
+    <section id="enter-did">
+      <h2>Enter Difference-in-Differences</h2>
+
+      <p><strong>Key insight:</strong> Use a <em>second difference</em> (across time) to remove time-invariant selection bias</p>
+
+      <div class="equation-box">
+        $$\text{DID} = \bigl(\color{#009E73}{Y_{\text{treat,post}}} - \color{#009E73}{Y_{\text{treat,pre}}}\bigr) - \bigl(\color{#D55E00}{Y_{\text{ctrl,post}}} - \color{#D55E00}{Y_{\text{ctrl,pre}}}\bigr)$$
+      </div>
+
+      <p><strong>First difference:</strong> removes time-invariant characteristics of each group</p>
+      <p><strong>Second difference:</strong> removes common time trends affecting both groups</p>
+
+      <div class="card cyan">
+        <strong class="blue-text">Critical assumption: Parallel trends</strong> — in the absence of treatment, both groups would have followed the same trajectory.
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- SECTION 2: DID VISUAL WALKTHROUGH                               -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+
+    <div class="divider">
+      <div class="divider-text">A Visual Walkthrough</div>
+    </div>
+  </div>
+
+  <!-- Sticky DID Visualization -->
+  <div class="sticky-section" id="did-sticky">
+    <div class="sticky-viz">
+      <svg id="did-viz" viewBox="0 0 500 380">
+        <!-- Axes -->
+        <line x1="60" y1="330" x2="440" y2="330" stroke="#333" stroke-width="1.5" />
+        <line x1="60" y1="40" x2="60" y2="330" stroke="#333" stroke-width="1.5" />
+
+        <!-- Y-axis label -->
+        <text x="20" y="185" text-anchor="middle" font-size="13" font-family="EB Garamond" transform="rotate(-90,20,185)">Outcome</text>
+
+        <!-- X-axis labels -->
+        <text x="150" y="355" text-anchor="middle" font-size="13" font-family="EB Garamond">Before</text>
+        <text x="350" y="355" text-anchor="middle" font-size="13" font-family="EB Garamond">After</text>
+
+        <!-- Y ticks -->
+        <text x="52" y="290" text-anchor="end" font-size="11" fill="#666">10</text>
+        <text x="52" y="210" text-anchor="end" font-size="11" fill="#666">12</text>
+        <text x="52" y="130" text-anchor="end" font-size="11" fill="#666">14</text>
+        <line x1="55" y1="286" x2="60" y2="286" stroke="#999" stroke-width="1"/>
+        <line x1="55" y1="206" x2="60" y2="206" stroke="#999" stroke-width="1"/>
+        <line x1="55" y1="126" x2="60" y2="126" stroke="#999" stroke-width="1"/>
+
+        <!-- Treatment timing line -->
+        <g id="did-treat-marker" class="fade-in">
+          <line x1="250" y1="45" x2="250" y2="325" stroke="#999" stroke-width="1.5" stroke-dasharray="6,4" />
+          <text x="250" y="38" text-anchor="middle" font-size="11" fill="#999" font-style="italic">Treatment</text>
+        </g>
+
+        <!-- Treatment group -->
+        <g id="did-treatment">
+          <line id="did-treat-line" class="draw-line" x1="150" y1="286" x2="350" y2="126" stroke="#009E73" stroke-width="3" />
+          <circle id="did-treat-dot1" class="fade-in" cx="150" cy="286" r="6" fill="#009E73" />
+          <circle id="did-treat-dot2" class="fade-in" cx="350" cy="126" r="6" fill="#009E73" />
+          <text id="did-treat-label" class="fade-in" x="370" y="121" font-size="13" fill="#009E73" font-weight="600">Treatment</text>
+          <text id="did-treat-val1" class="fade-in" x="150" y="305" text-anchor="middle" font-size="11" fill="#009E73" font-family="Source Code Pro">10.0</text>
+          <text id="did-treat-val2" class="fade-in" x="350" y="115" text-anchor="middle" font-size="11" fill="#009E73" font-family="Source Code Pro">15.6</text>
+        </g>
+
+        <!-- Control group -->
+        <g id="did-control" class="fade-in">
+          <line id="did-ctrl-line" class="draw-line" x1="150" y1="286" x2="350" y2="246" stroke="#D55E00" stroke-width="3" />
+          <circle cx="150" cy="286" r="6" fill="#D55E00" />
+          <circle cx="350" cy="246" r="6" fill="#D55E00" />
+          <text x="370" y="251" font-size="13" fill="#D55E00" font-weight="600">Control</text>
+          <text x="350" y="268" text-anchor="middle" font-size="11" fill="#D55E00" font-family="Source Code Pro">11.7</text>
+        </g>
+
+        <!-- First differences -->
+        <g id="did-first-diff" class="fade-in">
+          <line x1="420" y1="286" x2="420" y2="126" stroke="#009E73" stroke-width="2"/>
+          <line x1="415" y1="286" x2="425" y2="286" stroke="#009E73" stroke-width="2"/>
+          <line x1="415" y1="126" x2="425" y2="126" stroke="#009E73" stroke-width="2"/>
+          <text x="432" y="210" font-size="12" fill="#009E73" font-family="Source Code Pro">+5.6</text>
+
+          <line x1="450" y1="286" x2="450" y2="246" stroke="#D55E00" stroke-width="2"/>
+          <line x1="445" y1="286" x2="455" y2="286" stroke="#D55E00" stroke-width="2"/>
+          <line x1="445" y1="246" x2="455" y2="246" stroke="#D55E00" stroke-width="2"/>
+          <text x="462" y="270" font-size="12" fill="#D55E00" font-family="Source Code Pro">+1.7</text>
+        </g>
+
+        <!-- Counterfactual -->
+        <g id="did-counterfactual" class="fade-in">
+          <line x1="150" y1="286" x2="350" y2="246" stroke="#009E73" stroke-width="2" stroke-dasharray="8,4" opacity="0.5" />
+          <circle cx="350" cy="246" r="8" fill="none" stroke="#009E73" stroke-width="2" stroke-dasharray="4,3" opacity="0.6"/>
+          <text x="280" y="278" font-size="11" fill="#009E73" font-style="italic" opacity="0.7">counterfactual</text>
+        </g>
+
+        <!-- DID gap -->
+        <g id="did-gap" class="fade-in">
+          <line x1="365" y1="246" x2="365" y2="131" stroke="#0072B2" stroke-width="3" />
+          <text x="380" y="190" font-size="14" fill="#0072B2" font-weight="700">DID</text>
+          <text x="380" y="205" font-size="12" fill="#0072B2" font-family="Source Code Pro">= 3.9</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="scroll-steps">
+      <div class="step" data-step="did1">
+        <h3>Step 1: Treatment Group Over Time</h3>
+        <p>We observe the <span class="green-text">treatment group</span> before and after the policy.</p>
+        <p>They go from 10.0 to 15.6 — a change of <strong>+5.6</strong>.</p>
+      </div>
+
+      <div class="step" data-step="did2">
+        <h3>Step 2: Add the Control Group</h3>
+        <p>The <span class="orange-text">control group</span> also changed over time.</p>
+        <p>They went from 10.0 to 11.7 — a change of <strong>+1.7</strong>.</p>
+        <p>This tells us what <em>would have happened anyway</em>.</p>
+      </div>
+
+      <div class="step" data-step="did3">
+        <h3>Step 3: First Differences</h3>
+        <p>The treatment group changed by +5.6.</p>
+        <p>The control group changed by +1.7.</p>
+        <p>But some of that +5.6 is just the common trend...</p>
+      </div>
+
+      <div class="step" data-step="did4">
+        <h3>Step 4: The Counterfactual</h3>
+        <p>We assume the treatment group would have followed the <strong>same trend</strong> as control if untreated.</p>
+        <p>The dashed line shows where they would have ended up: 11.7</p>
+      </div>
+
+      <div class="step" data-step="did5">
+        <h3>Step 5: The DID Estimate</h3>
+        <p>The <span class="blue-text">treatment effect</span> is the gap between actual and counterfactual:</p>
+        <p style="font-size: 1.1em; text-align: center;"><strong>DID = 5.6 − 1.7 = 3.9</strong></p>
+        <p>This is our causal estimate!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <section id="did-table">
+      <h2>DID as a 2×2 Table</h2>
+
+      <table class="did-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Pre (t=0)</th>
+            <th>Post (t=1)</th>
+            <th>Difference</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="color: var(--green); font-weight: 600;">
+            <td>Treatment</td>
+            <td>10.0</td>
+            <td>15.6</td>
+            <td>+5.6</td>
+          </tr>
+          <tr style="color: var(--orange); font-weight: 600;">
+            <td>Control</td>
+            <td>10.0</td>
+            <td>11.7</td>
+            <td>+1.7</td>
+          </tr>
+          <tr class="result-row">
+            <td><strong>DID</strong></td>
+            <td></td>
+            <td></td>
+            <td style="font-family: var(--font-mono);">= 5.6 − 1.7 = <strong>3.9</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="text-align: center; color: var(--blue); font-weight: 600;">
+        The DID is literally the difference of the two differences!
+      </p>
+    </section>
+
+    <section id="did-regression">
+      <h2>DID as a Regression</h2>
+
+      <div class="equation-box">
+        $$Y_{it} = \beta_0 + \beta_1 \cdot \color{#009E73}{\text{Treat}_{i}} + \beta_2 \cdot \color{#D55E00}{\text{Post}_{t}} + \color{#0072B2}{\boldsymbol{\beta_3}} \cdot (\color{#009E73}{\text{Treat}_{i}} \times \color{#D55E00}{\text{Post}_{t}}) + u_{it}$$
+      </div>
+
+      <p>\(\beta_0\) = baseline mean (control group, pre-period)</p>
+      <p>\(\beta_1\) = time-invariant difference between groups</p>
+      <p>\(\beta_2\) = common time trend (change for the control group)</p>
+      <p style="color: var(--blue); font-weight: 700; font-size: 1.1rem;">
+        \(\boldsymbol{\beta_3}\) = the DID estimate — the <em>causal effect</em> of treatment!
+      </p>
+    </section>
+
+    <section id="parallel-trends">
+      <h2>The Parallel Trends Assumption</h2>
+
+      <div class="viz-container">
+        <svg viewBox="0 0 500 250">
+          <!-- Axes -->
+          <line x1="50" y1="20" x2="50" y2="210" stroke="#333" stroke-width="1.5"/>
+          <line x1="50" y1="210" x2="450" y2="210" stroke="#333" stroke-width="1.5"/>
+
+          <!-- X labels -->
+          <text x="120" y="228" text-anchor="middle" font-size="11">t=0</text>
+          <text x="220" y="228" text-anchor="middle" font-size="11">t=1</text>
+          <text x="320" y="228" text-anchor="middle" font-size="11">t=2</text>
+          <text x="420" y="228" text-anchor="middle" font-size="11">t=3</text>
+
+          <!-- Treatment line -->
+          <line x1="270" y1="25" x2="270" y2="205" stroke="#999" stroke-width="1" stroke-dasharray="5,3"/>
+          <text x="270" y="18" text-anchor="middle" font-size="10" fill="#999" font-style="italic">Treatment</text>
+
+          <!-- Control line -->
+          <polyline points="120,190 220,170 320,150 420,130" fill="none" stroke="#D55E00" stroke-width="2.5"/>
+          <circle cx="120" cy="190" r="4" fill="#D55E00"/>
+          <circle cx="220" cy="170" r="4" fill="#D55E00"/>
+          <circle cx="320" cy="150" r="4" fill="#D55E00"/>
+          <circle cx="420" cy="130" r="4" fill="#D55E00"/>
+          <text x="435" y="135" font-size="11" fill="#D55E00" font-weight="600">Control</text>
+
+          <!-- Treatment line -->
+          <polyline points="120,160 220,140" fill="none" stroke="#009E73" stroke-width="2.5"/>
+          <polyline points="220,140 320,80 420,60" fill="none" stroke="#009E73" stroke-width="2.5"/>
+          <circle cx="120" cy="160" r="4" fill="#009E73"/>
+          <circle cx="220" cy="140" r="4" fill="#009E73"/>
+          <circle cx="320" cy="80" r="4" fill="#009E73"/>
+          <circle cx="420" cy="60" r="4" fill="#009E73"/>
+          <text x="435" y="65" font-size="11" fill="#009E73" font-weight="600">Treatment</text>
+
+          <!-- Counterfactual -->
+          <polyline points="220,140 320,120 420,100" fill="none" stroke="#009E73" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.4"/>
+          <circle cx="420" cy="100" r="3" fill="none" stroke="#009E73" stroke-width="1.5" opacity="0.4"/>
+
+          <!-- Effect arrow -->
+          <line x1="335" y1="115" x2="335" y2="85" stroke="#0072B2" stroke-width="2"/>
+          <text x="350" y="105" font-size="10" fill="#0072B2" font-weight="600">Effect</text>
+        </svg>
+      </div>
+
+      <p style="text-align: center;">
+        If the parallel trends assumption holds, the control group's trajectory tells us what <em>would have happened</em> to the treatment group.
+      </p>
+
+      <div class="card orange">
+        <strong>We cannot test this directly</strong> — it's about what <em>would have</em> happened. But we can check whether the groups followed parallel trends <strong>before</strong> treatment.
+      </div>
+    </section>
+
+    <section id="when-fails">
+      <h2>When Parallel Trends Fails</h2>
+
+      <div class="two-columns">
+        <div style="text-align: center;">
+          <h3 style="color: var(--orange);">Violated ✗</h3>
+          <svg viewBox="0 0 200 150" style="max-width: 200px;">
+            <line x1="30" y1="10" x2="30" y2="120" stroke="#333" stroke-width="1"/>
+            <line x1="30" y1="120" x2="180" y2="120" stroke="#333" stroke-width="1"/>
+            <line x1="100" y1="10" x2="100" y2="115" stroke="#999" stroke-width="1" stroke-dasharray="3,2"/>
+
+            <!-- Control: flat -->
+            <polyline points="55,100 100,90 145,80" fill="none" stroke="#D55E00" stroke-width="2"/>
+
+            <!-- Treatment: steeper pre-trend -->
+            <polyline points="55,95 100,70 145,30" fill="none" stroke="#009E73" stroke-width="2"/>
+
+            <text x="170" y="15" font-size="16" fill="#D55E00" font-weight="bold">✗</text>
+          </svg>
+          <p style="font-size: 0.9rem; color: var(--orange);">Pre-trends diverge → DID is biased</p>
+        </div>
+
+        <div style="text-align: center;">
+          <h3 style="color: var(--green);">Holds ✓</h3>
+          <svg viewBox="0 0 200 150" style="max-width: 200px;">
+            <line x1="30" y1="10" x2="30" y2="120" stroke="#333" stroke-width="1"/>
+            <line x1="30" y1="120" x2="180" y2="120" stroke="#333" stroke-width="1"/>
+            <line x1="100" y1="10" x2="100" y2="115" stroke="#999" stroke-width="1" stroke-dasharray="3,2"/>
+
+            <!-- Control: some trend -->
+            <polyline points="55,105 100,90 145,75" fill="none" stroke="#D55E00" stroke-width="2"/>
+
+            <!-- Treatment: parallel then diverges -->
+            <polyline points="55,85 100,70 145,30" fill="none" stroke="#009E73" stroke-width="2"/>
+
+            <text x="170" y="15" font-size="16" fill="#009E73" font-weight="bold">✓</text>
+          </svg>
+          <p style="font-size: 0.9rem; color: var(--green);">Pre-trends parallel → DID is credible</p>
+        </div>
+      </div>
+
+      <p style="text-align: center; font-weight: 600; margin-top: 1rem;">
+        Always check: Do the groups move in parallel <em>before</em> treatment?
+      </p>
+    </section>
+
+    <section id="did-practice">
+      <h2>DID in Practice</h2>
+
+      <div class="example-card" style="border-left: 5px solid var(--green);">
+        <strong style="color: var(--green);">Card & Krueger (1994)</strong>
+        <p>Effect of minimum wage on employment.<br>
+        <strong>Treatment:</strong> New Jersey (raised minimum wage). <strong>Control:</strong> Pennsylvania.</p>
+      </div>
+
+      <div class="example-card" style="border-left: 5px solid var(--blue);">
+        <strong style="color: var(--blue);">Autor (2003)</strong>
+        <p>Effect of employment protection on temporary work.<br>
+        <strong>Treatment:</strong> States adopting wrongful discharge laws.</p>
+      </div>
+
+      <div class="example-card" style="border-left: 5px solid var(--orange);">
+        <strong style="color: var(--orange);">Duflo (2001)</strong>
+        <p>Effect of school construction on education and wages in Indonesia.<br>
+        <strong>Treatment:</strong> High-intensity construction regions.</p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- SECTION 3: EVENT STUDIES                                        -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+
+    <div class="divider">
+      <div class="divider-text">From DID to Event Studies</div>
+    </div>
+
+    <section id="why-event">
+      <h2>Why Event Studies?</h2>
+
+      <p>Standard DID gives us <strong>one number</strong>: the average treatment effect across all post-periods.</p>
+      <p>But what if...</p>
+      <ul>
+        <li>The effect <strong>takes time</strong> to appear?</li>
+        <li>The effect <strong>grows or fades</strong> over time?</li>
+        <li>We want to <strong>test parallel trends</strong> more rigorously?</li>
+      </ul>
+
+      <div class="card" style="text-align: center;">
+        <strong class="blue-text" style="font-size: 1.15rem;">Event Study = A series of DIDs, one for each time period</strong>
+      </div>
+    </section>
+  </div>
+
+  <!-- Sticky Event Study Visualization -->
+  <div class="sticky-section" id="event-sticky">
+    <div class="sticky-viz">
+      <svg id="event-viz" viewBox="0 0 500 340">
+        <!-- Axes -->
+        <line x1="60" y1="290" x2="460" y2="290" stroke="#333" stroke-width="1.5" />
+        <line x1="60" y1="30" x2="60" y2="290" stroke="#333" stroke-width="1.5" />
+
+        <!-- Zero line -->
+        <line x1="60" y1="200" x2="460" y2="200" stroke="#333" stroke-width="1" stroke-dasharray="6,4" />
+
+        <!-- Treatment line -->
+        <line x1="230" y1="35" x2="230" y2="285" stroke="#999" stroke-width="1.5" stroke-dasharray="6,4" />
+        <text x="230" y="28" text-anchor="middle" font-size="10" fill="#999" font-style="italic">Treatment</text>
+
+        <!-- Y-axis label -->
+        <text x="18" y="160" text-anchor="middle" font-size="12" font-family="EB Garamond" transform="rotate(-90,18,160)">Effect (β)</text>
+
+        <!-- Y ticks -->
+        <text x="52" y="204" text-anchor="end" font-size="10" fill="#666">0</text>
+        <text x="52" y="124" text-anchor="end" font-size="10" fill="#666">4</text>
+        <text x="52" y="244" text-anchor="end" font-size="10" fill="#666">-2</text>
+
+        <!-- X-axis labels -->
+        <text x="110" y="308" text-anchor="middle" font-size="11" fill="#666">-3</text>
+        <text x="150" y="308" text-anchor="middle" font-size="11" fill="#666">-2</text>
+        <text x="190" y="308" text-anchor="middle" font-size="11" fill="#666">-1</text>
+        <text x="270" y="308" text-anchor="middle" font-size="11" fill="#666">0</text>
+        <text x="310" y="308" text-anchor="middle" font-size="11" fill="#666">+1</text>
+        <text x="350" y="308" text-anchor="middle" font-size="11" fill="#666">+2</text>
+        <text x="390" y="308" text-anchor="middle" font-size="11" fill="#666">+3</text>
+
+        <text x="260" y="325" text-anchor="middle" font-size="11" fill="#666">Time relative to treatment</text>
+
+        <!-- Pre-period points -->
+        <g id="event-pre" class="fade-in">
+          <!-- t=-3 -->
+          <line x1="110" y1="180" x2="110" y2="220" stroke="#666" stroke-width="1.5"/>
+          <line x1="104" y1="180" x2="116" y2="180" stroke="#666" stroke-width="1.5"/>
+          <line x1="104" y1="220" x2="116" y2="220" stroke="#666" stroke-width="1.5"/>
+          <circle cx="110" cy="200" r="5" fill="#666"/>
+
+          <!-- t=-2 -->
+          <line x1="150" y1="185" x2="150" y2="215" stroke="#666" stroke-width="1.5"/>
+          <line x1="144" y1="185" x2="156" y2="185" stroke="#666" stroke-width="1.5"/>
+          <line x1="144" y1="215" x2="156" y2="215" stroke="#666" stroke-width="1.5"/>
+          <circle cx="150" cy="202" r="5" fill="#666"/>
+
+          <!-- t=-1 (reference) -->
+          <circle cx="190" cy="200" r="6" fill="none" stroke="#666" stroke-width="2.5"/>
+        </g>
+
+        <!-- Post-period points -->
+        <g id="event-post" class="fade-in">
+          <!-- t=0 -->
+          <line x1="270" y1="140" x2="270" y2="180" stroke="#0072B2" stroke-width="1.5"/>
+          <line x1="264" y1="140" x2="276" y2="140" stroke="#0072B2" stroke-width="1.5"/>
+          <line x1="264" y1="180" x2="276" y2="180" stroke="#0072B2" stroke-width="1.5"/>
+          <circle cx="270" cy="160" r="5" fill="#0072B2"/>
+
+          <!-- t=+1 -->
+          <line x1="310" y1="100" x2="310" y2="140" stroke="#0072B2" stroke-width="1.5"/>
+          <line x1="304" y1="100" x2="316" y2="100" stroke="#0072B2" stroke-width="1.5"/>
+          <line x1="304" y1="140" x2="316" y2="140" stroke="#0072B2" stroke-width="1.5"/>
+          <circle cx="310" cy="120" r="5" fill="#0072B2"/>
+
+          <!-- t=+2 -->
+          <line x1="350" y1="70" x2="350" y2="120" stroke="#0072B2" stroke-width="1.5"/>
+          <line x1="344" y1="70" x2="356" y2="70" stroke="#0072B2" stroke-width="1.5"/>
+          <line x1="344" y1="120" x2="356" y2="120" stroke="#0072B2" stroke-width="1.5"/>
+          <circle cx="350" cy="95" r="5" fill="#0072B2"/>
+
+          <!-- t=+3 -->
+          <line x1="390" y1="85" x2="390" y2="135" stroke="#0072B2" stroke-width="1.5"/>
+          <line x1="384" y1="85" x2="396" y2="85" stroke="#0072B2" stroke-width="1.5"/>
+          <line x1="384" y1="135" x2="396" y2="135" stroke="#0072B2" stroke-width="1.5"/>
+          <circle cx="390" cy="110" r="5" fill="#0072B2"/>
+        </g>
+
+        <!-- Annotations -->
+        <g id="event-annot-pre" class="fade-in">
+          <path d="M100,235 L100,242 L200,242 L200,235" fill="none" stroke="#D55E00" stroke-width="1.5"/>
+          <text x="150" y="258" text-anchor="middle" font-size="10" fill="#D55E00" font-weight="600">Pre-trends ≈ 0</text>
+        </g>
+
+        <g id="event-annot-post" class="fade-in">
+          <path d="M260,235 L260,242 L400,242 L400,235" fill="none" stroke="#0072B2" stroke-width="1.5"/>
+          <text x="330" y="258" text-anchor="middle" font-size="10" fill="#0072B2" font-weight="600">Treatment effects</text>
+        </g>
+
+        <g id="event-annot-ref" class="fade-in">
+          <text x="190" y="225" text-anchor="middle" font-size="9" fill="#009E73">Reference</text>
+        </g>
+
+        <g id="event-annot-ci" class="fade-in">
+          <line x1="420" y1="110" x2="400" y2="115" stroke="#666" stroke-width="1"/>
+          <text x="425" y="105" font-size="9" fill="#666">95% CI</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="scroll-steps">
+      <div class="step" data-step="ev1">
+        <h3>The Pre-Treatment Period</h3>
+        <p>Coefficients <strong>before treatment</strong> should be near zero if parallel trends holds.</p>
+        <p>These are our "pre-trend" tests. Large or trending pre-period effects suggest problems.</p>
+      </div>
+
+      <div class="step" data-step="ev2">
+        <h3>The Reference Period</h3>
+        <p>We normalize one period (usually t = −1) to zero.</p>
+        <p>All other coefficients are measured <strong>relative to this reference</strong>.</p>
+      </div>
+
+      <div class="step" data-step="ev3">
+        <h3>The Post-Treatment Effects</h3>
+        <p>After treatment, we see the <span class="blue-text">treatment effects</span> emerge.</p>
+        <p>Each coefficient is its own DID estimate for that time period!</p>
+      </div>
+
+      <div class="step" data-step="ev4">
+        <h3>Confidence Intervals</h3>
+        <p>The vertical bars show 95% confidence intervals.</p>
+        <p>If they don't cross zero, the effect is statistically significant at that time.</p>
+      </div>
+
+      <div class="step" data-step="ev5">
+        <h3>Each Dot is its Own DID!</h3>
+        <p>The event study gives us a <strong>complete picture</strong>:</p>
+        <ul>
+          <li>Pre-trends test the parallel trends assumption</li>
+          <li>Post-treatment shows how effects evolve</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <section id="pretrends-test">
+      <h2>Pre-Trends as a Test</h2>
+
+      <div class="two-columns">
+        <div class="card orange" style="text-align: center;">
+          <h3 style="color: var(--orange);">Bad Pre-Trends ✗</h3>
+          <p>Pre-period effects trending upward → parallel trends likely violated</p>
+        </div>
+
+        <div class="card green" style="text-align: center;">
+          <h3 style="color: var(--green);">Good Pre-Trends ✓</h3>
+          <p>Pre-period effects near zero → parallel trends supported</p>
+        </div>
+      </div>
+
+      <div class="card">
+        If pre-treatment coefficients are significantly different from zero or show a trend, the parallel trends assumption is suspect.
+      </div>
+    </section>
+
+    <section id="event-regression">
+      <h2>The Event Study Regression</h2>
+
+      <div class="equation-box">
+        $$Y_{it} = \alpha_i + \gamma_t + \sum_{k \neq -1} \color{#0072B2}{\beta_k} \cdot D_i \cdot \mathbf{1}(t - t^*_i = k) + u_{it}$$
+      </div>
+
+      <p>\(\alpha_i\) = unit fixed effects (absorb time-invariant differences)</p>
+      <p>\(\gamma_t\) = time fixed effects (absorb common shocks)</p>
+      <p>\(D_i\) = treatment indicator (1 if unit ever treated)</p>
+      <p>\(\mathbf{1}(t - t^*_i = k)\) = indicator for being \(k\) periods from treatment</p>
+      <p style="color: var(--blue); font-weight: 700;">\(\beta_k\) = the treatment effect at relative time \(k\) <strong>(what we plot!)</strong></p>
+      <p style="color: var(--orange);">\(k \neq -1\) = we exclude one period as the reference (normalization)</p>
+    </section>
+
+    <section id="practical-tips">
+      <h2>Practical Tips for Event Studies</h2>
+
+      <div class="tip-grid">
+        <div class="tip-card" style="border-left: 4px solid var(--green);">
+          <h4 style="color: var(--green);">Check Pre-Trends</h4>
+          <p>Pre-period coefficients should be close to zero and show no trend. This is necessary (but not sufficient) for parallel trends.</p>
+        </div>
+
+        <div class="tip-card" style="border-left: 4px solid var(--blue);">
+          <h4 style="color: var(--blue);">Choose Reference Period</h4>
+          <p>Typically t = −1 (period just before treatment). All effects are relative to this period.</p>
+        </div>
+
+        <div class="tip-card" style="border-left: 4px solid var(--orange);">
+          <h4 style="color: var(--orange);">Beware Endpoints</h4>
+          <p>Coefficients at the edges of the window are often noisy. Consider binning or trimming.</p>
+        </div>
+
+        <div class="tip-card" style="border-left: 4px solid var(--cyan);">
+          <h4 style="color: var(--cyan);">Staggered Treatment</h4>
+          <p>When units are treated at different times, modern methods (Sun & Abraham, Callaway & Sant'Anna) may be needed.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="takeaways">
+      <h2>Key Takeaways</h2>
+
+      <div class="takeaway">
+        <span class="takeaway-num" style="color: var(--green);">1.</span>
+        <span>DID uses <strong>two differences</strong> (across groups and across time) to estimate causal effects</span>
+      </div>
+
+      <div class="takeaway">
+        <span class="takeaway-num" style="color: var(--blue);">2.</span>
+        <span>The critical assumption is <strong>parallel trends</strong> — the control group shows what would have happened to the treated</span>
+      </div>
+
+      <div class="takeaway">
+        <span class="takeaway-num" style="color: var(--orange);">3.</span>
+        <span>Event studies <strong>generalize DID</strong> by estimating a separate effect for each time period</span>
+      </div>
+
+      <div class="takeaway">
+        <span class="takeaway-num" style="color: var(--cyan);">4.</span>
+        <span><strong>Pre-trend coefficients near zero</strong> support the parallel trends assumption</span>
+      </div>
+
+      <div class="equation-box" style="margin-top: 2rem;">
+        <strong>Notation Reference</strong><br>
+        \(Y(1), Y(0)\) = potential outcomes &nbsp;|&nbsp;
+        ATT = average treatment effect on treated &nbsp;|&nbsp;
+        \(\beta_3\) = DID estimate &nbsp;|&nbsp;
+        \(\beta_k\) = event study coefficient
+      </div>
+    </section>
+  </div>
+
+  <footer class="site-footer">
+    <p>Based on slides by Ellen Stuart, University of Sydney</p>
+    <p><a href="index.html">← Back to slide version</a></p>
+  </footer>
+
+  <a href="#" class="back-to-top" id="backToTop">↑</a>
+
+  <script>
+    // Progress bar
+    const progressBar = document.getElementById('progress');
+    const backToTop = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (scrollTop / docHeight) * 100;
+      progressBar.style.width = progress + '%';
+
+      if (scrollTop > 500) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+
+    // Intersection Observer for sections
+    const sections = document.querySelectorAll('section');
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    sections.forEach(section => sectionObserver.observe(section));
+
+    // DID visualization controller
+    function updateDIDViz(step) {
+      const elements = {
+        marker: document.getElementById('did-treat-marker'),
+        treatment: document.getElementById('did-treatment'),
+        treatLine: document.getElementById('did-treat-line'),
+        treatDot1: document.getElementById('did-treat-dot1'),
+        treatDot2: document.getElementById('did-treat-dot2'),
+        treatLabel: document.getElementById('did-treat-label'),
+        treatVal1: document.getElementById('did-treat-val1'),
+        treatVal2: document.getElementById('did-treat-val2'),
+        control: document.getElementById('did-control'),
+        ctrlLine: document.getElementById('did-ctrl-line'),
+        firstDiff: document.getElementById('did-first-diff'),
+        counterfactual: document.getElementById('did-counterfactual'),
+        gap: document.getElementById('did-gap')
+      };
+
+      // Reset all
+      Object.values(elements).forEach(el => {
+        if (el) {
+          el.classList.remove('show');
+          if (el.classList.contains('fade-in')) el.classList.remove('show');
+        }
+      });
+
+      if (step >= 'did1') {
+        elements.treatLine.classList.add('show');
+        elements.treatDot1.classList.add('show');
+        elements.treatDot2.classList.add('show');
+        elements.treatLabel.classList.add('show');
+        elements.treatVal1.classList.add('show');
+        elements.treatVal2.classList.add('show');
+      }
+
+      if (step >= 'did2') {
+        elements.marker.classList.add('show');
+        elements.control.classList.add('show');
+        elements.ctrlLine.classList.add('show');
+      }
+
+      if (step >= 'did3') {
+        elements.firstDiff.classList.add('show');
+      }
+
+      if (step >= 'did4') {
+        elements.counterfactual.classList.add('show');
+      }
+
+      if (step >= 'did5') {
+        elements.gap.classList.add('show');
+      }
+    }
+
+    // Event study visualization controller
+    function updateEventViz(step) {
+      const pre = document.getElementById('event-pre');
+      const post = document.getElementById('event-post');
+      const annotPre = document.getElementById('event-annot-pre');
+      const annotPost = document.getElementById('event-annot-post');
+      const annotRef = document.getElementById('event-annot-ref');
+      const annotCI = document.getElementById('event-annot-ci');
+
+      [pre, post, annotPre, annotPost, annotRef, annotCI].forEach(el => {
+        if (el) el.classList.remove('show');
+      });
+
+      if (step >= 'ev1') {
+        pre.classList.add('show');
+      }
+
+      if (step >= 'ev2') {
+        annotRef.classList.add('show');
+      }
+
+      if (step >= 'ev3') {
+        post.classList.add('show');
+      }
+
+      if (step >= 'ev4') {
+        annotCI.classList.add('show');
+      }
+
+      if (step >= 'ev5') {
+        annotPre.classList.add('show');
+        annotPost.classList.add('show');
+      }
+    }
+
+    // Step observer
+    const steps = document.querySelectorAll('.step');
+    const stepObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          steps.forEach(s => s.classList.remove('active'));
+          entry.target.classList.add('active');
+
+          const step = entry.target.dataset.step;
+          if (step.startsWith('did')) {
+            updateDIDViz(step);
+          } else if (step.startsWith('ev')) {
+            updateEventViz(step);
+          }
+        }
+      });
+    }, { threshold: 0.5, rootMargin: '-20% 0px -20% 0px' });
+
+    steps.forEach(step => stepObserver.observe(step));
+
+    // Initialize
+    updateDIDViz('');
+    updateEventViz('');
+  </script>
+</body>
+
+</html>

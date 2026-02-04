@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pre-Trends as a Test</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="slide-container" data-current-slide="18" data-total-slides="24" data-next-slide="slide-20.html">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+
+      <h2>Pre-Trends as a Test</h2>
+
+      <div class="two-columns" style="gap:2.5rem; align-items:flex-start; margin-top:1rem;">
+        <!-- Left column: Bad Pre-Trends -->
+        <div style="flex:1; text-align:center;">
+          <h3 style="color:#D55E00; margin-bottom:0.5rem; font-size:1.2rem;">Bad Pre-Trends</h3>
+          <svg viewBox="0 0 380 280" width="380" height="280" style="max-width:100%; font-family:'Segoe UI',system-ui,sans-serif;">
+            <rect x="0" y="0" width="380" height="280" fill="#fafafa" rx="6"/>
+            <!-- Axes region: left=55, right=350, top=20, bottom=230 -->
+            <!-- Y center (0) at y=150, 1 unit = 25px -->
+            <!-- X: 7 points at x=75,120,165,210,255,300,345 -->
+
+            <!-- Zero line -->
+            <line x1="55" y1="150" x2="350" y2="150" stroke="#333" stroke-width="1" stroke-dasharray="5,3"/>
+            <!-- Treatment line at x=187.5 (between t=-1 and t=0) -->
+            <line x1="187" y1="20" x2="187" y2="230" stroke="#999" stroke-width="1" stroke-dasharray="5,3"/>
+            <text x="187" y="15" text-anchor="middle" fill="#999" font-size="9" font-style="italic">Treatment</text>
+
+            <!-- Axes -->
+            <line x1="55" y1="20" x2="55" y2="230" stroke="#333" stroke-width="1.2"/>
+            <line x1="55" y1="230" x2="350" y2="230" stroke="#333" stroke-width="1.2"/>
+
+            <!-- X labels -->
+            <text x="75" y="246" text-anchor="middle" fill="#555" font-size="10">-3</text>
+            <text x="120" y="246" text-anchor="middle" fill="#555" font-size="10">-2</text>
+            <text x="165" y="246" text-anchor="middle" fill="#555" font-size="10">-1</text>
+            <text x="210" y="246" text-anchor="middle" fill="#555" font-size="10">0</text>
+            <text x="255" y="246" text-anchor="middle" fill="#555" font-size="10">+1</text>
+            <text x="300" y="246" text-anchor="middle" fill="#555" font-size="10">+2</text>
+            <text x="345" y="246" text-anchor="middle" fill="#555" font-size="10">+3</text>
+
+            <!-- Y labels -->
+            <text x="48" y="54" text-anchor="end" fill="#555" font-size="9">4</text>
+            <text x="48" y="104" text-anchor="end" fill="#555" font-size="9">2</text>
+            <text x="48" y="154" text-anchor="end" fill="#555" font-size="9">0</text>
+            <text x="48" y="204" text-anchor="end" fill="#555" font-size="9">-2</text>
+
+            <!-- DATA: Pre-period trending up: t=-3: -2, t=-2: -1, t=-1: 0 (ref) -->
+            <!-- Post: t=0: 2, t=1: 3, t=2: 4 -->
+            <!-- t=-3: effect=-2 → y=150+2*25=200, CI ±1 → ±25px -->
+            <line x1="75" y1="175" x2="75" y2="225" stroke="#D55E00" stroke-width="1.5"/>
+            <line x1="69" y1="175" x2="81" y2="175" stroke="#D55E00" stroke-width="1.5"/>
+            <line x1="69" y1="225" x2="81" y2="225" stroke="#D55E00" stroke-width="1.5"/>
+            <circle cx="75" cy="200" r="4" fill="#D55E00"/>
+
+            <!-- t=-2: effect=-1 → y=175, CI ±1 → ±25px -->
+            <line x1="120" y1="150" x2="120" y2="200" stroke="#D55E00" stroke-width="1.5"/>
+            <line x1="114" y1="150" x2="126" y2="150" stroke="#D55E00" stroke-width="1.5"/>
+            <line x1="114" y1="200" x2="126" y2="200" stroke="#D55E00" stroke-width="1.5"/>
+            <circle cx="120" cy="175" r="4" fill="#D55E00"/>
+
+            <!-- t=-1: reference, hollow circle at 0 → y=150 -->
+            <circle cx="165" cy="150" r="5" fill="none" stroke="#D55E00" stroke-width="2"/>
+
+            <!-- t=0: effect=2 → y=100, CI ±1 -->
+            <line x1="210" y1="75" x2="210" y2="125" stroke="#D55E00" stroke-width="1.5"/>
+            <line x1="204" y1="75" x2="216" y2="75" stroke="#D55E00" stroke-width="1.5"/>
+            <line x1="204" y1="125" x2="216" y2="125" stroke="#D55E00" stroke-width="1.5"/>
+            <circle cx="210" cy="100" r="4" fill="#D55E00"/>
+
+            <!-- t=1: effect=3 → y=75, CI ±1 -->
+            <line x1="255" y1="50" x2="255" y2="100" stroke="#D55E00" stroke-width="1.5"/>
+            <line x1="249" y1="50" x2="261" y2="50" stroke="#D55E00" stroke-width="1.5"/>
+            <line x1="249" y1="100" x2="261" y2="100" stroke="#D55E00" stroke-width="1.5"/>
+            <circle cx="255" cy="75" r="4" fill="#D55E00"/>
+
+            <!-- t=2: effect=4 → y=50, CI ±1.2 -->
+            <line x1="300" y1="20" x2="300" y2="80" stroke="#D55E00" stroke-width="1.5"/>
+            <line x1="294" y1="20" x2="306" y2="20" stroke="#D55E00" stroke-width="1.5"/>
+            <line x1="294" y1="80" x2="306" y2="80" stroke="#D55E00" stroke-width="1.5"/>
+            <circle cx="300" cy="50" r="4" fill="#D55E00"/>
+
+            <!-- t=3: effect=5 → y=25, CI ±1.3 -->
+            <line x1="345" y1="0" x2="345" y2="57" stroke="#D55E00" stroke-width="1.5"/>
+            <line x1="339" y1="0" x2="351" y2="0" stroke="#D55E00" stroke-width="1.5"/>
+            <line x1="339" y1="57" x2="351" y2="57" stroke="#D55E00" stroke-width="1.5"/>
+            <circle cx="345" cy="25" r="4" fill="#D55E00"/>
+
+            <!-- Trend line through pre-period (visual aid) -->
+            <line x1="75" y1="200" x2="165" y2="150" stroke="#D55E00" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+          </svg>
+          <p style="font-size:0.85rem; color:#555; max-width:340px; margin:0.5rem auto 0; line-height:1.4;">
+            Pre-period effects trending upward &rarr; parallel trends likely violated
+          </p>
+        </div>
+
+        <!-- Right column: Good Pre-Trends -->
+        <div style="flex:1; text-align:center;">
+          <h3 style="color:#009E73; margin-bottom:0.5rem; font-size:1.2rem;">Good Pre-Trends</h3>
+          <svg viewBox="0 0 380 280" width="380" height="280" style="max-width:100%; font-family:'Segoe UI',system-ui,sans-serif;">
+            <rect x="0" y="0" width="380" height="280" fill="#fafafa" rx="6"/>
+
+            <!-- Zero line -->
+            <line x1="55" y1="150" x2="350" y2="150" stroke="#333" stroke-width="1" stroke-dasharray="5,3"/>
+            <!-- Treatment line -->
+            <line x1="187" y1="20" x2="187" y2="230" stroke="#999" stroke-width="1" stroke-dasharray="5,3"/>
+            <text x="187" y="15" text-anchor="middle" fill="#999" font-size="9" font-style="italic">Treatment</text>
+
+            <!-- Axes -->
+            <line x1="55" y1="20" x2="55" y2="230" stroke="#333" stroke-width="1.2"/>
+            <line x1="55" y1="230" x2="350" y2="230" stroke="#333" stroke-width="1.2"/>
+
+            <!-- X labels -->
+            <text x="75" y="246" text-anchor="middle" fill="#555" font-size="10">-3</text>
+            <text x="120" y="246" text-anchor="middle" fill="#555" font-size="10">-2</text>
+            <text x="165" y="246" text-anchor="middle" fill="#555" font-size="10">-1</text>
+            <text x="210" y="246" text-anchor="middle" fill="#555" font-size="10">0</text>
+            <text x="255" y="246" text-anchor="middle" fill="#555" font-size="10">+1</text>
+            <text x="300" y="246" text-anchor="middle" fill="#555" font-size="10">+2</text>
+            <text x="345" y="246" text-anchor="middle" fill="#555" font-size="10">+3</text>
+
+            <!-- Y labels -->
+            <text x="48" y="54" text-anchor="end" fill="#555" font-size="9">4</text>
+            <text x="48" y="104" text-anchor="end" fill="#555" font-size="9">2</text>
+            <text x="48" y="154" text-anchor="end" fill="#555" font-size="9">0</text>
+            <text x="48" y="204" text-anchor="end" fill="#555" font-size="9">-2</text>
+
+            <!-- DATA: Pre-period flat near zero: t=-3: 0.1, t=-2: -0.2, t=-1: 0 (ref) -->
+            <!-- Post: t=0: 3, t=1: 4, t=2: 3.5 -->
+            <!-- t=-3: effect=0.1 → y=150-0.1*25=147.5, CI ±1 → ±25px -->
+            <line x1="75" y1="123" x2="75" y2="173" stroke="#009E73" stroke-width="1.5"/>
+            <line x1="69" y1="123" x2="81" y2="123" stroke="#009E73" stroke-width="1.5"/>
+            <line x1="69" y1="173" x2="81" y2="173" stroke="#009E73" stroke-width="1.5"/>
+            <circle cx="75" cy="148" r="4" fill="#009E73"/>
+
+            <!-- t=-2: effect=-0.2 → y=155, CI ±1 -->
+            <line x1="120" y1="130" x2="120" y2="180" stroke="#009E73" stroke-width="1.5"/>
+            <line x1="114" y1="130" x2="126" y2="130" stroke="#009E73" stroke-width="1.5"/>
+            <line x1="114" y1="180" x2="126" y2="180" stroke="#009E73" stroke-width="1.5"/>
+            <circle cx="120" cy="155" r="4" fill="#009E73"/>
+
+            <!-- t=-1: reference, hollow circle at 0 → y=150 -->
+            <circle cx="165" cy="150" r="5" fill="none" stroke="#009E73" stroke-width="2"/>
+
+            <!-- t=0: effect=3 → y=75, CI ±1.2 -->
+            <line x1="210" y1="45" x2="210" y2="105" stroke="#009E73" stroke-width="1.5"/>
+            <line x1="204" y1="45" x2="216" y2="45" stroke="#009E73" stroke-width="1.5"/>
+            <line x1="204" y1="105" x2="216" y2="105" stroke="#009E73" stroke-width="1.5"/>
+            <circle cx="210" cy="75" r="4" fill="#009E73"/>
+
+            <!-- t=1: effect=4 → y=50, CI ±1.2 -->
+            <line x1="255" y1="20" x2="255" y2="80" stroke="#009E73" stroke-width="1.5"/>
+            <line x1="249" y1="20" x2="261" y2="20" stroke="#009E73" stroke-width="1.5"/>
+            <line x1="249" y1="80" x2="261" y2="80" stroke="#009E73" stroke-width="1.5"/>
+            <circle cx="255" cy="50" r="4" fill="#009E73"/>
+
+            <!-- t=2: effect=3.5 → y=62.5, CI ±1.3 -->
+            <line x1="300" y1="30" x2="300" y2="95" stroke="#009E73" stroke-width="1.5"/>
+            <line x1="294" y1="30" x2="306" y2="30" stroke="#009E73" stroke-width="1.5"/>
+            <line x1="294" y1="95" x2="306" y2="95" stroke="#009E73" stroke-width="1.5"/>
+            <circle cx="300" cy="62" r="4" fill="#009E73"/>
+
+            <!-- t=3: effect=3.2 → y=70, CI ±1.4 -->
+            <line x1="345" y1="35" x2="345" y2="105" stroke="#009E73" stroke-width="1.5"/>
+            <line x1="339" y1="35" x2="351" y2="35" stroke="#009E73" stroke-width="1.5"/>
+            <line x1="339" y1="105" x2="351" y2="105" stroke="#009E73" stroke-width="1.5"/>
+            <circle cx="345" cy="70" r="4" fill="#009E73"/>
+          </svg>
+          <p style="font-size:0.85rem; color:#555; max-width:340px; margin:0.5rem auto 0; line-height:1.4;">
+            Pre-period effects near zero &rarr; parallel trends supported
+          </p>
+        </div>
+      </div>
+
+      <div class="fragment" style="margin-top:1.2rem; padding:0.8rem 1.2rem; background:rgba(213,94,0,0.06); border-left:4px solid #D55E00; border-radius:4px; font-size:0.95rem; line-height:1.5;">
+        If pre-treatment coefficients are significantly different from zero or show a trend, the parallel trends assumption is suspect.
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number" id="slide-number">18 / 22</span>
+      </footer>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

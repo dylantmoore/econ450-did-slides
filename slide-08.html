@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DID as a 2×2 Table</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="slide-container" data-current-slide="8" data-total-slides="22">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+
+      <h2>DID as a 2&times;2 Table</h2>
+
+      <table style="margin:1.5rem auto;border-collapse:collapse;font-size:1.15rem;min-width:640px">
+        <thead>
+          <tr>
+            <th style="padding:0.6rem 1.2rem;border-bottom:2px solid #333"></th>
+            <th style="padding:0.6rem 1.2rem;border-bottom:2px solid #333;text-align:center">Pre (t=0)</th>
+            <th style="padding:0.6rem 1.2rem;border-bottom:2px solid #333;text-align:center">Post (t=1)</th>
+            <th style="padding:0.6rem 1.2rem;border-bottom:2px solid #333;text-align:center">Difference</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="fragment" style="color:#009E73;font-weight:600">
+            <td style="padding:0.6rem 1.2rem;border-bottom:1px solid #ddd">Treatment</td>
+            <td style="padding:0.6rem 1.2rem;border-bottom:1px solid #ddd;text-align:center">10.0</td>
+            <td style="padding:0.6rem 1.2rem;border-bottom:1px solid #ddd;text-align:center">15.6</td>
+            <td style="padding:0.6rem 1.2rem;border-bottom:1px solid #ddd;text-align:center">+5.6</td>
+          </tr>
+          <tr class="fragment" style="color:#D55E00;font-weight:600">
+            <td style="padding:0.6rem 1.2rem;border-bottom:1px solid #ddd">Control</td>
+            <td style="padding:0.6rem 1.2rem;border-bottom:1px solid #ddd;text-align:center">10.0</td>
+            <td style="padding:0.6rem 1.2rem;border-bottom:1px solid #ddd;text-align:center">11.7</td>
+            <td style="padding:0.6rem 1.2rem;border-bottom:1px solid #ddd;text-align:center">+1.7</td>
+          </tr>
+          <tr class="fragment" style="color:#0072B2;font-weight:700">
+            <td style="padding:0.6rem 1.2rem">DID</td>
+            <td style="padding:0.6rem 1.2rem"></td>
+            <td style="padding:0.6rem 1.2rem"></td>
+            <td style="padding:0.6rem 1.2rem;text-align:center;font-size:1.1rem">
+              <span style="font-family:'Source Code Pro',monospace">=5.6 &minus; 1.7 = <strong>3.9</strong></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="fragment" style="text-align:center;font-size:1.15rem;margin-top:1.5rem;color:#0072B2;font-weight:600">
+        The DID is literally the difference of the two differences!
+      </p>
+
+      <footer class="slide-footer">
+        <span class="slide-number" id="slide-number">8 / 22</span>
+      </footer>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

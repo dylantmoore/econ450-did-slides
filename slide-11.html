@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Parallel Trends Assumption</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="slide-container" data-current-slide="11" data-total-slides="22">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+
+      <h2>The Parallel Trends Assumption</h2>
+
+      <svg viewBox="0 0 900 380" width="900" height="380" style="display:block;margin:0.3rem auto;max-width:100%">
+        <defs>
+          <marker id="arrTreat" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <path d="M0,0 L8,3 L0,6 Z" fill="#0072B2"/>
+          </marker>
+        </defs>
+
+        <!-- Axes -->
+        <line x1="100" y1="20" x2="100" y2="340" stroke="#333" stroke-width="2"/>
+        <line x1="100" y1="340" x2="850" y2="340" stroke="#333" stroke-width="2"/>
+
+        <!-- Y-axis label -->
+        <text x="30" y="185" text-anchor="middle" font-size="15" fill="#333" transform="rotate(-90,30,185)">Outcome</text>
+
+        <!-- X-axis label -->
+        <text x="475" y="375" text-anchor="middle" font-size="15" fill="#333">Time</text>
+
+        <!-- X-axis ticks: t=0 at x=180, t=1 at x=360, t=2 at x=540, t=3 at x=720 -->
+        <text x="180" y="358" text-anchor="middle" font-size="14" fill="#333">t=0</text>
+        <line x1="180" y1="336" x2="180" y2="344" stroke="#333" stroke-width="1.5"/>
+        <text x="360" y="358" text-anchor="middle" font-size="14" fill="#333">t=1</text>
+        <line x1="360" y1="336" x2="360" y2="344" stroke="#333" stroke-width="1.5"/>
+        <text x="540" y="358" text-anchor="middle" font-size="14" fill="#333">t=2</text>
+        <line x1="540" y1="336" x2="540" y2="344" stroke="#333" stroke-width="1.5"/>
+        <text x="720" y="358" text-anchor="middle" font-size="14" fill="#333">t=3</text>
+        <line x1="720" y1="336" x2="720" y2="344" stroke="#333" stroke-width="1.5"/>
+
+        <!-- Vertical dashed line at treatment time (between t=1 and t=2, at x=450) -->
+        <line x1="450" y1="30" x2="450" y2="335" stroke="#666" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <text x="450" y="24" text-anchor="middle" font-size="13" fill="#666" font-style="italic">Treatment occurs</text>
+
+        <!-- Control group (vermillion solid): y=320,280,240,200 -->
+        <polyline points="180,320 360,280 540,240 720,200" fill="none" stroke="#D55E00" stroke-width="3"/>
+        <circle cx="180" cy="320" r="5" fill="#D55E00"/>
+        <circle cx="360" cy="280" r="5" fill="#D55E00"/>
+        <circle cx="540" cy="240" r="5" fill="#D55E00"/>
+        <circle cx="720" cy="200" r="5" fill="#D55E00"/>
+        <text x="740" y="205" font-size="14" fill="#D55E00" font-weight="600">Control</text>
+
+        <!-- Treatment group (green solid): y=280,240,140,100 -->
+        <polyline points="180,280 360,240" fill="none" stroke="#009E73" stroke-width="3"/>
+        <polyline points="360,240 540,140 720,100" fill="none" stroke="#009E73" stroke-width="3"/>
+        <circle cx="180" cy="280" r="5" fill="#009E73"/>
+        <circle cx="360" cy="240" r="5" fill="#009E73"/>
+        <circle cx="540" cy="140" r="5" fill="#009E73"/>
+        <circle cx="720" cy="100" r="5" fill="#009E73"/>
+        <text x="740" y="105" font-size="14" fill="#009E73" font-weight="600">Treatment</text>
+
+        <!-- Counterfactual (green dashed): from t=1 y=240, continues pre-trend to y=200 at t=2, y=160 at t=3 -->
+        <polyline points="360,240 540,200 720,160" fill="none" stroke="#009E73" stroke-width="2" stroke-dasharray="8,5" opacity="0.5"/>
+        <circle cx="540" cy="200" r="4" fill="none" stroke="#009E73" stroke-width="1.5" opacity="0.5"/>
+        <circle cx="720" cy="160" r="4" fill="none" stroke="#009E73" stroke-width="1.5" opacity="0.5"/>
+        <text x="740" y="165" font-size="12" fill="#009E73" opacity="0.6" font-style="italic">counterfactual</text>
+
+        <!-- Treatment effect arrow at t=2 -->
+        <line x1="555" y1="195" x2="555" y2="147" stroke="#0072B2" stroke-width="2.5" marker-end="url(#arrTreat)"/>
+        <text x="575" y="175" font-size="14" fill="#0072B2" font-weight="700">Treatment</text>
+        <text x="575" y="192" font-size="14" fill="#0072B2" font-weight="700">effect</text>
+      </svg>
+
+      <p class="fragment" style="text-align:center;font-size:1.05rem;margin-top:0.8rem;max-width:780px;margin-left:auto;margin-right:auto;line-height:1.6">
+        If the parallel trends assumption holds, the control group's trajectory tells us what
+        <em>would have happened</em> to the treatment group.
+      </p>
+
+      <footer class="slide-footer">
+        <span class="slide-number" id="slide-number">11 / 22</span>
+      </footer>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

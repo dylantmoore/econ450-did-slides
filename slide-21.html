@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practical Tips</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    .tip-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1.2rem;
+      max-width: 850px;
+      margin: 1.5rem auto 0;
+    }
+    .tip-card {
+      padding: 1rem 1.2rem;
+      background: #fff;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .tip-card h3 {
+      margin: 0 0 0.4rem 0;
+      font-size: 1.05rem;
+    }
+    .tip-card p {
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="slide-container" data-current-slide="21" data-total-slides="22">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+
+      <h2>Practical Tips for Event Studies</h2>
+
+      <div class="tip-grid">
+        <!-- Card 1: Green left border -->
+        <div class="tip-card" style="border-left: 4px solid #009E73;">
+          <h3 style="color: #009E73;">Check Pre-Trends</h3>
+          <p>Pre-period coefficients should be close to zero and show no trend. This is necessary (but not sufficient) for parallel trends.</p>
+        </div>
+
+        <!-- Card 2: Blue left border -->
+        <div class="tip-card" style="border-left: 4px solid #0072B2;">
+          <h3 style="color: #0072B2;">Choose Reference Period</h3>
+          <p>Typically t = &minus;1 (period just before treatment). All effects are relative to this period.</p>
+        </div>
+
+        <!-- Card 3: Vermillion left border -->
+        <div class="tip-card" style="border-left: 4px solid #D55E00;">
+          <h3 style="color: #D55E00;">Beware Endpoints</h3>
+          <p>Coefficients at the edges of the window (very early or very late) are often noisy. Consider binning or trimming.</p>
+        </div>
+
+        <!-- Card 4: Cyan left border -->
+        <div class="tip-card" style="border-left: 4px solid #56B4E9;">
+          <h3 style="color: #56B4E9;">Staggered Treatment</h3>
+          <p>When units are treated at different times, modern methods (Sun &amp; Abraham, Callaway &amp; Sant'Anna) may be needed.</p>
+        </div>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number" id="slide-number">21 / 22</span>
+      </footer>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

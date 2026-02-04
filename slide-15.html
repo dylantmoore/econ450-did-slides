@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>From DID to Event Studies</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+
+<body>
+  <div class="slide-container" data-current-slide="15" data-total-slides="22" data-next-slide="slide-19.html">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24">
+          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+        </svg>
+      </a>
+
+      <h2>From DID to Event Studies</h2>
+
+      <div style="max-width:780px;margin:1.2rem auto;font-size:1.1rem;line-height:1.7">
+
+        <p class="fragment" style="margin:1rem 0">
+          Standard DID gives us <strong>one number</strong>: the average treatment effect across all post-periods.
+        </p>
+
+        <p class="fragment" style="margin:1rem 0">
+          But what if&hellip;
+        </p>
+        <ul class="fragment" style="margin:0.3rem 0 1rem 1.5rem;line-height:1.8">
+          <li>The effect <strong>takes time</strong> to appear?</li>
+          <li>The effect <strong>grows or fades</strong> over time?</li>
+          <li>We want to <strong>test parallel trends</strong> more rigorously?</li>
+        </ul>
+
+        <p class="fragment" style="margin:1rem 0">
+          Event studies solve this by estimating a <strong>separate effect for each time period</strong> relative to
+          treatment.
+        </p>
+
+        <div class="fragment"
+          style="background:#f0f0f0;padding:1rem 1.5rem;border-radius:10px;text-align:center;margin-top:1.5rem;font-size:1.15rem">
+          <strong style="color:#0072B2">Event Study = A series of DIDs, one for each time period</strong>
+        </div>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number" id="slide-number">15 / 22</span>
+      </footer>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+
+</html>

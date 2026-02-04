@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Causal Question</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]});"></script>
+</head>
+<body>
+  <div class="slide-container" data-current-slide="2" data-total-slides="22">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+      <h2>The Causal Question</h2>
+
+      <div class="fragment">
+        <p>We want to know: <strong>What is the effect of a treatment on an outcome?</strong></p>
+      </div>
+
+      <div class="fragment">
+        <div class="two-columns" style="gap: 2rem; margin: 1.5rem 0;">
+          <div style="border-left: 4px solid #009E73; padding: 1.2rem; background: rgba(0,158,115,0.04); border-radius: 4px;">
+            <h3 style="color: #009E73; margin-top: 0;">World with Treatment</h3>
+            <p style="font-size: 1.4em; text-align: center; margin: 0.8rem 0;">\(Y_i(1)\)</p>
+            <p>What happens to a person if they <strong>receive</strong> treatment</p>
+          </div>
+          <div style="border-left: 4px solid #D55E00; padding: 1.2rem; background: rgba(213,94,0,0.04); border-radius: 4px;">
+            <h3 style="color: #D55E00; margin-top: 0;">World without Treatment</h3>
+            <p style="font-size: 1.4em; text-align: center; margin: 0.8rem 0;">\(Y_i(0)\)</p>
+            <p>What happens to the <strong>same person</strong> if they do <strong>NOT</strong> receive treatment</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <blockquote>
+          The fundamental problem of causal inference: we can never observe both \(Y_i(1)\) and \(Y_i(0)\) for the same unit.
+        </blockquote>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number" id="slide-number">2 / 22</span>
+      </footer>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

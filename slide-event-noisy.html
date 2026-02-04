@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Example: Noisy Pre-trends</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    /* ------- Viz layer system ------- */
+    .viz-group {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .viz-group.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transition: opacity 0.8s ease;
+    }
+
+    /* Faster fade-out for replaced layers like axes */
+    .viz-group.axis-layer {
+      transition: opacity 0.2s ease;
+    }
+
+    /* ------- Line drawing animation ------- */
+    .draw-line {
+      stroke-dasharray: 2000;
+      stroke-dashoffset: 2000;
+      transition: stroke-dashoffset 1.2s ease;
+    }
+
+    .draw-line.animate {
+      stroke-dashoffset: 0;
+    }
+
+    /* ------- Dot pop-in ------- */
+    .dot-pop {
+      transform-origin: center;
+      transform: scale(0);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .dot-pop.animate {
+      transform: scale(1);
+    }
+
+    /* ------- Gap segment slide-in ------- */
+    .gap-line {
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      transition: stroke-dashoffset 0.6s ease;
+    }
+
+    .gap-line.animate {
+      stroke-dashoffset: 0;
+    }
+
+    /* ------- CI bars ------- */
+    .ci-bar {
+      opacity: 0;
+      transition: opacity 0.5s ease 0.2s;
+    }
+
+    .ci-bar.animate {
+      opacity: 1;
+    }
+
+    /* ------- Event dot grow ------- */
+    .event-dot {
+      transform-origin: center;
+      transform: scale(0);
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .event-dot.animate {
+      transform: scale(1);
+    }
+
+    /* ------- Step indicator ------- */
+    .step-indicator {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      font-family: var(--font-main);
+    }
+
+    /* ------- Step description ------- */
+    .step-desc {
+      text-align: center;
+      font-size: 1rem;
+      color: var(--text-color);
+      margin-top: 0.3rem;
+      font-family: var(--font-main);
+      font-style: italic;
+      min-height: 1.6em;
+      transition: opacity 0.4s ease;
+    }
+
+    /* ------- Normalization Shifts ------- */
+    .shift-treat {
+      transform: translateY(8px);
+      transition: transform 1.2s cubic-bezier(0.45, 0, 0.55, 1);
+    }
+
+    .shift-ctrl {
+      transform: translateY(-10px);
+      transition: transform 1.2s cubic-bezier(0.45, 0, 0.55, 1);
+    }
+
+    /* SVG text defaults */
+    #event-build-viz text {
+      font-family: 'EB Garamond', Georgia, serif;
+    }
+
+    #event-build-viz text.mono {
+      font-family: 'Source Code Pro', monospace;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container" data-current-slide="20" data-total-slides="24" data-prev-slide="slide-19.html"
+    data-next-slide="slide-event-bad.html">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24">
+          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+        </svg>
+      </a>
+      <h2>Example: Noisy Pre-trends</h2>
+      <div class="slide-content" style="align-items:center;">
+
+        <svg id="event-build-viz" viewBox="0 0 900 460" width="100%" style="max-width:900px;">
+
+          <!-- =========================================================
+               LAYER 0: shared axes frame (always visible from step 1)
+               ========================================================= -->
+          <g id="shared-frame">
+            <!-- x-axis line -->
+            <line x1="100" y1="410" x2="760" y2="410" stroke="#1a1a1a" stroke-width="1.5" />
+            <!-- y-axis line -->
+            <line x1="100" y1="30" x2="100" y2="410" stroke="#1a1a1a" stroke-width="1.5" />
+          </g>
+
+          <!-- =========================================================
+               LAYER 1: Raw chart axes (steps 1-2)
+               ========================================================= -->
+          <g id="raw-axes" class="viz-group axis-layer">
+            <!-- Y-axis label -->
+            <text x="18" y="220" text-anchor="middle" font-size="15" transform="rotate(-90,18,220)">Outcome Level</text>
+            <!-- Y-axis ticks: 35, 45, 55, 65, 75 -->
+            <g class="mono" font-size="13" fill="#4a4a4a">
+              <line x1="95" y1="400" x2="100" y2="400" stroke="#1a1a1a" stroke-width="1" />
+              <text x="90" y="404" text-anchor="end">35</text>
+              <line x1="95" y1="310" x2="100" y2="310" stroke="#1a1a1a" stroke-width="1" />
+              <text x="90" y="314" text-anchor="end">45</text>
+              <line x1="95" y1="220" x2="100" y2="220" stroke="#1a1a1a" stroke-width="1" />
+              <text x="90" y="224" text-anchor="end">55</text>
+              <line x1="95" y1="130" x2="100" y2="130" stroke="#1a1a1a" stroke-width="1" />
+              <text x="90" y="134" text-anchor="end">65</text>
+              <line x1="95" y1="40" x2="100" y2="40" stroke="#1a1a1a" stroke-width="1" />
+              <text x="90" y="44" text-anchor="end">75</text>
+            </g>
+            <!-- gridlines -->
+            <g stroke="#e0e0e0" stroke-width="0.5">
+              <line x1="100" y1="400" x2="760" y2="400" />
+              <line x1="100" y1="310" x2="760" y2="310" />
+              <line x1="100" y1="220" x2="760" y2="220" />
+              <line x1="100" y1="130" x2="760" y2="130" />
+              <line x1="100" y1="40" x2="760" y2="40" />
+            </g>
+            <!-- X-axis year labels -->
+            <g class="mono" font-size="14" fill="#1a1a1a" text-anchor="middle">
+              <text x="130" y="432">2015</text>
+              <text x="230" y="432">2016</text>
+              <text x="330" y="432">2017</text>
+              <text x="430" y="432">2018</text>
+              <text x="530" y="432">2019</text>
+              <text x="630" y="432">2020</text>
+              <text x="730" y="432">2021</text>
+            </g>
+            <!-- X-axis ticks -->
+            <g stroke="#1a1a1a" stroke-width="1">
+              <line x1="130" y1="410" x2="130" y2="415" />
+              <line x1="230" y1="410" x2="230" y2="415" />
+              <line x1="330" y1="410" x2="330" y2="415" />
+              <line x1="430" y1="410" x2="430" y2="415" />
+              <line x1="530" y1="410" x2="530" y2="415" />
+              <line x1="630" y1="410" x2="630" y2="415" />
+              <line x1="730" y1="410" x2="730" y2="415" />
+            </g>
+          </g>
+
+          <!-- =========================================================
+               LAYER 2: Treatment line (step 1+)
+               values: 42,44,47,53,60,66,70
+               y: 337,319,292,238,175,121,85
+               ========================================================= -->
+          <g id="treat-line" class="viz-group" style="transition: opacity 0.4s ease, transform 1s ease;">
+            <polyline class="draw-line" id="treat-polyline"
+              points="130,310 230,301 330,292 430,238 530,175 630,121 730,85" fill="none" stroke="#009E73"
+              stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            <!-- dots -->
+            <circle class="dot-pop" cx="130" cy="310" r="5" fill="#009E73" />
+            <circle class="dot-pop" cx="230" cy="301" r="5" fill="#009E73" />
+            <circle class="dot-pop" cx="330" cy="292" r="5" fill="#009E73" />
+            <circle class="dot-pop" cx="430" cy="238" r="5" fill="#009E73" />
+            <circle class="dot-pop" cx="530" cy="175" r="5" fill="#009E73" />
+            <circle class="dot-pop" cx="630" cy="121" r="5" fill="#009E73" />
+            <circle class="dot-pop" cx="730" cy="85" r="5" fill="#009E73" />
+            <!-- label -->
+            <text x="745" y="80" font-size="15" fill="#009E73" font-weight="600">Treatment</text>
+          </g>
+
+          <!-- =========================================================
+               LAYER 3: Control line + treatment marker (step 2+)
+               values: 40,42,45,48,50,53,55
+               y: 355,337,310,283,265,238,220
+               ========================================================= -->
+          <g id="control-line" class="viz-group" style="transition: opacity 0.4s ease, transform 1s ease;">
+            <polyline class="draw-line" id="ctrl-polyline"
+              points="130,355 230,337 330,310 430,283 530,265 630,238 730,220" fill="none" stroke="#D55E00"
+              stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            <!-- dots -->
+            <circle class="dot-pop" cx="130" cy="355" r="5" fill="#D55E00" />
+            <circle class="dot-pop" cx="230" cy="337" r="5" fill="#D55E00" />
+            <circle class="dot-pop" cx="330" cy="310" r="5" fill="#D55E00" />
+            <circle class="dot-pop" cx="430" cy="283" r="5" fill="#D55E00" />
+            <circle class="dot-pop" cx="530" cy="265" r="5" fill="#D55E00" />
+            <circle class="dot-pop" cx="630" cy="238" r="5" fill="#D55E00" />
+            <circle class="dot-pop" cx="730" cy="220" r="5" fill="#D55E00" />
+            <!-- label -->
+            <text x="745" y="215" font-size="15" fill="#D55E00" font-weight="600">Control</text>
+          </g>
+
+          <!-- Treatment marker vertical line (step 2+) -->
+          <g id="treatment-marker" class="viz-group">
+            <line x1="380" y1="35" x2="380" y2="405" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="6,4" />
+            <text x="380" y="26" text-anchor="middle" font-size="13" fill="#1a1a1a" font-style="italic">Treatment
+              begins</text>
+          </g>
+
+          <!-- =========================================================
+               LAYER 4: Normalized chart AXES (steps 3-4) - Lines handled via shift
+               ========================================================= -->
+          <g id="norm-axis" class="viz-group axis-layer">
+            <!-- Y-axis label -->
+            <text x="18" y="220" text-anchor="middle" font-size="15" transform="rotate(-90,18,220)">Change from t =
+              -1</text>
+            <!-- Y-axis ticks: -10, -5, 0, 5, 10, 15, 20, 25 -->
+            <g class="mono" font-size="13" fill="#4a4a4a">
+              <line x1="95" y1="400" x2="100" y2="400" stroke="#1a1a1a" stroke-width="1" />
+              <text x="88" y="404" text-anchor="end">-10</text>
+              <line x1="95" y1="350" x2="100" y2="350" stroke="#1a1a1a" stroke-width="1" />
+              <text x="88" y="354" text-anchor="end">-5</text>
+              <line x1="95" y1="300" x2="100" y2="300" stroke="#1a1a1a" stroke-width="1" />
+              <text x="88" y="304" text-anchor="end">0</text>
+              <line x1="95" y1="250" x2="100" y2="250" stroke="#1a1a1a" stroke-width="1" />
+              <text x="88" y="254" text-anchor="end">5</text>
+              <line x1="95" y1="200" x2="100" y2="200" stroke="#1a1a1a" stroke-width="1" />
+              <text x="88" y="204" text-anchor="end">10</text>
+              <line x1="95" y1="150" x2="100" y2="150" stroke="#1a1a1a" stroke-width="1" />
+              <text x="88" y="154" text-anchor="end">15</text>
+              <line x1="95" y1="100" x2="100" y2="100" stroke="#1a1a1a" stroke-width="1" />
+              <text x="88" y="104" text-anchor="end">20</text>
+              <line x1="95" y1="50" x2="100" y2="50" stroke="#1a1a1a" stroke-width="1" />
+              <text x="88" y="54" text-anchor="end">25</text>
+            </g>
+            <!-- gridlines -->
+            <g stroke="#e0e0e0" stroke-width="0.5">
+              <line x1="100" y1="400" x2="760" y2="400" />
+              <line x1="100" y1="350" x2="760" y2="350" />
+              <line x1="100" y1="300" x2="760" y2="300" />
+              <line x1="100" y1="250" x2="760" y2="250" />
+              <line x1="100" y1="200" x2="760" y2="200" />
+              <line x1="100" y1="150" x2="760" y2="150" />
+              <line x1="100" y1="100" x2="760" y2="100" />
+              <line x1="100" y1="50" x2="760" y2="50" />
+            </g>
+            <!-- Zero line (prominent) -->
+            <line x1="100" y1="300" x2="760" y2="300" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="4,3" />
+            <!-- X-axis year labels (same positions) -->
+            <g class="mono" font-size="14" fill="#1a1a1a" text-anchor="middle">
+              <text x="130" y="432">2015</text>
+              <text x="230" y="432">2016</text>
+              <text x="330" y="432">2017</text>
+              <text x="430" y="432">2018</text>
+              <text x="530" y="432">2019</text>
+              <text x="630" y="432">2020</text>
+              <text x="730" y="432">2021</text>
+            </g>
+            <!-- X-axis ticks -->
+            <g stroke="#1a1a1a" stroke-width="1">
+              <line x1="130" y1="410" x2="130" y2="415" />
+              <line x1="230" y1="410" x2="230" y2="415" />
+              <line x1="330" y1="410" x2="330" y2="415" />
+              <line x1="430" y1="410" x2="430" y2="415" />
+              <line x1="530" y1="410" x2="530" y2="415" />
+              <line x1="630" y1="410" x2="630" y2="415" />
+              <line x1="730" y1="410" x2="730" y2="415" />
+            </g>
+            <!-- Treatment vertical marker -->
+            <line x1="380" y1="35" x2="380" y2="405" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="6,4" />
+
+            <!-- Reference point highlight -->
+            <circle cx="330" cy="300" r="9" fill="none" stroke="#0072B2" stroke-width="2" stroke-dasharray="3,2" />
+            <text x="340" y="290" font-size="12" fill="#0072B2">reference</text>
+          </g>
+
+          <!-- =========================================================
+               LAYER 4.1: Normalized lines (steps 3-4)
+               T_norm: -5,-3,0,6,13,19,23  => y: 350,330,300,240,170,110,70
+               C_norm: -5,-3,0,3,5,8,10    => y: 350,330,300,270,250,220,200
+               ========================================================= -->
+          <g id="norm-lines" class="viz-group">
+            <!-- Treatment normalized line -->
+            <polyline points="130,320 230,310 330,300 430,240 530,170 630,110 730,70" fill="none" stroke="#009E73"
+              stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="130" cy="320" r="5" fill="#009E73" />
+            <circle cx="230" cy="310" r="5" fill="#009E73" />
+            <circle cx="330" cy="300" r="5" fill="#009E73" />
+            <circle cx="430" cy="240" r="5" fill="#009E73" />
+            <circle cx="530" cy="170" r="5" fill="#009E73" />
+            <circle cx="630" cy="110" r="5" fill="#009E73" />
+            <circle cx="730" cy="70" r="5" fill="#009E73" />
+            <text x="745" y="65" font-size="14" fill="#009E73" font-weight="600">Treatment</text>
+
+            <!-- Control normalized line -->
+            <polyline points="130,350 230,330 330,300 430,270 530,250 630,220 730,200" fill="none" stroke="#D55E00"
+              stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="130" cy="350" r="5" fill="#D55E00" />
+            <circle cx="230" cy="330" r="5" fill="#D55E00" />
+            <circle cx="330" cy="300" r="5" fill="#D55E00" />
+            <circle cx="430" cy="270" r="5" fill="#D55E00" />
+            <circle cx="530" cy="250" r="5" fill="#D55E00" />
+            <circle cx="630" cy="220" r="5" fill="#D55E00" />
+            <circle cx="730" cy="200" r="5" fill="#D55E00" />
+            <text x="745" y="195" font-size="14" fill="#D55E00" font-weight="600">Control</text>
+
+            <!-- Treatment vertical marker -->
+            <line x1="380" y1="35" x2="380" y2="405" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="6,4" />
+
+            <!-- Reference point highlight -->
+            <circle cx="330" cy="300" r="9" fill="none" stroke="#0072B2" stroke-width="2" stroke-dasharray="3,2" />
+            <text x="340" y="290" font-size="12" fill="#0072B2">reference</text>
+          </g>
+
+          <!-- =========================================================
+               LAYER 5: Gap segments (step 4)
+               Gaps at post-treatment points:
+               2018(430): T=240, C=270, gap=3  (30px)
+               2019(530): T=170, C=250, gap=8  (80px)
+               2020(630): T=110, C=220, gap=11 (110px)
+               2021(730): T=70,  C=200, gap=13 (130px)
+               ========================================================= -->
+          <g id="gap-segments" class="viz-group">
+            <!-- gap at 2018 -->
+            <line class="gap-line" x1="430" y1="270" x2="430" y2="240" stroke="#56B4E9" stroke-width="3"
+              stroke-linecap="round" />
+            <text class="mono" x="442" y="258" font-size="13" fill="#0072B2" font-weight="500">3</text>
+            <!-- gap at 2019 -->
+            <line class="gap-line" x1="530" y1="250" x2="530" y2="170" stroke="#56B4E9" stroke-width="3"
+              stroke-linecap="round" />
+            <text class="mono" x="542" y="214" font-size="13" fill="#0072B2" font-weight="500">8</text>
+            <!-- gap at 2020 -->
+            <line class="gap-line" x1="630" y1="220" x2="630" y2="110" stroke="#56B4E9" stroke-width="3"
+              stroke-linecap="round" />
+            <text class="mono" x="642" y="170" font-size="13" fill="#0072B2" font-weight="500">11</text>
+            <!-- gap at 2021 -->
+            <line class="gap-line" x1="730" y1="200" x2="730" y2="70" stroke="#56B4E9" stroke-width="3"
+              stroke-linecap="round" />
+            <text class="mono" x="742" y="140" font-size="13" fill="#0072B2" font-weight="500">13</text>
+            <!-- pre-period zero indicators -->
+            <text class="mono" x="130" y="342" font-size="11" fill="#999" text-anchor="middle">0</text>
+            <text class="mono" x="230" y="322" font-size="11" fill="#999" text-anchor="middle">0</text>
+            <text class="mono" x="330" y="292" font-size="11" fill="#999" text-anchor="middle">0</text>
+          </g>
+
+          <!-- =========================================================
+               LAYER 6: Event study chart (steps 5-6)
+               Coefficients: 0,0,ref(0),3,8,11,13
+               y positions: 300,300,300,270,220,190,170
+               CI +/-2 => top/bottom offsets of 20px
+               ========================================================= -->
+          <g id="event-chart" class="viz-group axis-layer">
+            <!-- Y-axis label -->
+            <text x="18" y="220" text-anchor="middle" font-size="15" transform="rotate(-90,18,220)">Effect Relative to t
+              = -1</text>
+            <!-- Y-axis ticks (same scale as normalized) -->
+            <g class="mono" font-size="13" fill="#4a4a4a">
+              <line x1="95" y1="400" x2="100" y2="400" stroke="#1a1a1a" stroke-width="1" />
+              <text x="88" y="404" text-anchor="end">-10</text>
+              <line x1="95" y1="350" x2="100" y2="350" stroke="#1a1a1a" stroke-width="1" />
+              <text x="88" y="354" text-anchor="end">-5</text>
+              <line x1="95" y1="300" x2="100" y2="300" stroke="#1a1a1a" stroke-width="1" />
+              <text x="88" y="304" text-anchor="end">0</text>
+              <line x1="95" y1="250" x2="100" y2="250" stroke="#1a1a1a" stroke-width="1" />
+              <text x="88" y="254" text-anchor="end">5</text>
+              <line x1="95" y1="200" x2="100" y2="200" stroke="#1a1a1a" stroke-width="1" />
+              <text x="88" y="204" text-anchor="end">10</text>
+              <line x1="95" y1="150" x2="100" y2="150" stroke="#1a1a1a" stroke-width="1" />
+              <text x="88" y="154" text-anchor="end">15</text>
+              <line x1="95" y1="100" x2="100" y2="100" stroke="#1a1a1a" stroke-width="1" />
+              <text x="88" y="104" text-anchor="end">20</text>
+              <line x1="95" y1="50" x2="100" y2="50" stroke="#1a1a1a" stroke-width="1" />
+              <text x="88" y="54" text-anchor="end">25</text>
+            </g>
+            <!-- gridlines -->
+            <g stroke="#e0e0e0" stroke-width="0.5">
+              <line x1="100" y1="400" x2="760" y2="400" />
+              <line x1="100" y1="350" x2="760" y2="350" />
+              <line x1="100" y1="300" x2="760" y2="300" />
+              <line x1="100" y1="250" x2="760" y2="250" />
+              <line x1="100" y1="200" x2="760" y2="200" />
+              <line x1="100" y1="150" x2="760" y2="150" />
+              <line x1="100" y1="100" x2="760" y2="100" />
+              <line x1="100" y1="50" x2="760" y2="50" />
+            </g>
+            <!-- Zero line (bold) -->
+            <line x1="100" y1="300" x2="760" y2="300" stroke="#1a1a1a" stroke-width="1.5" />
+            <!-- X-axis: relative time labels -->
+            <g class="mono" font-size="14" fill="#1a1a1a" text-anchor="middle">
+              <text x="130" y="432">-3</text>
+              <text x="230" y="432">-2</text>
+              <text x="330" y="432">-1</text>
+              <text x="430" y="432">0</text>
+              <text x="530" y="432">+1</text>
+              <text x="630" y="432">+2</text>
+              <text x="730" y="432">+3</text>
+            </g>
+            <text x="430" y="448" font-size="12" fill="#4a4a4a" text-anchor="middle">Relative Time (periods since
+              treatment)</text>
+            <!-- X-axis ticks -->
+            <g stroke="#1a1a1a" stroke-width="1">
+              <line x1="130" y1="410" x2="130" y2="415" />
+              <line x1="230" y1="410" x2="230" y2="415" />
+              <line x1="330" y1="410" x2="330" y2="415" />
+              <line x1="430" y1="410" x2="430" y2="415" />
+              <line x1="530" y1="410" x2="530" y2="415" />
+              <line x1="630" y1="410" x2="630" y2="415" />
+              <line x1="730" y1="410" x2="730" y2="415" />
+            </g>
+
+            <!-- Faded time-series lines (visible at step 5, hidden at step 6) -->
+            <g id="faded-lines" opacity="0.15">
+              <polyline points="130,350 230,330 330,300 430,240 530,170 630,110 730,70" fill="none" stroke="#009E73"
+                stroke-width="2" stroke-linecap="round" />
+              <polyline points="130,350 230,330 330,300 430,270 530,250 630,220 730,200" fill="none" stroke="#D55E00"
+                stroke-width="2" stroke-linecap="round" />
+            </g>
+
+            <!-- Treatment marker -->
+            <line x1="380" y1="35" x2="380" y2="405" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="6,4"
+              opacity="0.4" />
+
+            <!-- CI bars (vertical whiskers) -->
+            <!-- t=-3 coeff=3, CI: -1 to 7 => y 310 to 230 -->
+            <line class="ci-bar" x1="130" y1="310" x2="130" y2="230" stroke="#4a4a4a" stroke-width="1.5" />
+            <line class="ci-bar" x1="124" y1="310" x2="136" y2="310" stroke="#4a4a4a" stroke-width="1.5" />
+            <line class="ci-bar" x1="124" y1="230" x2="136" y2="230" stroke="#4a4a4a" stroke-width="1.5" />
+            <!-- t=-2 coeff=2, CI: -1 to 5 => y 310 to 250 -->
+            <line class="ci-bar" x1="230" y1="310" x2="230" y2="250" stroke="#4a4a4a" stroke-width="1.5" />
+            <line class="ci-bar" x1="224" y1="310" x2="236" y2="310" stroke="#4a4a4a" stroke-width="1.5" />
+            <line class="ci-bar" x1="224" y1="250" x2="236" y2="250" stroke="#4a4a4a" stroke-width="1.5" />
+            <!-- t=-1 reference (no CI) -->
+            <!-- t=0 coeff=3, CI: 1 to 5 => y 290 to 250 -->
+            <line class="ci-bar" x1="430" y1="290" x2="430" y2="250" stroke="#0072B2" stroke-width="1.5" />
+            <line class="ci-bar" x1="424" y1="290" x2="436" y2="290" stroke="#0072B2" stroke-width="1.5" />
+            <line class="ci-bar" x1="424" y1="250" x2="436" y2="250" stroke="#0072B2" stroke-width="1.5" />
+            <!-- t=+1 coeff=8, CI: 6 to 10 => y 240 to 200 -->
+            <line class="ci-bar" x1="530" y1="240" x2="530" y2="200" stroke="#0072B2" stroke-width="1.5" />
+            <line class="ci-bar" x1="524" y1="240" x2="536" y2="240" stroke="#0072B2" stroke-width="1.5" />
+            <line class="ci-bar" x1="524" y1="200" x2="536" y2="200" stroke="#0072B2" stroke-width="1.5" />
+            <!-- t=+2 coeff=11, CI: 9 to 13 => y 210 to 170 -->
+            <line class="ci-bar" x1="630" y1="210" x2="630" y2="170" stroke="#0072B2" stroke-width="1.5" />
+            <line class="ci-bar" x1="624" y1="210" x2="636" y2="210" stroke="#0072B2" stroke-width="1.5" />
+            <line class="ci-bar" x1="624" y1="170" x2="636" y2="170" stroke="#0072B2" stroke-width="1.5" />
+            <!-- t=+3 coeff=13, CI: 11 to 15 => y 190 to 150 -->
+            <line class="ci-bar" x1="730" y1="190" x2="730" y2="150" stroke="#0072B2" stroke-width="1.5" />
+            <line class="ci-bar" x1="724" y1="190" x2="736" y2="190" stroke="#0072B2" stroke-width="1.5" />
+            <line class="ci-bar" x1="724" y1="150" x2="736" y2="150" stroke="#0072B2" stroke-width="1.5" />
+
+            <!-- Event study dots -->
+            <!-- Pre-period (muted) -->
+            <circle class="event-dot" cx="130" cy="270" r="6" fill="#4a4a4a" />
+            <circle class="event-dot" cx="230" cy="280" r="6" fill="#4a4a4a" />
+            <!-- Reference period (hollow) -->
+            <circle class="event-dot" cx="330" cy="300" r="7" fill="#FAFAF8" stroke="#0072B2" stroke-width="2.5" />
+            <!-- Post-period (blue filled) -->
+            <circle class="event-dot" cx="430" cy="270" r="6" fill="#0072B2" />
+            <circle class="event-dot" cx="530" cy="220" r="6" fill="#0072B2" />
+            <circle class="event-dot" cx="630" cy="190" r="6" fill="#0072B2" />
+            <circle class="event-dot" cx="730" cy="170" r="6" fill="#0072B2" />
+          </g>
+
+          <!-- =========================================================
+               LAYER 7: Event annotations (step 6 only)
+               ========================================================= -->
+          <g id="event-annotations" class="viz-group">
+            <!-- Pre-trend bracket (positioned below dots, above x-axis) -->
+            <path d="M 120,340 L 120,335 L 340,335 L 340,340" fill="none" stroke="#4a4a4a" stroke-width="1.5" />
+            <text x="230" y="355" font-size="12" fill="#4a4a4a" text-anchor="middle" font-style="italic">Noisy
+              Pre-trends
+              0</text>
+            <!-- Post-period bracket -->
+            <path d="M 420,340 L 420,335 L 740,335 L 740,340" fill="none" stroke="#0072B2" stroke-width="1.5" />
+            <text x="580" y="355" font-size="12" fill="#0072B2" text-anchor="middle" font-style="italic">Growing
+              treatment effect</text>
+          </g>
+
+        </svg>
+
+        <p class="step-desc" id="step-desc"></p>
+        <p class="step-indicator">Step <span id="current-step">1</span> of 6 &mdash; Press <span
+            style="font-family:var(--font-mono);">&rarr;</span> to advance</p>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number" id="slide-number">19a / 24</span>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    class RawToEventSequence {
+      constructor() {
+        this.currentStep = 0;
+        this.totalSteps = 6;
+        this.stepIndicator = document.getElementById('current-step');
+        this.stepDesc = document.getElementById('step-desc');
+
+        this.descriptions = [
+          '',
+          'Draw the treatment group\u2019s outcome over time',
+          'Add the control group \u2014 note the vertical dashed line where treatment begins',
+          'Normalize: subtract each group\u2019s reference-period (t = \u22121) value',
+          'Measure the gap between curves at each post-treatment period',
+          'Transform gaps into event-study coefficients with confidence intervals',
+          'Noisy pre-trends: Estimates bounce around zero but don\'t show a clear trend'
+        ];
+
+        document.addEventListener('keydown', (e) => this.handleKeydown(e));
+        document.querySelector('.slide').addEventListener('click', (e) => {
+          if (!e.target.closest('a') && !e.target.closest('button') && !e.target.closest('.home-btn')) {
+            this.next();
+          }
+        });
+
+        this.showStep(1);
+      }
+
+      handleKeydown(e) {
+        switch (e.key) {
+          case 'ArrowRight': case ' ': case 'Enter':
+            e.preventDefault(); this.next(); break;
+          case 'ArrowLeft': case 'Backspace':
+            e.preventDefault(); this.prev(); break;
+          case 'Escape':
+            e.preventDefault(); window.location.href = 'index.html'; break;
+          case 'f':
+            e.preventDefault();
+            if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+            else document.exitFullscreen();
+            break;
+        }
+      }
+
+      next() {
+        if (this.currentStep < this.totalSteps) {
+          this.currentStep++;
+          this.showStep(this.currentStep);
+        } else {
+          const container = document.querySelector('.slide-container');
+          if (container && container.dataset.nextSlide) {
+            window.location.href = container.dataset.nextSlide;
+          } else {
+            window.location.href = 'slide-20.html';
+          }
+        }
+      }
+
+      prev() {
+        if (this.currentStep > 1) {
+          this.currentStep--;
+          this.showStep(this.currentStep);
+        } else {
+          const container = document.querySelector('.slide-container');
+          if (container && container.dataset.prevSlide) {
+            window.location.href = container.dataset.prevSlide;
+          } else {
+            window.location.href = 'slide-18.html';
+          }
+        }
+      }
+
+      showStep(step) {
+        // Define desired state for each step
+        const state = {
+          1: {
+            visible: ['raw-axes', 'treat-line'],
+            animate: ['treat-polyline', '#treat-line .dot-pop'],
+            shifted: []
+          },
+          2: {
+            visible: ['raw-axes', 'treat-line', 'control-line', 'treatment-marker'],
+            animate: ['treat-polyline', '#treat-line .dot-pop', 'ctrl-polyline', '#control-line .dot-pop'],
+            shifted: []
+          },
+          3: {
+            visible: ['norm-axis', 'treat-line', 'control-line', 'treatment-marker'],
+            animate: ['treat-polyline', '#treat-line .dot-pop', 'ctrl-polyline', '#control-line .dot-pop'],
+            shifted: ['treat-line', 'control-line'] // Apply shift classes
+          },
+          4: {
+            // In step 4, we switch to the "real" normalized lines (norm-lines) to ensure perfect alignment for gaps
+            // But we can crossfade them or just keep using shifted lines? 
+            // The "norm-lines" group has the specific dots and reference circle which we want.
+            // Let's bring in norm-lines and hide the shifted raw lines cleanly.
+            visible: ['norm-axis', 'norm-lines', 'gap-segments', 'treatment-marker'],
+            animate: ['#gap-segments .gap-line'],
+            shifted: [] // Raw lines are hidden, so shift doesn't matter, but resetting might be safer
+          },
+          5: {
+            visible: ['norm-axis', 'event-chart', 'treatment-marker', 'faded-lines'],
+            animate: ['#event-chart .ci-bar', '#event-chart .event-dot'],
+            shifted: []
+          },
+          6: {
+            visible: ['norm-axis', 'event-chart', 'treatment-marker', 'event-annotations'],
+            animate: ['#event-chart .ci-bar', '#event-chart .event-dot'],
+            shifted: []
+          }
+        };
+
+        const target = state[step];
+        if (!target) return;
+
+        // 1. Manage Visibility Groups and Shifts
+        const allGroups = ['raw-axes', 'treat-line', 'control-line', 'treatment-marker',
+          'norm-axis', 'norm-lines', 'gap-segments', 'event-chart',
+          'faded-lines', 'event-annotations'];
+
+        allGroups.forEach(id => {
+          const el = document.getElementById(id);
+          if (!el) return;
+
+          const shouldBeVisible = target.visible.includes(id);
+          const isVisible = el.classList.contains('visible');
+
+          if (shouldBeVisible) {
+            if (!isVisible) {
+              el.style.display = '';
+              // Force reflow
+              void el.offsetWidth;
+              el.classList.add('visible');
+            }
+          } else {
+            if (isVisible) {
+              el.classList.remove('visible');
+              // Delay display:none to allow fade out
+              setTimeout(() => {
+                if (!el.classList.contains('visible')) el.style.display = 'none';
+              }, 400); // 0.4s fade out
+            } else {
+              el.style.display = 'none';
+            }
+          }
+
+          // Handle shifts for raw lines
+          if (id === 'treat-line') {
+            if (target.shifted.includes('treat-line')) el.classList.add('shift-treat');
+            else el.classList.remove('shift-treat');
+          }
+          if (id === 'control-line') {
+            if (target.shifted.includes('control-line')) el.classList.add('shift-ctrl');
+            else el.classList.remove('shift-ctrl');
+          }
+        });
+
+        // 2. Manage Animations
+        // We only trigger animations for elements that haven't been triggered yet?
+        // Or we rely on the fact that adding .animate to an already animated element does nothing.
+        // But for "entering" elements in this step, we might want delays.
+
+        // Helper to check if an element is new to the scene (was not visible/animated previously)
+        // But getting "prev step" is hard inside here without local state.
+        // We can just apply .animate. If it's already there, no change.
+
+        // Specific sequencing per step to handle delays
+        if (step === 1) {
+          this.triggerAnim('treat-polyline');
+          this.triggerAnim('#treat-line .dot-pop', 200, 120);
+        }
+        if (step === 2) {
+          // Ensure step 1 stuff is animated (idempotent)
+          document.getElementById('treat-polyline').classList.add('animate');
+          document.querySelectorAll('#treat-line .dot-pop').forEach(d => d.classList.add('animate'));
+          // Animate new stuff
+          this.triggerAnim('ctrl-polyline');
+          this.triggerAnim('#control-line .dot-pop', 200, 120);
+        }
+        if (step === 4) {
+          this.triggerAnim('#gap-segments .gap-line', 0, 200);
+        }
+        if (step === 5) {
+          this.triggerAnim('#event-chart .ci-bar', 0, 60);
+          this.triggerAnim('#event-chart .event-dot', 300, 100);
+        }
+        if (step === 6) {
+          // Ensure step 5 stuff stays animated
+          document.querySelectorAll('#event-chart .ci-bar').forEach(b => b.classList.add('animate'));
+          document.querySelectorAll('#event-chart .event-dot').forEach(d => d.classList.add('animate'));
+        }
+
+        // Handle faded lines opacity
+        const fadedLines = document.getElementById('faded-lines');
+        if (fadedLines) {
+          fadedLines.style.opacity = (step === 5) ? '0.15' : '0';
+        }
+
+        // Update indicator
+        this.stepIndicator.textContent = step;
+        this.stepDesc.textContent = this.descriptions[step] || '';
+      }
+
+      triggerAnim(selector, baseDelay = 0, stagger = 0) {
+        const elements = selector.startsWith('#') || selector.includes('.') ?
+          document.querySelectorAll(selector) :
+          [document.getElementById(selector)];
+
+        elements.forEach((el, i) => {
+          if (!el) return;
+          // Only animate if not already animated (prevents restarts)
+          if (!el.classList.contains('animate')) {
+            if (baseDelay + stagger * i > 0) {
+              setTimeout(() => el.classList.add('animate'), baseDelay + stagger * i);
+            } else {
+              el.classList.add('animate');
+            }
+          }
+        });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => { new RawToEventSequence(); });
+  </script>
+</body>
+
+</html>

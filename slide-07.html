@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DID Step by Step</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    /* ---- SVG visualization animation styles ---- */
+
+    #did-viz {
+      display: block;
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* All animated groups start hidden */
+    .viz-group {
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    .viz-group.visible {
+      opacity: 1;
+    }
+
+    /* Line-draw animation via stroke-dashoffset */
+    .draw-line {
+      stroke-dasharray: 500;
+      stroke-dashoffset: 500;
+      transition: stroke-dashoffset 0.8s ease;
+    }
+    .draw-line.visible {
+      stroke-dashoffset: 0;
+    }
+
+    /* Counterfactual dashed line draw animation */
+    .draw-line-cf {
+      stroke-dasharray: 8 6;
+      stroke-dashoffset: 500;
+      opacity: 0;
+      transition: stroke-dashoffset 0.8s ease, opacity 0.5s ease;
+    }
+    .draw-line-cf.visible {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+
+    /* Step indicator styling */
+    .step-indicator {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+      font-family: var(--font-mono);
+    }
+  </style>
+</head>
+<body>
+  <div class="slide-container" data-current-slide="7" data-total-slides="22">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+      <h2>DID Step by Step</h2>
+      <div class="slide-content" style="align-items:center;">
+
+        <!--
+          SVG COORDINATE PLAN (viewBox 0 0 900 480)
+
+          Y-axis maps outcome values to pixel positions (inverted: higher value = lower y).
+          Value range: 8.0 (bottom) to 18.0 (top) => 10-unit span
+          Plot area: y=160 (top, value=18) to y=390 (bottom, value=8)
+          So 1 unit = (390-160)/10 = 23 px
+
+          Value -> Y pixel:
+            y = 390 - (value - 8) * 23
+            10.0 -> 390 - 2*23 = 390 - 46 = 344
+            11.7 -> 390 - 3.7*23 = 390 - 85.1 = 305
+            15.6 -> 390 - 7.6*23 = 390 - 174.8 = 215
+
+          Counterfactual for treatment = 10.0 + 1.7 = 11.7 -> y=305
+
+          X positions:
+            Y-axis line: x=160
+            Pre period: x=310
+            Post period: x=650
+            Right labels: x=700+
+
+          Top section (y=10-130): Population box and group boxes
+          Chart area (y=150-420): The actual DID plot
+          Bottom (y=440-480): DID result box
+        -->
+
+        <svg id="did-viz" viewBox="0 0 900 480" xmlns="http://www.w3.org/2000/svg">
+
+          <!-- ========== DEFS ========== -->
+          <defs>
+            <marker id="arrow-dark" viewBox="0 0 10 10" refX="10" refY="5"
+                    markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 Z" fill="#444"/>
+            </marker>
+            <marker id="arrow-blue-end" viewBox="0 0 10 10" refX="10" refY="5"
+                    markerWidth="8" markerHeight="8" orient="auto">
+              <path d="M0,0 L10,5 L0,10 Z" fill="#0072B2"/>
+            </marker>
+            <marker id="arrow-blue-start" viewBox="0 0 10 10" refX="0" refY="5"
+                    markerWidth="8" markerHeight="8" orient="auto">
+              <path d="M10,0 L0,5 L10,10 Z" fill="#0072B2"/>
+            </marker>
+          </defs>
+
+          <!-- ========== STEP 1: Population Box ========== -->
+          <g id="pop-box" class="viz-group">
+            <rect x="325" y="8" width="250" height="48" rx="8" ry="8"
+                  fill="#f0f0ee" stroke="#555" stroke-width="2"/>
+            <text x="450" y="39" text-anchor="middle"
+                  font-family="EB Garamond, serif" font-size="20" fill="#1a1a1a">
+              Population
+            </text>
+          </g>
+
+          <!-- ========== STEP 2: Group boxes + split arrows ========== -->
+          <g id="groups" class="viz-group">
+            <!-- Arrow: population -> Treatment -->
+            <line x1="390" y1="56" x2="228" y2="82"
+                  stroke="#444" stroke-width="2" marker-end="url(#arrow-dark)"/>
+            <!-- Arrow: population -> Control -->
+            <line x1="510" y1="56" x2="672" y2="82"
+                  stroke="#444" stroke-width="2" marker-end="url(#arrow-dark)"/>
+
+            <!-- Treatment group box -->
+            <rect x="100" y="82" width="250" height="42" rx="6" ry="6"
+                  fill="rgba(0,158,115,0.08)" stroke="#009E73" stroke-width="2"/>
+            <text x="225" y="109" text-anchor="middle"
+                  font-family="EB Garamond, serif" font-size="18" fill="#009E73" font-weight="600">
+              Treatment Group
+            </text>
+
+            <!-- Control group box -->
+            <rect x="550" y="82" width="250" height="42" rx="6" ry="6"
+                  fill="rgba(213,94,0,0.08)" stroke="#D55E00" stroke-width="2"/>
+            <text x="675" y="109" text-anchor="middle"
+                  font-family="EB Garamond, serif" font-size="18" fill="#D55E00" font-weight="600">
+              Control Group
+            </text>
+          </g>
+
+          <!-- ========== STEP 3: Pre-treatment values + axis scaffolding ========== -->
+          <g id="pre-vals" class="viz-group">
+            <!-- Y-axis -->
+            <line x1="185" y1="155" x2="185" y2="400" stroke="#999" stroke-width="1.5"/>
+            <!-- Y-axis label -->
+            <text x="152" y="278" text-anchor="middle"
+                  font-family="EB Garamond, serif" font-size="15" fill="#4a4a4a"
+                  transform="rotate(-90,152,278)">
+              Outcome (Y)
+            </text>
+            <!-- Y-axis tick marks and labels -->
+            <!-- 10.0 -> y=344 -->
+            <line x1="180" y1="344" x2="190" y2="344" stroke="#999" stroke-width="1"/>
+            <text x="172" y="348" text-anchor="end"
+                  font-family="Source Code Pro, monospace" font-size="12" fill="#888">10</text>
+            <!-- 12.0 -> y=298 -->
+            <line x1="180" y1="298" x2="190" y2="298" stroke="#999" stroke-width="1"/>
+            <text x="172" y="302" text-anchor="end"
+                  font-family="Source Code Pro, monospace" font-size="12" fill="#888">12</text>
+            <!-- 14.0 -> y=252 -->
+            <line x1="180" y1="252" x2="190" y2="252" stroke="#999" stroke-width="1"/>
+            <text x="172" y="256" text-anchor="end"
+                  font-family="Source Code Pro, monospace" font-size="12" fill="#888">14</text>
+            <!-- 16.0 -> y=206 -->
+            <line x1="180" y1="206" x2="190" y2="206" stroke="#999" stroke-width="1"/>
+            <text x="172" y="210" text-anchor="end"
+                  font-family="Source Code Pro, monospace" font-size="12" fill="#888">16</text>
+
+            <!-- Horizontal time axis -->
+            <line x1="185" y1="400" x2="730" y2="400" stroke="#999" stroke-width="1.5"/>
+
+            <!-- Pre tick + label -->
+            <line x1="310" y1="395" x2="310" y2="405" stroke="#999" stroke-width="1.5"/>
+            <text x="310" y="424" text-anchor="middle"
+                  font-family="EB Garamond, serif" font-size="16" fill="#4a4a4a">
+              Pre-Treatment
+            </text>
+
+            <!-- Post tick + label (axis drawn now, dots later) -->
+            <line x1="620" y1="395" x2="620" y2="405" stroke="#999" stroke-width="1.5"/>
+            <text x="620" y="424" text-anchor="middle"
+                  font-family="EB Garamond, serif" font-size="16" fill="#4a4a4a">
+              Post-Treatment
+            </text>
+
+            <!-- Pre dashed vertical guide -->
+            <line x1="310" y1="390" x2="310" y2="160" stroke="#eee" stroke-width="1" stroke-dasharray="4,4"/>
+            <!-- Light horizontal grid lines -->
+            <line x1="185" y1="344" x2="720" y2="344" stroke="#f0f0f0" stroke-width="1"/>
+            <line x1="185" y1="298" x2="720" y2="298" stroke="#f0f0f0" stroke-width="1"/>
+            <line x1="185" y1="252" x2="720" y2="252" stroke="#f0f0f0" stroke-width="1"/>
+            <line x1="185" y1="206" x2="720" y2="206" stroke="#f0f0f0" stroke-width="1"/>
+
+            <!-- Treatment Pre dot: value=10.0, y=344 -->
+            <circle cx="310" cy="344" r="8" fill="#009E73"/>
+            <text x="310" y="325" text-anchor="middle"
+                  font-family="Source Code Pro, monospace" font-size="15" fill="#009E73" font-weight="500">
+              10.0
+            </text>
+
+            <!-- Control Pre dot: value=10.0, y=344 -->
+            <circle cx="310" cy="344" r="8" fill="#D55E00" stroke="white" stroke-width="2"/>
+            <!-- Offset control label to avoid overlap since both are at 10.0 -->
+            <text x="310" y="372" text-anchor="middle"
+                  font-family="Source Code Pro, monospace" font-size="15" fill="#D55E00" font-weight="500">
+              10.0
+            </text>
+
+            <!-- Legend for overlapping pre-period dots - moved slightly higher -->
+            <circle cx="240" cy="165" r="6" fill="#009E73"/>
+            <text x="250" y="169" text-anchor="start"
+                  font-family="EB Garamond, serif" font-size="14" fill="#009E73">Treatment</text>
+            <circle cx="340" cy="165" r="6" fill="#D55E00"/>
+            <text x="350" y="169" text-anchor="start"
+                  font-family="EB Garamond, serif" font-size="14" fill="#D55E00">Control</text>
+          </g>
+
+          <!-- ========== STEP 4: Post-treatment dots + values ========== -->
+          <g id="post-vals" class="viz-group">
+            <!-- Post dashed vertical guide -->
+            <line x1="620" y1="390" x2="620" y2="160" stroke="#eee" stroke-width="1" stroke-dasharray="4,4"/>
+
+            <!-- Treatment Post dot: value=15.6, y=390-(7.6*23)=390-174.8=215.2 -> y=215 -->
+            <circle cx="620" cy="215" r="8" fill="#009E73"/>
+            <text x="620" y="201" text-anchor="middle"
+                  font-family="Source Code Pro, monospace" font-size="15" fill="#009E73" font-weight="500">
+              15.6
+            </text>
+
+            <!-- Control Post dot: value=11.7, y=390-(3.7*23)=390-85.1=304.9 -> y=305 -->
+            <circle cx="620" cy="305" r="8" fill="#D55E00"/>
+            <text x="620" y="295" text-anchor="middle"
+                  font-family="Source Code Pro, monospace" font-size="15" fill="#D55E00" font-weight="500">
+              11.7
+            </text>
+          </g>
+
+          <!-- ========== STEP 5: Connecting lines (draw animation) ========== -->
+          <g id="conn-lines" class="viz-group">
+            <!-- Treatment line: (310,344) -> (620,215) — slopes up steeply -->
+            <line class="draw-line" x1="310" y1="344" x2="620" y2="215"
+                  stroke="#009E73" stroke-width="3" stroke-linecap="round"/>
+            <!-- Control line: (310,344) -> (620,305) — slopes up gently -->
+            <line class="draw-line" x1="310" y1="344" x2="620" y2="305"
+                  stroke="#D55E00" stroke-width="3" stroke-linecap="round"/>
+          </g>
+
+          <!-- ========== STEP 6: First differences ========== -->
+          <g id="first-diffs" class="viz-group">
+            <!-- Treatment change bracket on right side -->
+            <!-- Vertical bracket line next to treatment post -->
+            <line x1="740" y1="344" x2="740" y2="215" stroke="#009E73" stroke-width="2"/>
+            <line x1="735" y1="344" x2="745" y2="344" stroke="#009E73" stroke-width="2"/>
+            <line x1="735" y1="215" x2="745" y2="215" stroke="#009E73" stroke-width="2"/>
+            <text x="755" y="284" text-anchor="start"
+                  font-family="Source Code Pro, monospace" font-size="16" fill="#009E73" font-weight="500">
+              +5.6
+            </text>
+
+            <!-- Control change bracket on right side -->
+            <line x1="770" y1="344" x2="770" y2="305" stroke="#D55E00" stroke-width="2"/>
+            <line x1="765" y1="344" x2="775" y2="344" stroke="#D55E00" stroke-width="2"/>
+            <line x1="765" y1="305" x2="775" y2="305" stroke="#D55E00" stroke-width="2"/>
+            <text x="785" y="328" text-anchor="start"
+                  font-family="Source Code Pro, monospace" font-size="16" fill="#D55E00" font-weight="500">
+              +1.7
+            </text>
+          </g>
+
+          <!-- ========== STEP 7: DID result ========== -->
+          <g id="did-result" class="viz-group">
+            <rect x="260" y="444" width="380" height="32" rx="6" ry="6"
+                  fill="rgba(0,114,178,0.1)" stroke="#0072B2" stroke-width="1.5"/>
+            <text x="450" y="466" text-anchor="middle"
+                  font-family="Source Code Pro, monospace" font-size="17" fill="#0072B2" font-weight="500">
+              DID = 5.6 &#x2212; 1.7 = 3.9
+            </text>
+          </g>
+
+          <!-- ========== STEP 8: Counterfactual dashed line ========== -->
+          <!--
+            Counterfactual: if treatment followed control's trend (+1.7),
+            treatment post would be 11.7 => y=305 (same as control post).
+            Dashed line from treatment pre (310,344) to counterfactual (620,305).
+          -->
+          <g id="counterfactual" class="viz-group">
+            <line class="draw-line-cf" x1="310" y1="344" x2="620" y2="305"
+                  stroke="#009E73" stroke-width="2.5"/>
+            <!-- Counterfactual dot (hollow with dashed border) -->
+            <circle cx="620" cy="305" r="10" fill="rgba(0,158,115,0.1)"
+                    stroke="#009E73" stroke-width="2" stroke-dasharray="4,3"/>
+            <!-- Label - positioned lower to stay clear of the causal arrow area -->
+            <rect x="385" y="312" width="160" height="38" rx="4" fill="#FAFAF8" fill-opacity="0.92"/>
+            <text x="465" y="329" text-anchor="middle"
+                  font-family="EB Garamond, serif" font-size="14" fill="#009E73" font-style="italic">
+              counterfactual
+            </text>
+            <text x="465" y="344" text-anchor="middle"
+                  font-family="Source Code Pro, monospace" font-size="12" fill="#009E73" opacity="0.8">
+              (10.0 + 1.7 = 11.7)
+            </text>
+          </g>
+
+          <!-- ========== STEP 9: Causal effect arrow ========== -->
+          <!--
+            Double-headed blue arrow from counterfactual y=305 to treatment post y=215.
+            Placed at x=638 (slightly right of the dots to avoid overlap).
+          -->
+          <g id="causal-arrow" class="viz-group">
+            <line x1="638" y1="300" x2="638" y2="220"
+                  stroke="#0072B2" stroke-width="3"
+                  marker-start="url(#arrow-blue-start)" marker-end="url(#arrow-blue-end)"/>
+            <!-- Blue pill label for causal effect magnitude -->
+            <rect x="648" y="248" width="78" height="24" rx="4" ry="4"
+                  fill="#0072B2"/>
+            <text x="687" y="265" text-anchor="middle"
+                  font-family="Source Code Pro, monospace" font-size="14" fill="white" font-weight="500">
+              &#x03B4; = 3.9
+            </text>
+            <!-- Annotation above -->
+            <text x="687" y="243" text-anchor="middle"
+                  font-family="EB Garamond, serif" font-size="13" fill="#0072B2" font-weight="600">
+              Causal Effect
+            </text>
+          </g>
+
+        </svg>
+
+        <p class="step-indicator">Step <span id="current-step">1</span> of 9 &mdash; Press &#x2192; to advance</p>
+      </div>
+      <footer class="slide-footer">
+        <span class="slide-number" id="slide-number">7 / 22</span>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    class DIDSequence {
+      constructor() {
+        this.currentStep = 0;
+        this.totalSteps = 9;
+        this.svg = document.getElementById('did-viz');
+        this.stepIndicator = document.getElementById('current-step');
+
+        // Each entry lists the group IDs to newly reveal at that step
+        // showStep() cumulatively reveals all groups up to the current step
+        this.stepGroups = [
+          ['pop-box'],        // step 1
+          ['groups'],         // step 2
+          ['pre-vals'],       // step 3
+          ['post-vals'],      // step 4
+          ['conn-lines'],     // step 5
+          ['first-diffs'],    // step 6
+          ['did-result'],     // step 7
+          ['counterfactual'], // step 8
+          ['causal-arrow'],   // step 9
+        ];
+
+        this.allGroupIds = this.stepGroups.flat();
+        this.showStep(1);
+
+        document.addEventListener('keydown', (e) => this.handleKeydown(e));
+
+        // Click anywhere on the slide (except links/buttons) to advance
+        document.querySelector('.slide').addEventListener('click', (e) => {
+          if (!e.target.closest('a') && !e.target.closest('button') && !e.target.closest('.home-btn')) {
+            this.next();
+          }
+        });
+      }
+
+      handleKeydown(e) {
+        switch (e.key) {
+          case 'ArrowRight':
+          case ' ':
+          case 'Enter':
+            e.preventDefault();
+            this.next();
+            break;
+          case 'ArrowLeft':
+          case 'Backspace':
+            e.preventDefault();
+            this.prev();
+            break;
+          case 'Escape':
+            e.preventDefault();
+            window.location.href = 'index.html';
+            break;
+          case 'f':
+            e.preventDefault();
+            if (!document.fullscreenElement) {
+              document.documentElement.requestFullscreen();
+            } else {
+              document.exitFullscreen();
+            }
+            break;
+        }
+      }
+
+      next() {
+        if (this.currentStep < this.totalSteps) {
+          this.currentStep++;
+          this.showStep(this.currentStep);
+        } else {
+          window.location.href = 'slide-08.html';
+        }
+      }
+
+      prev() {
+        if (this.currentStep > 1) {
+          this.currentStep--;
+          this.showStep(this.currentStep);
+        } else {
+          window.location.href = 'slide-06.html';
+        }
+      }
+
+      showStep(step) {
+        // Hide all groups first
+        this.allGroupIds.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) {
+            el.classList.remove('visible');
+            // Also reset draw-line children
+            el.querySelectorAll('.draw-line, .draw-line-cf').forEach(line => {
+              line.classList.remove('visible');
+            });
+          }
+        });
+
+        // Show groups for current step and all previous steps (cumulative)
+        for (let i = 0; i < step; i++) {
+          this.stepGroups[i].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+              el.classList.add('visible');
+              // Trigger line-draw animations inside visible groups
+              el.querySelectorAll('.draw-line, .draw-line-cf').forEach(line => {
+                line.classList.add('visible');
+              });
+            }
+          });
+        }
+
+        this.stepIndicator.textContent = step;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      new DIDSequence();
+    });
+  </script>
+</body>
+</html>

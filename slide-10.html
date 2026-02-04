@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Each Coefficient Means</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="slide-container" data-current-slide="10" data-total-slides="22">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+
+      <h2>What Each Coefficient Means</h2>
+
+      <svg viewBox="0 0 900 400" width="900" height="400" style="display:block;margin:0.5rem auto;max-width:100%">
+        <!-- Axes -->
+        <line x1="100" y1="20" x2="100" y2="360" stroke="#333" stroke-width="2"/>
+        <line x1="100" y1="360" x2="850" y2="360" stroke="#333" stroke-width="2"/>
+
+        <!-- Y-axis label -->
+        <text x="30" y="200" text-anchor="middle" font-size="16" fill="#333" transform="rotate(-90,30,200)">Outcome Y</text>
+
+        <!-- X-axis tick labels -->
+        <text x="200" y="385" text-anchor="middle" font-size="16" fill="#333">Pre</text>
+        <text x="700" y="385" text-anchor="middle" font-size="16" fill="#333">Post</text>
+        <line x1="200" y1="355" x2="200" y2="365" stroke="#333" stroke-width="2"/>
+        <line x1="700" y1="355" x2="700" y2="365" stroke="#333" stroke-width="2"/>
+
+        <!-- Control group line (vermillion) -->
+        <line x1="200" y1="300" x2="700" y2="230" stroke="#D55E00" stroke-width="3"/>
+        <!-- Control dots -->
+        <circle cx="200" cy="300" r="6" fill="#D55E00"/>
+        <circle cx="700" cy="230" r="6" fill="#D55E00"/>
+        <text x="155" y="315" text-anchor="end" font-size="15" fill="#D55E00" font-weight="600">Control</text>
+
+        <!-- Treatment group line (green) -->
+        <line x1="200" y1="250" x2="700" y2="100" stroke="#009E73" stroke-width="3"/>
+        <!-- Treatment dots -->
+        <circle cx="200" cy="250" r="6" fill="#009E73"/>
+        <circle cx="700" cy="100" r="6" fill="#009E73"/>
+        <text x="155" y="255" text-anchor="end" font-size="15" fill="#009E73" font-weight="600">Treatment</text>
+
+        <!-- Counterfactual dashed line (green dashed) -->
+        <line x1="200" y1="250" x2="700" y2="180" stroke="#009E73" stroke-width="2" stroke-dasharray="8,6" opacity="0.5"/>
+        <circle cx="700" cy="180" r="5" fill="none" stroke="#009E73" stroke-width="2" stroke-dasharray="4,3"/>
+        <text x="740" y="185" font-size="13" fill="#009E73" opacity="0.7" font-style="italic">counterfactual</text>
+
+        <!-- beta_0 label: baseline at control pre -->
+        <text x="220" y="310" font-size="16" fill="#333" font-weight="600" font-family="'Source Code Pro',monospace">&beta;&#x2080;</text>
+        <!-- Arrow from axis to control pre -->
+        <line x1="130" y1="300" x2="190" y2="300" stroke="#333" stroke-width="1.5" marker-end="url(#arrowBlack)"/>
+
+        <!-- beta_1 label: gap between groups at pre -->
+        <line x1="180" y1="300" x2="180" y2="250" stroke="#333" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="150" y="280" font-size="16" fill="#333" font-weight="600" font-family="'Source Code Pro',monospace">&beta;&#x2081;</text>
+
+        <!-- beta_2 label: control group change (vertical arrow) -->
+        <line x1="730" y1="300" x2="730" y2="235" stroke="#D55E00" stroke-width="2" marker-end="url(#arrowVerm)"/>
+        <text x="755" y="270" font-size="16" fill="#D55E00" font-weight="600" font-family="'Source Code Pro',monospace">&beta;&#x2082;</text>
+
+        <!-- beta_3 label: extra treatment effect (blue arrow) -->
+        <line x1="700" y1="175" x2="700" y2="107" stroke="#0072B2" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+        <text x="668" y="145" font-size="18" fill="#0072B2" font-weight="700" font-family="'Source Code Pro',monospace">&beta;&#x2083;</text>
+
+        <!-- Arrow markers -->
+        <defs>
+          <marker id="arrowBlack" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <path d="M0,0 L8,3 L0,6 Z" fill="#333"/>
+          </marker>
+          <marker id="arrowVerm" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <path d="M0,0 L8,3 L0,6 Z" fill="#D55E00"/>
+          </marker>
+          <marker id="arrowBlue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <path d="M0,0 L8,3 L0,6 Z" fill="#0072B2"/>
+          </marker>
+        </defs>
+      </svg>
+
+      <footer class="slide-footer">
+        <span class="slide-number" id="slide-number">10 / 22</span>
+      </footer>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

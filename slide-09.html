@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DID as a Regression</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]});"></script>
+</head>
+<body>
+  <div class="slide-container" data-current-slide="9" data-total-slides="22">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+
+      <h2>DID as a Regression</h2>
+
+      <div style="background:#f0f0f0; padding:1.4rem 1.8rem; border-radius:10px; text-align:center; margin:1.2rem auto; max-width:860px;">
+        <p style="font-size:1.15em; margin:0;">
+          $$Y_{it} = \beta_0 + \beta_1 \cdot \color{#009E73}{\textit{Treat}_{i}} + \beta_2 \cdot \color{#D55E00}{\textit{Post}_{t}} + \color{#0072B2}{\boldsymbol{\beta_3}} \cdot (\color{#009E73}{\textit{Treat}_{i}} \times \color{#D55E00}{\textit{Post}_{t}}) + u_{it}$$
+        </p>
+      </div>
+
+      <div style="max-width:760px; margin:1.2rem auto; font-size:1.05rem; line-height:1.7">
+        <p class="fragment" style="margin:0.7rem 0">
+          \(\beta_0\) = baseline mean (control group, pre-period)
+        </p>
+        <p class="fragment" style="margin:0.7rem 0">
+          \(\beta_1\) = time-invariant difference between groups
+        </p>
+        <p class="fragment" style="margin:0.7rem 0">
+          \(\beta_2\) = common time trend (change for the control group)
+        </p>
+        <p class="fragment" style="margin:0.7rem 0; color:#0072B2; font-weight:700; font-size:1.1rem">
+          \(\boldsymbol{\beta_3}\) = the DID estimate &mdash; the <em>causal effect</em> of treatment!
+        </p>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number" id="slide-number">9 / 22</span>
+      </footer>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Selection Problem</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]});"></script>
+</head>
+<body>
+  <div class="slide-container" data-current-slide="4" data-total-slides="22">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+      <h2>The Selection Problem</h2>
+
+      <div class="fragment">
+        <p><strong>Naive comparison:</strong></p>
+        <p style="font-size: 1.2em; text-align: center; margin: 1rem 0;">
+          $$\mathbb{E}[Y \mid D=1] \;-\; \mathbb{E}[Y \mid D=0]$$
+        </p>
+      </div>
+
+      <div class="fragment">
+        <div style="padding: 1.5rem; margin: 1rem 0; text-align: center; background: #f8f8f6; border-radius: 8px; border: 1px solid #e0e0e0;">
+          <p style="font-size: 1.15em; line-height: 2; margin: 0;">
+            $$\mathbb{E}[Y|D\!=\!1] - \mathbb{E}[Y|D\!=\!0] \;=\; \underbrace{\color{#0072B2}{\text{ATT}}}_{\text{Causal effect}} \;+\; \underbrace{\color{#D55E00}{\mathbb{E}[Y(0)|D\!=\!1] - \mathbb{E}[Y(0)|D\!=\!0]}}_{\color{#D55E00}{\text{Selection bias}}}$$
+          </p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <p><strong>Selection bias</strong> arises because treated and control groups may differ <em>even without treatment</em>. People who choose treatment are often systematically different.</p>
+      </div>
+
+      <div class="fragment">
+        <p style="font-size: 1.15em; text-align: center; margin-top: 1.5rem;">
+          <strong>We need a strategy to eliminate selection bias&hellip;</strong>
+        </p>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number" id="slide-number">4 / 22</span>
+      </footer>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

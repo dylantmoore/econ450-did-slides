@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enter Difference-in-Differences</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]});"></script>
+</head>
+<body>
+  <div class="slide-container" data-current-slide="5" data-total-slides="22">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+      <h2>Enter Difference-in-Differences</h2>
+
+      <div class="fragment">
+        <p><strong>Key insight:</strong> Use a <em>second difference</em> (across time) to remove time-invariant selection bias</p>
+      </div>
+
+      <div class="fragment">
+        <div style="padding: 1.5rem; margin: 1.5rem auto; text-align: center; max-width: 90%; background: #f8f8f6; border-radius: 8px; border: 1px solid #e0e0e0;">
+          <p style="font-size: 1.15em; margin: 0;">
+            $$\text{DID} = \bigl(\color{#009E73}{Y_{\text{treat,post}}} - \color{#009E73}{Y_{\text{treat,pre}}}\bigr) \;-\; \bigl(\color{#D55E00}{Y_{\text{ctrl,post}}} - \color{#D55E00}{Y_{\text{ctrl,pre}}}\bigr)$$
+          </p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <p><strong>First difference:</strong> removes time-invariant characteristics of each group</p>
+      </div>
+
+      <div class="fragment">
+        <p><strong>Second difference:</strong> removes common time trends affecting both groups</p>
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #56B4E9; padding: 1rem 1.5rem; margin-top: 1rem; background: rgba(86, 180, 233, 0.08); border-radius: 4px;">
+          <p style="margin: 0;"><strong style="color: #56B4E9;">Critical assumption: Parallel trends</strong> &mdash; in the absence of treatment, both groups would have followed the same trajectory.</p>
+        </div>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number" id="slide-number">5 / 22</span>
+      </footer>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

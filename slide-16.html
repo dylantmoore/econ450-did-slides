@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Each Event Study Coefficient = One DID</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    /* ── Viz animation groups ── */
+    .viz-group {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+
+    .viz-group.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ── Pulsing highlight ring ── */
+    @keyframes pulseRing {
+      0% {
+        opacity: 0.7;
+        r: 11;
+      }
+
+      50% {
+        opacity: 0.3;
+        r: 16;
+      }
+
+      100% {
+        opacity: 0.7;
+        r: 11;
+      }
+    }
+
+    .highlight-ring {
+      fill: none;
+      stroke: #56B4E9;
+      stroke-width: 3;
+      animation: pulseRing 1.6s ease-in-out infinite;
+    }
+
+    /* ── Mini DID table (HTML overlay) ── */
+    .mini-table-wrap {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 62px;
+      width: 680px;
+    }
+
+    .mini-table-wrap table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .mini-table-wrap th,
+    .mini-table-wrap td {
+      padding: 5px 12px;
+      text-align: center;
+      border: 1px solid #ddd;
+      font-family: 'EB Garamond', Georgia, serif;
+    }
+
+    .mini-table-wrap th {
+      background: #eee;
+      font-weight: 600;
+      font-size: 0.78rem;
+    }
+
+    .mini-table-wrap .tbl-title {
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.88rem;
+      margin-bottom: 4px;
+      color: #0072B2;
+      font-family: 'EB Garamond', Georgia, serif;
+    }
+
+    .mini-table-wrap .mono {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.82rem;
+      background: none;
+      padding: 0;
+    }
+
+    .mini-table-wrap .did-row td {
+      font-weight: 700;
+      color: #0072B2;
+      border-top: 2px solid #0072B2;
+    }
+
+    .treatment-color {
+      color: #009E73;
+      font-weight: 600;
+    }
+
+    .control-color {
+      color: #D55E00;
+      font-weight: 600;
+    }
+
+    /* Reference note */
+    .ref-note {
+      text-align: center;
+      font-style: italic;
+      color: #4a4a4a;
+      font-size: 0.92rem;
+      font-family: 'EB Garamond', Georgia, serif;
+      line-height: 1.5;
+    }
+
+    /* Summary note */
+    .summary-note {
+      text-align: center;
+      color: #4a4a4a;
+      font-size: 0.88rem;
+      font-family: 'EB Garamond', Georgia, serif;
+      line-height: 1.5;
+    }
+
+    /* ── Big reveal text ── */
+    .big-reveal {
+      text-align: center;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #0072B2;
+      font-family: 'EB Garamond', Georgia, serif;
+      margin-top: 6px;
+    }
+
+    /* ── Step indicator ── */
+    .step-indicator {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.75rem;
+      color: #999;
+    }
+
+    /* SVG text defaults */
+    .svg-label {
+      font-family: 'EB Garamond', Georgia, serif;
+      fill: #1a1a1a;
+    }
+
+    .svg-mono {
+      font-family: 'Source Code Pro', monospace;
+      fill: #1a1a1a;
+    }
+
+    /* Muted pre-period dots */
+    .dot-muted {
+      opacity: 0.5;
+    }
+
+    /* Slide content area */
+    .viz-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container" data-current-slide="16" data-total-slides="24" data-prev-slide="slide-event-bad.html">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24">
+          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+        </svg>
+      </a>
+
+      <h2>Each Event Study Coefficient = One DID</h2>
+
+      <div class="viz-area">
+        <!-- ════════════════════════════════════════════ -->
+        <!--  SVG: Event Study Plot                      -->
+        <!-- ════════════════════════════════════════════ -->
+        <svg viewBox="0 0 900 340" width="100%" style="max-width:860px;display:block">
+          <defs>
+            <marker id="arrowR" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+              <path d="M0,0 L8,3 L0,6" fill="#333" />
+            </marker>
+          </defs>
+
+          <!-- ── Step 1: Axes ── -->
+          <g id="axes" class="viz-group">
+            <!-- Y-axis -->
+            <line x1="100" y1="20" x2="100" y2="280" stroke="#333" stroke-width="1.5" />
+            <!-- X-axis -->
+            <line x1="90" y1="270" x2="790" y2="270" stroke="#333" stroke-width="1.5" />
+            <!-- Zero-effect line -->
+            <line x1="100" y1="200" x2="790" y2="200" stroke="#999" stroke-width="1" stroke-dasharray="6,4" />
+            <!-- Treatment timing line -->
+            <line x1="400" y1="20" x2="400" y2="270" stroke="#999" stroke-width="1.2" stroke-dasharray="5,4" />
+
+            <!-- Y-axis label -->
+            <text x="28" y="160" class="svg-label" font-size="16" text-anchor="middle"
+              transform="rotate(-90,28,160)">Effect (&#x03B2;&#x2096;)</text>
+            <!-- Y-axis tick marks and values -->
+            <text x="88" y="204" class="svg-mono" font-size="12" text-anchor="end">0</text>
+            <line x1="94" y1="200" x2="100" y2="200" stroke="#333" stroke-width="1" />
+
+            <text x="88" y="154" class="svg-mono" font-size="12" text-anchor="end">2</text>
+            <line x1="94" y1="150" x2="100" y2="150" stroke="#333" stroke-width="1" />
+
+            <text x="88" y="104" class="svg-mono" font-size="12" text-anchor="end">4</text>
+            <line x1="94" y1="100" x2="100" y2="100" stroke="#333" stroke-width="1" />
+
+            <text x="88" y="54" class="svg-mono" font-size="12" text-anchor="end">6</text>
+            <line x1="94" y1="50" x2="100" y2="50" stroke="#333" stroke-width="1" />
+
+            <text x="88" y="254" class="svg-mono" font-size="12" text-anchor="end">-2</text>
+            <line x1="94" y1="250" x2="100" y2="250" stroke="#333" stroke-width="1" />
+
+            <!-- X-axis labels -->
+            <text x="150" y="292" class="svg-mono" font-size="13" text-anchor="middle">-3</text>
+            <text x="250" y="292" class="svg-mono" font-size="13" text-anchor="middle">-2</text>
+            <text x="350" y="292" class="svg-mono" font-size="13" text-anchor="middle">-1</text>
+            <text x="450" y="292" class="svg-mono" font-size="13" text-anchor="middle">0</text>
+            <text x="550" y="292" class="svg-mono" font-size="13" text-anchor="middle">+1</text>
+            <text x="650" y="292" class="svg-mono" font-size="13" text-anchor="middle">+2</text>
+            <text x="750" y="292" class="svg-mono" font-size="13" text-anchor="middle">+3</text>
+
+            <!-- X-axis tick marks -->
+            <line x1="150" y1="270" x2="150" y2="276" stroke="#333" stroke-width="1" />
+            <line x1="250" y1="270" x2="250" y2="276" stroke="#333" stroke-width="1" />
+            <line x1="350" y1="270" x2="350" y2="276" stroke="#333" stroke-width="1" />
+            <line x1="450" y1="270" x2="450" y2="276" stroke="#333" stroke-width="1" />
+            <line x1="550" y1="270" x2="550" y2="276" stroke="#333" stroke-width="1" />
+            <line x1="650" y1="270" x2="650" y2="276" stroke="#333" stroke-width="1" />
+            <line x1="750" y1="270" x2="750" y2="276" stroke="#333" stroke-width="1" />
+
+            <!-- X-axis title -->
+            <text x="445" y="318" class="svg-label" font-size="15" text-anchor="middle">Relative time (periods from
+              treatment)</text>
+
+            <!-- Region labels -->
+            <text x="250" y="15" class="svg-label" font-size="12" fill="#999" text-anchor="middle">Pre-treatment</text>
+            <text x="600" y="15" class="svg-label" font-size="12" fill="#999" text-anchor="middle">Post-treatment</text>
+          </g>
+
+          <!-- ── Step 2: t=-3 dot ── -->
+          <g id="dot-m3" class="viz-group">
+            <line x1="150" y1="230" x2="150" y2="155" stroke="#666" stroke-width="1.5" />
+            <line x1="144" y1="230" x2="156" y2="230" stroke="#666" stroke-width="1.5" />
+            <line x1="144" y1="155" x2="156" y2="155" stroke="#666" stroke-width="1.5" />
+            <circle cx="150" cy="193" r="5.5" fill="#666" />
+          </g>
+          <g id="highlight-m3" class="viz-group">
+            <circle cx="150" cy="193" class="highlight-ring" />
+          </g>
+
+          <!-- ── Step 3: t=-2 dot ── -->
+          <g id="dot-m2" class="viz-group">
+            <line x1="250" y1="235" x2="250" y2="175" stroke="#666" stroke-width="1.5" />
+            <line x1="244" y1="235" x2="256" y2="235" stroke="#666" stroke-width="1.5" />
+            <line x1="244" y1="175" x2="256" y2="175" stroke="#666" stroke-width="1.5" />
+            <circle cx="250" cy="205" r="5.5" fill="#666" />
+          </g>
+          <g id="highlight-m2" class="viz-group">
+            <circle cx="250" cy="205" class="highlight-ring" />
+          </g>
+
+          <!-- ── Step 4: t=-1 dot (reference) ── -->
+          <g id="dot-m1" class="viz-group">
+            <circle cx="350" cy="200" r="5.5" fill="none" stroke="#666" stroke-width="2" />
+          </g>
+          <g id="highlight-m1" class="viz-group">
+            <circle cx="350" cy="200" class="highlight-ring" />
+          </g>
+
+          <!-- ── Step 5: t=0 dot ── -->
+          <g id="dot-0" class="viz-group">
+            <line x1="450" y1="175" x2="450" y2="100" stroke="#0072B2" stroke-width="1.5" />
+            <line x1="444" y1="175" x2="456" y2="175" stroke="#0072B2" stroke-width="1.5" />
+            <line x1="444" y1="100" x2="456" y2="100" stroke="#0072B2" stroke-width="1.5" />
+            <circle cx="450" cy="138" r="5.5" fill="#0072B2" />
+          </g>
+          <g id="highlight-0" class="viz-group">
+            <circle cx="450" cy="138" class="highlight-ring" />
+          </g>
+
+          <!-- ── Step 6: post-treatment dots (t=+1,+2,+3) ── -->
+          <g id="dots-post" class="viz-group">
+            <!-- t=+1 -->
+            <line x1="550" y1="138" x2="550" y2="63" stroke="#0072B2" stroke-width="1.5" />
+            <line x1="544" y1="138" x2="556" y2="138" stroke="#0072B2" stroke-width="1.5" />
+            <line x1="544" y1="63" x2="556" y2="63" stroke="#0072B2" stroke-width="1.5" />
+            <circle cx="550" cy="100" r="5.5" fill="#0072B2" />
+            <!-- t=+2 -->
+            <line x1="650" y1="113" x2="650" y2="28" stroke="#0072B2" stroke-width="1.5" />
+            <line x1="644" y1="113" x2="656" y2="113" stroke="#0072B2" stroke-width="1.5" />
+            <line x1="644" y1="28" x2="656" y2="28" stroke="#0072B2" stroke-width="1.5" />
+            <circle cx="650" cy="70" r="5.5" fill="#0072B2" />
+            <!-- t=+3 -->
+            <line x1="750" y1="125" x2="750" y2="35" stroke="#0072B2" stroke-width="1.5" />
+            <line x1="744" y1="125" x2="756" y2="125" stroke="#0072B2" stroke-width="1.5" />
+            <line x1="744" y1="35" x2="756" y2="35" stroke="#0072B2" stroke-width="1.5" />
+            <circle cx="750" cy="80" r="5.5" fill="#0072B2" />
+          </g>
+          <g id="highlight-post" class="viz-group">
+            <circle cx="550" cy="100" class="highlight-ring" />
+            <circle cx="650" cy="70" class="highlight-ring" style="animation-delay:0.3s" />
+            <circle cx="750" cy="80" class="highlight-ring" style="animation-delay:0.6s" />
+          </g>
+
+          <!-- ── Step 7: full picture overlays ── -->
+          <!-- "all-dots" re-renders muted pre + post for final view -->
+          <g id="all-dots" class="viz-group">
+            <!-- muted pre-period: t=-3 -->
+            <line x1="150" y1="230" x2="150" y2="155" stroke="#999" stroke-width="1.2" opacity="0.55" />
+            <line x1="144" y1="230" x2="156" y2="230" stroke="#999" stroke-width="1.2" opacity="0.55" />
+            <line x1="144" y1="155" x2="156" y2="155" stroke="#999" stroke-width="1.2" opacity="0.55" />
+            <circle cx="150" cy="193" r="5" fill="#999" opacity="0.6" />
+            <!-- muted pre-period: t=-2 -->
+            <line x1="250" y1="235" x2="250" y2="175" stroke="#999" stroke-width="1.2" opacity="0.55" />
+            <line x1="244" y1="235" x2="256" y2="235" stroke="#999" stroke-width="1.2" opacity="0.55" />
+            <line x1="244" y1="175" x2="256" y2="175" stroke="#999" stroke-width="1.2" opacity="0.55" />
+            <circle cx="250" cy="205" r="5" fill="#999" opacity="0.6" />
+            <!-- reference t=-1 -->
+            <circle cx="350" cy="200" r="5" fill="none" stroke="#999" stroke-width="1.8" opacity="0.6" />
+            <!-- post-period (blue) t=0..+3 -->
+            <line x1="450" y1="175" x2="450" y2="100" stroke="#0072B2" stroke-width="1.5" />
+            <line x1="444" y1="175" x2="456" y2="175" stroke="#0072B2" stroke-width="1.5" />
+            <line x1="444" y1="100" x2="456" y2="100" stroke="#0072B2" stroke-width="1.5" />
+            <circle cx="450" cy="138" r="5.5" fill="#0072B2" />
+
+            <line x1="550" y1="138" x2="550" y2="63" stroke="#0072B2" stroke-width="1.5" />
+            <line x1="544" y1="138" x2="556" y2="138" stroke="#0072B2" stroke-width="1.5" />
+            <line x1="544" y1="63" x2="556" y2="63" stroke="#0072B2" stroke-width="1.5" />
+            <circle cx="550" cy="100" r="5.5" fill="#0072B2" />
+
+            <line x1="650" y1="113" x2="650" y2="28" stroke="#0072B2" stroke-width="1.5" />
+            <line x1="644" y1="113" x2="656" y2="113" stroke="#0072B2" stroke-width="1.5" />
+            <line x1="644" y1="28" x2="656" y2="28" stroke="#0072B2" stroke-width="1.5" />
+            <circle cx="650" cy="70" r="5.5" fill="#0072B2" />
+
+            <line x1="750" y1="125" x2="750" y2="35" stroke="#0072B2" stroke-width="1.5" />
+            <line x1="744" y1="125" x2="756" y2="125" stroke="#0072B2" stroke-width="1.5" />
+            <line x1="744" y1="35" x2="756" y2="35" stroke="#0072B2" stroke-width="1.5" />
+            <circle cx="750" cy="80" r="5.5" fill="#0072B2" />
+          </g>
+
+          <!-- Brackets for step 7 -->
+          <g id="brackets" class="viz-group">
+            <!-- Pre-period bracket -->
+            <path d="M135,235 L135,245 L365,245 L365,235" fill="none" stroke="#999" stroke-width="1.5" />
+            <text x="250" y="262" class="svg-label" font-size="12" fill="#999" text-anchor="middle"
+              font-style="italic">Pre-trends &#x2248; 0</text>
+            <!-- Post-period bracket -->
+            <path d="M435,235 L435,245 L765,245 L765,235" fill="none" stroke="#0072B2" stroke-width="1.5" />
+            <text x="600" y="262" class="svg-label" font-size="12" fill="#0072B2" text-anchor="middle"
+              font-weight="600">Treatment effects</text>
+          </g>
+        </svg>
+
+        <!-- ════════════════════════════════════════════ -->
+        <!--  Mini DID tables (HTML, absolutely placed)  -->
+        <!-- ════════════════════════════════════════════ -->
+
+        <!-- t = -3 -->
+        <div id="mini-table-m3" class="viz-group mini-table-wrap">
+          <div class="tbl-title">Period k = &minus;3</div>
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Reference (t*&minus;1)</th>
+                <th>Period k = &minus;3</th>
+                <th>Diff</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="treatment-color">Treatment</td>
+                <td class="mono">50.0</td>
+                <td class="mono">47.3</td>
+                <td class="mono">&minus;2.7</td>
+              </tr>
+              <tr>
+                <td class="control-color">Control</td>
+                <td class="mono">48.0</td>
+                <td class="mono">45.0</td>
+                <td class="mono">&minus;3.0</td>
+              </tr>
+              <tr class="did-row">
+                <td>DID</td>
+                <td></td>
+                <td></td>
+                <td class="mono">&minus;2.7 &minus; (&minus;3.0) = <strong>0.3</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- t = -2 -->
+        <div id="mini-table-m2" class="viz-group mini-table-wrap">
+          <div class="tbl-title">Period k = &minus;2</div>
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Reference (t*&minus;1)</th>
+                <th>Period k = &minus;2</th>
+                <th>Diff</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="treatment-color">Treatment</td>
+                <td class="mono">50.0</td>
+                <td class="mono">48.4</td>
+                <td class="mono">&minus;1.6</td>
+              </tr>
+              <tr>
+                <td class="control-color">Control</td>
+                <td class="mono">48.0</td>
+                <td class="mono">46.6</td>
+                <td class="mono">&minus;1.4</td>
+              </tr>
+              <tr class="did-row">
+                <td>DID</td>
+                <td></td>
+                <td></td>
+                <td class="mono">&minus;1.6 &minus; (&minus;1.4) = <strong>&minus;0.2</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- t = -1 (reference) -->
+        <div id="mini-table-m1" class="viz-group mini-table-wrap">
+          <p class="ref-note" style="margin-top:4px">
+            <strong>Reference period</strong> &mdash; normalized to zero.<br>
+            All other coefficients are measured relative to this period.
+          </p>
+        </div>
+
+        <!-- t = 0 -->
+        <div id="mini-table-0" class="viz-group mini-table-wrap">
+          <div class="tbl-title">Period k = 0 &nbsp;(treatment onset)</div>
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Reference (t*&minus;1)</th>
+                <th>Period k = 0</th>
+                <th>Diff</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="treatment-color">Treatment</td>
+                <td class="mono">50.0</td>
+                <td class="mono">54.5</td>
+                <td class="mono">+4.5</td>
+              </tr>
+              <tr>
+                <td class="control-color">Control</td>
+                <td class="mono">48.0</td>
+                <td class="mono">50.0</td>
+                <td class="mono">+2.0</td>
+              </tr>
+              <tr class="did-row">
+                <td>DID</td>
+                <td></td>
+                <td></td>
+                <td class="mono">4.5 &minus; 2.0 = <strong>2.5</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- t = +1,+2,+3 (post) -->
+        <div id="mini-table-post" class="viz-group mini-table-wrap">
+          <p class="summary-note">
+            <strong style="color:#0072B2">Post-treatment effects grow over time</strong><br>
+            <span class="mono" style="font-size:0.82rem">
+              &#x03B2;&#x2080; = 2.5 &nbsp;&rarr;&nbsp; &#x03B2;&#x2081; = 4.0 &nbsp;&rarr;&nbsp; &#x03B2;&#x2082; = 5.2
+              &nbsp;&rarr;&nbsp; &#x03B2;&#x2083; = 4.8
+            </span><br>
+            Each coefficient is its own 2&times;2 DID comparing that period to the reference.
+          </p>
+        </div>
+
+        <!-- Step 7: summary -->
+        <div id="summary" class="viz-group mini-table-wrap">
+          <p class="big-reveal">Each dot is its own DID!</p>
+        </div>
+
+      </div><!-- /viz-area -->
+
+      <footer class="slide-footer">
+        <span class="slide-number">16 / 22</span>
+        <span class="step-indicator">Step <span id="current-step">1</span> of 7 &mdash; Press &rarr; to advance</span>
+      </footer>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!--  Custom JS Controller                       -->
+  <!-- ════════════════════════════════════════════ -->
+  <script>
+    class EventStudyDIDSequence {
+      constructor() {
+        this.currentStep = 0;
+        this.totalSteps = 7;
+        this.stepIndicator = document.getElementById('current-step');
+
+        // Groups to SHOW at each step (cumulative)
+        this.stepGroups = [
+          ['axes'],                                          // step 1
+          ['dot-m3', 'highlight-m3', 'mini-table-m3'],      // step 2
+          ['dot-m2', 'highlight-m2', 'mini-table-m2'],      // step 3
+          ['dot-m1', 'highlight-m1', 'mini-table-m1'],      // step 4
+          ['dot-0', 'highlight-0', 'mini-table-0'],        // step 5
+          ['dots-post', 'highlight-post', 'mini-table-post'],// step 6
+          ['all-dots', 'brackets', 'summary'],               // step 7
+        ];
+
+        // Groups to HIDE at each step (to prevent stacking of tables/notes)
+        this.hideAtStep = {
+          3: ['highlight-m3', 'mini-table-m3'],
+          4: ['highlight-m3', 'mini-table-m3', 'highlight-m2', 'mini-table-m2'],
+          5: ['highlight-m3', 'mini-table-m3', 'highlight-m2', 'mini-table-m2', 'highlight-m1', 'mini-table-m1'],
+          6: ['highlight-m3', 'mini-table-m3', 'highlight-m2', 'mini-table-m2', 'highlight-m1', 'mini-table-m1', 'highlight-0', 'mini-table-0'],
+          7: ['highlight-post', 'mini-table-post',
+            'dot-m3', 'dot-m2', 'dot-m1', 'dot-0', 'dots-post',
+            'highlight-m3', 'highlight-m2', 'highlight-m1', 'highlight-0',
+            'mini-table-m3', 'mini-table-m2', 'mini-table-m1', 'mini-table-0'],
+        };
+
+        document.addEventListener('keydown', (e) => this.handleKeydown(e));
+        document.querySelector('.slide').addEventListener('click', (e) => {
+          if (!e.target.closest('a') && !e.target.closest('button') && !e.target.closest('.home-btn')) {
+            this.next();
+          }
+        });
+
+        this.showStep(1);
+      }
+
+      handleKeydown(e) {
+        switch (e.key) {
+          case 'ArrowRight': case ' ': case 'Enter':
+            e.preventDefault(); this.next(); break;
+          case 'ArrowLeft': case 'Backspace':
+            e.preventDefault(); this.prev(); break;
+          case 'Escape':
+            e.preventDefault(); window.location.href = 'index.html'; break;
+          case 'f':
+            e.preventDefault();
+            if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+            else document.exitFullscreen();
+            break;
+        }
+      }
+
+      next() {
+        if (this.currentStep < this.totalSteps) {
+          this.currentStep++;
+          this.showStep(this.currentStep);
+        } else {
+          window.location.href = 'slide-17.html';
+        }
+      }
+
+      prev() {
+        if (this.currentStep > 1) {
+          this.currentStep--;
+          this.showStep(this.currentStep);
+        } else {
+          const container = document.querySelector('.slide-container');
+          const prevSlide = container?.dataset.prevSlide || 'slide-event-bad.html';
+          window.location.href = prevSlide;
+        }
+      }
+
+      showStep(step) {
+        // Hide everything first
+        document.querySelectorAll('.viz-group').forEach(el => {
+          el.classList.remove('visible');
+          el.style.display = 'none'; // Ensure it's completely out of the flow/view
+        });
+
+        // Show groups for all steps up to current (cumulative)
+        for (let i = 0; i < step; i++) {
+          this.stepGroups[i].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+              el.classList.add('visible');
+              el.style.display = ''; // Restore display
+            }
+          });
+        }
+
+        // Hide groups that should be removed at this step
+        if (this.hideAtStep[step]) {
+          this.hideAtStep[step].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+              el.classList.remove('visible');
+              el.style.display = 'none';
+            }
+          });
+        }
+
+        this.stepIndicator.textContent = step;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => { new EventStudyDIDSequence(); });
+  </script>
+</body>
+
+</html>

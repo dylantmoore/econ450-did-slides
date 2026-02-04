@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Average Treatment Effects</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]});"></script>
+</head>
+<body>
+  <div class="slide-container" data-current-slide="3" data-total-slides="22">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+      <h2>Average Treatment Effects</h2>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #0072B2; padding: 1.2rem; margin-bottom: 1.5rem; background: rgba(0,114,178,0.04); border-radius: 4px;">
+          <p style="margin: 0 0 0.5rem 0;">
+            <strong style="color: #0072B2; font-size: 1.1em;">Average Treatment Effect (ATE)</strong>
+          </p>
+          <p style="font-size: 1.2em; text-align: center; margin: 0.8rem 0;">
+            $$\text{ATE} = \mathbb{E}\!\big[Y_i(1) - Y_i(0)\big]$$
+          </p>
+          <p style="margin: 0;">The average effect across the <strong>entire population</strong></p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #009E73; padding: 1.2rem; margin-bottom: 1.5rem; background: rgba(0,158,115,0.04); border-radius: 4px;">
+          <p style="margin: 0 0 0.5rem 0;">
+            <strong style="color: #009E73; font-size: 1.1em;">Average Treatment Effect on the Treated (ATT)</strong>
+          </p>
+          <p style="font-size: 1.2em; text-align: center; margin: 0.8rem 0;">
+            $$\text{ATT} = \mathbb{E}\!\big[Y_i(1) - Y_i(0) \;\big|\; D_i = 1\big]$$
+          </p>
+          <p style="margin: 0;">The average effect for those who <strong>actually received treatment</strong></p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="background: #56B4E9; color: #fff; padding: 1rem 1.5rem; border-radius: 8px; text-align: center; font-size: 1.1em;">
+          <strong>DID estimates the ATT</strong> &mdash; the effect for the treated group
+        </div>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number" id="slide-number">3 / 22</span>
+      </footer>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>
