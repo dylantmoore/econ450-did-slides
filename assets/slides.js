@@ -148,7 +148,45 @@ class SlidePresenter {
   }
 }
 
+// Lecture Notes Modal Controller
+class LectureNotesModal {
+  constructor() {
+    this.overlay = document.querySelector('.notes-overlay');
+    this.btn = document.querySelector('.lecture-notes-btn');
+    if (!this.overlay || !this.btn) return;
+
+    this.btn.addEventListener('click', () => this.open());
+    this.overlay.addEventListener('click', (e) => {
+      if (e.target === this.overlay) this.close();
+    });
+    const closeBtn = this.overlay.querySelector('.notes-close');
+    if (closeBtn) closeBtn.addEventListener('click', () => this.close());
+
+    // Capture-phase listener so it fires before custom slide handlers
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.isOpen()) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        this.close();
+      }
+    }, true);
+  }
+
+  isOpen() {
+    return this.overlay && this.overlay.classList.contains('open');
+  }
+
+  open() {
+    if (this.overlay) this.overlay.classList.add('open');
+  }
+
+  close() {
+    if (this.overlay) this.overlay.classList.remove('open');
+  }
+}
+
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   window.slidePresenter = new SlidePresenter();
+  window.lectureNotes = new LectureNotesModal();
 });

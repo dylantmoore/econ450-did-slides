@@ -48,6 +48,23 @@
         </div>
       </div>
 
+      <button class="lecture-notes-btn" title="Lecture Notes">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Lecture Notes
+      </button>
+      <div class="notes-overlay">
+        <div class="notes-modal">
+          <button class="notes-close">&times;</button>
+          <h3>Lecture Notes: ATE vs. ATT</h3>
+          <p>The \(\mathbb{E}[\cdot]\) notation just means "average." Don't be intimidated by it&mdash;just think of it as asking: what is the average value of the thing inside?</p>
+          <p><strong>In a randomized control trial</strong>, ATE and ATT are the same thing. Because treatment was assigned randomly, there is no meaningful distinction between the people who got treated and the general population.</p>
+          <p><strong>In a DID design</strong>, we can only estimate the ATT. Here is why: we build a counterfactual for the <em>treatment group</em> using the control group's trajectory. That tells us what would have happened to the treated group absent treatment. But we learn nothing about what the treatment effect would have been for the <em>control group</em> had they been treated.</p>
+          <div class="example-box">
+            To claim ATE = ATT, you would need to assume the treatment effect is the same for both groups. But there is no pre-treatment evidence that could support this&mdash;it is a fundamentally different kind of assumption from parallel trends.
+          </div>
+        </div>
+      </div>
+
       <footer class="slide-footer">
         <span class="slide-number" id="slide-number">3 / 22</span>
       </footer>

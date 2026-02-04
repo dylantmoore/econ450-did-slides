@@ -389,10 +389,124 @@ code, .mono {
   }
 }
 
+/* Lecture Notes Button */
+.lecture-notes-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+}
+
+.lecture-notes-btn:hover {
+  background: #005a8f;
+  transform: scale(1.05);
+}
+
+.lecture-notes-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+/* Lecture Notes Modal */
+.notes-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  justify-content: center;
+  align-items: center;
+}
+
+.notes-overlay.open {
+  display: flex;
+}
+
+.notes-modal {
+  background: #FAFAF8;
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  max-width: 680px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  position: relative;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.notes-modal h3 {
+  color: var(--accent-color);
+  font-size: 1.3rem;
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--accent-color);
+}
+
+.notes-modal p {
+  margin: 0.6rem 0;
+}
+
+.notes-modal ul {
+  margin: 0.5rem 0 0.5rem 1.5rem;
+}
+
+.notes-modal li {
+  margin-bottom: 0.3rem;
+}
+
+.notes-modal .example-box {
+  background: rgba(0, 114, 178, 0.06);
+  border-left: 3px solid var(--accent-color);
+  padding: 0.8rem 1rem;
+  border-radius: 4px;
+  margin: 0.8rem 0;
+  font-size: 0.95rem;
+}
+
+.notes-close {
+  position: absolute;
+  top: 0.8rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #999;
+  line-height: 1;
+  padding: 0.2rem 0.4rem;
+  transition: color 0.2s;
+}
+
+.notes-close:hover {
+  color: #333;
+}
+
 /* Print styles */
 @media print {
-  .nav-controls {
-    display: none;
+  .nav-controls,
+  .lecture-notes-btn,
+  .notes-overlay {
+    display: none !important;
   }
 
   .slide-container {

@@ -80,6 +80,23 @@
         <em>would have happened</em> to the treatment group.
       </p>
 
+      <button class="lecture-notes-btn" title="Lecture Notes">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Lecture Notes
+      </button>
+      <div class="notes-overlay">
+        <div class="notes-modal">
+          <button class="notes-close">&times;</button>
+          <h3>Lecture Notes: Building Confidence in Parallel Trends</h3>
+          <p>We can <strong>never prove</strong> that parallel trends holds. The assumption is about the post-treatment counterfactual&mdash;what <em>would have happened</em>&mdash;and we cannot observe that. We can only gather evidence that makes it more or less credible.</p>
+          <p><strong>Multiple pre-treatment periods</strong> are the most common way to build confidence. If the two groups moved in parallel for several periods before treatment, it is more plausible that they would have continued to do so. A single pre-treatment period is much less convincing.</p>
+          <div class="example-box">
+            <strong>Placebo tests</strong> offer another form of evidence. In the grocery store study, the researchers applied their DID method to the <em>control stores</em>&mdash;where they knew nothing happened&mdash;and showed it produced a treatment effect of zero. If the method works well in a setting where we know the answer, that gives us more confidence in settings where we do not.
+          </div>
+          <p>But pre-trends are not the only kind of evidence that matters. Researchers also tell a <strong>qualitative story</strong>: the stores were in the same neighborhood, sold the same products, served similar customers. This context is what really supports the assumption, not just a graph.</p>
+        </div>
+      </div>
+
       <footer class="slide-footer">
         <span class="slide-number" id="slide-number">11 / 22</span>
       </footer>

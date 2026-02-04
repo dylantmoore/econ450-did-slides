@@ -518,6 +518,23 @@
             style="font-family:var(--font-mono);">&rarr;</span> to advance</p>
       </div>
 
+      <button class="lecture-notes-btn" title="Lecture Notes">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Lecture Notes
+      </button>
+      <div class="notes-overlay">
+        <div class="notes-modal">
+          <button class="notes-close">&times;</button>
+          <h3>Lecture Notes: How the Event Study Is Built</h3>
+          <p>This animation shows exactly what happens when we construct an event study. In each step, we are performing a DID exercise&mdash;picking a reference period (typically <em>t</em> = &minus;1), and comparing the difference between treatment and control at every other time point to the difference at the reference.</p>
+          <p>The key insight: we take the raw data where the groups may have different levels, normalize them so they overlap at one point, and then the remaining gaps are the event study coefficients.</p>
+          <div class="example-box">
+            <strong>In the pre-treatment period:</strong> If the coefficients are near zero, that tells us the two groups were on parallel tracks before the treatment. This is the evidence we use to argue that the parallel trends assumption is plausible.<br><br>
+            <strong>In the post-treatment period:</strong> The coefficients tell us how much the treatment group diverged from what we would have expected based on the control group's trajectory. These are our treatment effect estimates.
+          </div>
+        </div>
+      </div>
+
       <footer class="slide-footer">
         <span class="slide-number" id="slide-number">19 / 22</span>
       </footer>

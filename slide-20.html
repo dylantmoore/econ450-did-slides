@@ -57,6 +57,23 @@
         </div>
       </div>
 
+      <button class="lecture-notes-btn" title="Lecture Notes">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Lecture Notes
+      </button>
+      <div class="notes-overlay">
+        <div class="notes-modal">
+          <button class="notes-close">&times;</button>
+          <h3>Lecture Notes: Don't Get Lost in the Equation</h3>
+          <p>This regression equation is just the formal version of what we already described graphically. You do not need to memorize the math&mdash;the important thing is to understand what the pieces mean intuitively.</p>
+          <p>The unit fixed effects (\(\alpha_i\)) handle the fact that treatment and control groups may have different baseline levels. The time fixed effects (\(\gamma_t\)) handle the fact that things change over time for everyone. What is left over&mdash;the \(\beta_k\) coefficients&mdash;capture how the treatment group deviates from the parallel trends prediction at each point in time.</p>
+          <div class="example-box">
+            <strong>Why exclude \(k = -1\)?</strong> We need a reference point. By omitting the period just before treatment, we force the event study plot to pass through zero at \(t = -1\). Everything else is measured relative to that moment. It is like setting a ruler's zero mark&mdash;you need to anchor the scale somewhere.
+          </div>
+          <p>In this class, we will focus more on the graphical intuition than on the regression mechanics. If you understand the event study plot, you understand what this regression is doing.</p>
+        </div>
+      </div>
+
       <footer class="slide-footer">
         <span class="slide-number" id="slide-number">20 / 22</span>
       </footer>

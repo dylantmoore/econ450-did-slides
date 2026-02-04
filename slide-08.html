@@ -52,6 +52,22 @@
         The DID is literally the difference of the two differences!
       </p>
 
+      <button class="lecture-notes-btn" title="Lecture Notes">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Lecture Notes
+      </button>
+      <div class="notes-overlay">
+        <div class="notes-modal">
+          <button class="notes-close">&times;</button>
+          <h3>Lecture Notes: Working Through the Numbers</h3>
+          <p>The DID calculation is straightforward: the treatment group went from 10.0 to 15.6 (a change of +5.6). The control group went from 10.0 to 11.7 (a change of +1.7). The second difference is 5.6 &minus; 1.7 = 3.9.</p>
+          <p>What does the 1.7 represent? It is what happened to the control group&mdash;and under the parallel trends assumption, it is what <em>would have happened</em> to the treatment group absent the policy. So we expected 11.7 for the treatment group, but we observed 15.6. The difference of 3.9 is our estimate of the causal effect.</p>
+          <div class="example-box">
+            <strong>On the exam:</strong> You will be given numbers and asked to compute the DID estimate. The arithmetic is the easy part. The harder (and more important) part will be: based on evidence presented, do you think the parallel trends assumption is reasonable? If not, what are the implications?
+          </div>
+        </div>
+      </div>
+
       <footer class="slide-footer">
         <span class="slide-number" id="slide-number">8 / 22</span>
       </footer>

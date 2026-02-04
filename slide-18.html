@@ -181,6 +181,23 @@
         If pre-treatment coefficients are significantly different from zero or show a trend, the parallel trends assumption is suspect.
       </div>
 
+      <button class="lecture-notes-btn" title="Lecture Notes">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Lecture Notes
+      </button>
+      <div class="notes-overlay">
+        <div class="notes-modal">
+          <button class="notes-close">&times;</button>
+          <h3>Lecture Notes: What to Do When Pre-Trends Are Imperfect</h3>
+          <p>Bad pre-trends do not always kill your analysis. They do mean you need to think much more carefully about what is going on.</p>
+          <p>Consider a case where the pre-treatment coefficients show a downward trend (the treatment group was falling relative to the control). If, after treatment, that trend <strong>suddenly reverses</strong>&mdash;now the treatment group starts gaining&mdash;that <em>change in trajectory</em> might itself be evidence of a causal effect.</p>
+          <div class="example-box">
+            Think of it this way: the simplest version of the parallel trends assumption says the difference between the two groups should be flat. But if it was trending downward before treatment and then suddenly trends upward, that reversal coinciding exactly with treatment is still a kind of "surprise." It is a more complicated story, and it requires more sophisticated methods to estimate the magnitude of the effect, but it is not necessarily a deal-breaker.
+          </div>
+          <p>The bad pre-trend story that <em>does</em> kill your analysis is the one on the left: an upward trend that just continues through the treatment period with no visible break. In that case, there is no surprise, and the post-treatment estimates are just a continuation of what was already happening.</p>
+        </div>
+      </div>
+
       <footer class="slide-footer">
         <span class="slide-number" id="slide-number">18 / 22</span>
       </footer>

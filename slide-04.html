@@ -43,6 +43,23 @@
         </p>
       </div>
 
+      <button class="lecture-notes-btn" title="Lecture Notes">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Lecture Notes
+      </button>
+      <div class="notes-overlay">
+        <div class="notes-modal">
+          <button class="notes-close">&times;</button>
+          <h3>Lecture Notes: Selection Bias in Practice</h3>
+          <p>Selection bias is what makes the naive comparison (treated vs. control outcomes) fail. Even without treatment, these groups may have had different outcomes.</p>
+          <div class="example-box">
+            <strong>Returns to education:</strong> If I compare people who went to college with people who did not, their earnings would have differed for many reasons besides college itself. People who attend college tend to have higher ability, more motivated families, better high school preparation, etc. The earnings gap includes both the causal effect of college <em>and</em> all these pre-existing differences.
+          </div>
+          <p>In the real world, treatment assignment often reflects <strong>political calculation</strong> and strategic decisions, not randomization. People lobby for policies that benefit their constituents. Special interest groups push for favorable treatment. So it is rarely random who ends up being treated by a policy.</p>
+          <p>This is exactly why we need a strategy&mdash;like DID&mdash;to separate the causal effect from these pre-existing differences.</p>
+        </div>
+      </div>
+
       <footer class="slide-footer">
         <span class="slide-number" id="slide-number">4 / 22</span>
       </footer>
