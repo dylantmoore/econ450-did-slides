@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-  <div class="slide-container" data-current-slide="10" data-total-slides="27" data-next-slide="slide-10b.html">
+  <div class="slide-container" data-current-slide="9" data-total-slides="25" data-prev-slide="slide-08.html" data-next-slide="slide-12c.html">
     <div class="slide">
       <a href="index.html" class="home-btn" title="Table of Contents">
         <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
@@ -79,26 +79,34 @@
         </defs>
       </svg>
 
-      <button class="lecture-notes-btn" title="Lecture Notes">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Lecture Notes
-      </button>
-      <div class="notes-overlay">
-        <div class="notes-modal">
-          <button class="notes-close">&times;</button>
-          <h3>Lecture Notes: Levels vs. Percentage Changes</h3>
-          <p>When the treatment and control groups start from <strong>different levels</strong>, there is an important subtlety: "parallel trends" in levels is not the same as "parallel trends" in percentage changes.</p>
-          <div class="example-box">
-            <strong>Example:</strong> Suppose the control group starts at 10 and goes to 20 (an increase of 10, or 100%). The treatment group starts at 20. Under parallel trends <em>in levels</em>, we expect the treatment group to also increase by 10 (to 30). Under parallel trends <em>in percentages</em>, we expect the treatment group to also increase by 100% (to 40). These give very different counterfactuals.
-          </div>
-          <p>When both groups start at the same level, the two definitions coincide&mdash;going up by 1.7 and going up by 17% give the same answer. But once the baselines differ, you get different answers depending on which assumption you make.</p>
-          <p>In practice, economists often default to assuming the <strong>percentage change</strong> version is more appropriate (which corresponds to taking logs of the outcome). But there is nothing automatic about this choice&mdash;you need context-specific reasoning about which assumption is more plausible.</p>
-        </div>
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s10-levels-vs-pct">Levels vs. Percentage Changes</button>
+        <button class="info-btn" data-dialog="dlg-s10-log-transform">The Log Transformation</button>
+        <button class="info-btn" data-dialog="dlg-s10-levels-visual">Visual: Levels vs. Percentages</button>
       </div>
 
       <footer class="slide-footer">
-        <span class="slide-number" id="slide-number">10 / 22</span>
+        <span class="slide-number" id="slide-number">9 / 25</span>
       </footer>
+      <template id="dlg-s10-levels-vs-pct" data-title="Levels vs. Percentage Changes">
+        <p>When the treatment and control groups start from <strong>different levels</strong>, there is an important subtlety: "parallel trends" in levels is not the same as "parallel trends" in percentage changes.</p>
+        <p><strong>Example:</strong> Suppose the control group starts at 10 and goes to 20 (an increase of 10, or 100%). The treatment group starts at 20. Under parallel trends <em>in levels</em>, we expect the treatment group to also increase by 10 (to 30). Under parallel trends <em>in percentages</em>, we expect the treatment group to also increase by 100% (to 40). These give very different counterfactuals.</p>
+        <p>When both groups start at the same level, the two definitions coincide&mdash;going up by 1.7 and going up by 17% give the same answer. But once the baselines differ, you get different answers depending on which assumption you make.</p>
+      </template>
+
+      <template id="dlg-s10-log-transform" data-title="The Log Transformation">
+        <p>In practice, economists often default to assuming the <strong>percentage change</strong> version is more appropriate (which corresponds to taking logs of the outcome). But there is nothing automatic about this choice&mdash;you need context-specific reasoning about which assumption is more plausible.</p>
+        <p>When researchers take the log of the outcome variable before running their regression, they are effectively assuming parallel trends in percentage terms. This is very common in applied work and is often the default.</p>
+        <p>The key point: <strong>there is nothing neutral here.</strong> Both assumptions are assumptions, and they give different answers. You need context-specific intuition about which one is more plausible.</p>
+      </template>
+
+      <template id="dlg-s10-levels-visual" data-title="Visual: Levels vs. Percentages">
+        <p>Consider the control going from 10 to 20. What is the treatment group's counterfactual if it starts at 20?</p>
+        <p><strong style="color:#0072B2">Parallel in levels (+10):</strong> The treatment counterfactual is 30.</p>
+        <p><strong style="color:#CC79A7">Parallel in percentage (&times;2):</strong> The treatment counterfactual is 40.</p>
+        <p>When both groups start at the <strong>same level</strong>, the two assumptions give identical answers. When they don't, you must choose. Taking <strong>logs</strong> = assuming parallel trends in percentages.</p>
+        <p>This subtlety only arises when the treatment and control groups have different starting levels. In most real-world applications, the groups do start at different levels, so you are making a choice&mdash;often implicitly&mdash;about which version of parallel trends to assume.</p>
+      </template>
     </div>
   </div>
   <script src="assets/slides.js"></script>

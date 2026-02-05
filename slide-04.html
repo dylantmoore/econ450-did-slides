@@ -11,7 +11,7 @@
     onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]});"></script>
 </head>
 <body>
-  <div class="slide-container" data-current-slide="4" data-total-slides="22">
+  <div class="slide-container" data-current-slide="3" data-total-slides="25" data-prev-slide="slide-02.html" data-next-slide="slide-03.html">
     <div class="slide">
       <a href="index.html" class="home-btn" title="Table of Contents">
         <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
@@ -43,26 +43,24 @@
         </p>
       </div>
 
-      <button class="lecture-notes-btn" title="Lecture Notes">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Lecture Notes
-      </button>
-      <div class="notes-overlay">
-        <div class="notes-modal">
-          <button class="notes-close">&times;</button>
-          <h3>Lecture Notes: Selection Bias in Practice</h3>
-          <p>Selection bias is what makes the naive comparison (treated vs. control outcomes) fail. Even without treatment, these groups may have had different outcomes.</p>
-          <div class="example-box">
-            <strong>Returns to education:</strong> If I compare people who went to college with people who did not, their earnings would have differed for many reasons besides college itself. People who attend college tend to have higher ability, more motivated families, better high school preparation, etc. The earnings gap includes both the causal effect of college <em>and</em> all these pre-existing differences.
-          </div>
-          <p>In the real world, treatment assignment often reflects <strong>political calculation</strong> and strategic decisions, not randomization. People lobby for policies that benefit their constituents. Special interest groups push for favorable treatment. So it is rarely random who ends up being treated by a policy.</p>
-          <p>This is exactly why we need a strategy&mdash;like DID&mdash;to separate the causal effect from these pre-existing differences.</p>
-        </div>
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s04-selection-bias">Selection Bias Explained</button>
+        <button class="info-btn" data-dialog="dlg-s04-education-example">Returns to Education Example</button>
       </div>
 
       <footer class="slide-footer">
-        <span class="slide-number" id="slide-number">4 / 22</span>
+        <span class="slide-number" id="slide-number">3 / 25</span>
       </footer>
+      <template id="dlg-s04-selection-bias" data-title="Selection Bias Explained">
+        <p>Selection bias is what makes the naive comparison (treated vs. control outcomes) fail. Even without treatment, these groups may have had different outcomes.</p>
+        <p>In the real world, treatment assignment often reflects <strong>political calculation</strong> and strategic decisions, not randomization. People lobby for policies that benefit their constituents. Special interest groups push for favorable treatment. So it is rarely random who ends up being treated by a policy.</p>
+        <p>This is exactly why we need a strategy&mdash;like DID&mdash;to separate the causal effect from these pre-existing differences.</p>
+      </template>
+
+      <template id="dlg-s04-education-example" data-title="Returns to Education Example">
+        <p><strong>Returns to education:</strong> If I compare people who went to college with people who did not, their earnings would have differed for many reasons besides college itself. People who attend college tend to have higher ability, more motivated families, better high school preparation, etc.</p>
+        <p>The earnings gap includes both the causal effect of college <em>and</em> all these pre-existing differences. This is selection bias in action.</p>
+      </template>
     </div>
   </div>
   <script src="assets/slides.js"></script>

@@ -57,7 +57,7 @@
   </style>
 </head>
 <body>
-  <div class="slide-container" data-current-slide="7" data-total-slides="22">
+  <div class="slide-container" data-current-slide="7" data-total-slides="25" data-prev-slide="slide-06.html" data-next-slide="slide-08.html">
     <div class="slide">
       <a href="index.html" class="home-btn" title="Table of Contents">
         <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
@@ -336,25 +336,24 @@
 
         <p class="step-indicator">Step <span id="current-step">1</span> of 9 &mdash; Press &#x2192; to advance</p>
       </div>
-      <button class="lecture-notes-btn" title="Lecture Notes">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Lecture Notes
-      </button>
-      <div class="notes-overlay">
-        <div class="notes-modal">
-          <button class="notes-close">&times;</button>
-          <h3>Lecture Notes: Even the "Easy" Case Needs Assumptions</h3>
-          <p>Even when both groups start from the same place&mdash;as in this example&mdash;you <strong>still</strong> need the parallel trends assumption. The fact that they overlap in the pre-treatment period is suggestive, but it does not prove that they would have continued to evolve similarly.</p>
-          <p>Whether the assumption is credible depends on <strong>context</strong>. Ask yourself: is there a good reason to believe these two groups would have evolved the same way?</p>
-          <div class="example-box">
-            <strong>The grocery store example:</strong> In a study of demand responses, the treatment store and control stores were in the same neighborhood, sold the same products, and had similar levels of demand. Knowing all this background information is what made the parallel trends assumption feel reasonable&mdash;not just the fact that their numbers looked similar in one pre-period.
-          </div>
-          <p>The counterfactual (dashed line) represents what we <em>assume</em> would have happened to the treatment group. It is constructed by applying the control group's growth rate to the treatment group's starting point. The gap between actual and counterfactual is our estimated treatment effect.</p>
-        </div>
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s07-assumptions">Why Same Start Isn't Enough</button>
+        <button class="info-btn" data-dialog="dlg-s07-counterfactual">How the Counterfactual Works</button>
       </div>
 
+      <template id="dlg-s07-assumptions" data-title="Why Same Start Isn't Enough">
+        <p>Even when both groups start from the same place&mdash;as in this example&mdash;you <strong>still</strong> need the parallel trends assumption. The fact that they overlap in the pre-treatment period is suggestive, but it does not prove that they would have continued to evolve similarly.</p>
+        <p>Whether the assumption is credible depends on <strong>context</strong>. Ask yourself: is there a good reason to believe these two groups would have evolved the same way?</p>
+        <p><strong>The grocery store example:</strong> In a study of demand responses, the treatment store and control stores were in the same neighborhood, sold the same products, and had similar levels of demand. Knowing all this background information is what made the parallel trends assumption feel reasonable&mdash;not just the fact that their numbers looked similar in one pre-period.</p>
+      </template>
+
+      <template id="dlg-s07-counterfactual" data-title="How the Counterfactual Works">
+        <p>The counterfactual (dashed line) represents what we <em>assume</em> would have happened to the treatment group. It is constructed by applying the control group's growth rate to the treatment group's starting point.</p>
+        <p>The gap between actual and counterfactual is our estimated treatment effect.</p>
+      </template>
+
       <footer class="slide-footer">
-        <span class="slide-number" id="slide-number">7 / 22</span>
+        <span class="slide-number" id="slide-number">7 / 25</span>
       </footer>
     </div>
   </div>

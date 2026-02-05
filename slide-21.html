@@ -33,7 +33,7 @@
   </style>
 </head>
 <body>
-  <div class="slide-container" data-current-slide="21" data-total-slides="22">
+  <div class="slide-container" data-current-slide="24" data-total-slides="25" data-prev-slide="slide-12b.html" data-next-slide="slide-22.html">
     <div class="slide">
       <a href="index.html" class="home-btn" title="Table of Contents">
         <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
@@ -67,24 +67,20 @@
         </div>
       </div>
 
-      <button class="lecture-notes-btn" title="Lecture Notes">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Lecture Notes
-      </button>
-      <div class="notes-overlay">
-        <div class="notes-modal">
-          <button class="notes-close">&times;</button>
-          <h3>Lecture Notes: Sample Size and Confidence</h3>
-          <p><strong>Does the treatment group need to be the same size as the control group?</strong> Not necessarily. Sample size asymmetry affects the <em>precision</em> of your estimates (the width of confidence intervals) but does not bias the point estimates themselves.</p>
-          <div class="example-box">
-            If the treatment group is small relative to the control group, your confidence intervals will be wider&mdash;it will be harder to distinguish the treatment effect from zero. But the estimated effect (the dots on the event study plot) will still be centered on the right answer, regardless of relative group sizes.
-          </div>
-          <p>Confidence intervals tell you about uncertainty. Wider intervals do not mean your estimate is wrong; they mean you have less information. This matters for statistical significance but not for the direction or magnitude of the point estimate.</p>
-        </div>
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s21-samplesize">Sample Size &amp; Confidence</button>
       </div>
 
+      <template id="dlg-s21-samplesize" data-title="Sample Size and Confidence">
+        <p><strong>Does the treatment group need to be the same size as the control group?</strong> Not necessarily. Sample size asymmetry affects the <em>precision</em> of your estimates (the width of confidence intervals) but does not bias the point estimates themselves.</p>
+        <div class="example-box">
+          If the treatment group is small relative to the control group, your confidence intervals will be wider&mdash;it will be harder to distinguish the treatment effect from zero. But the estimated effect (the dots on the event study plot) will still be centered on the right answer, regardless of relative group sizes.
+        </div>
+        <p>Confidence intervals tell you about uncertainty. Wider intervals do not mean your estimate is wrong; they mean you have less information. This matters for statistical significance but not for the direction or magnitude of the point estimate.</p>
+      </template>
+
       <footer class="slide-footer">
-        <span class="slide-number" id="slide-number">21 / 22</span>
+        <span class="slide-number" id="slide-number">24 / 25</span>
       </footer>
     </div>
   </div>

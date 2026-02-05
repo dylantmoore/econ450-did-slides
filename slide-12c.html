@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-  <div class="slide-container" data-current-slide="12" data-total-slides="28" data-prev-slide="slide-12.html" data-next-slide="slide-12b.html">
+  <div class="slide-container" data-current-slide="10" data-total-slides="25" data-prev-slide="slide-10.html" data-next-slide="slide-11.html">
     <div class="slide">
       <a href="index.html" class="home-btn" title="Table of Contents">
         <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
@@ -15,72 +15,110 @@
 
       <h2 style="font-size:1.7rem">&ldquo;No Causes In, No Causes Out&rdquo;</h2>
 
-      <p style="text-align:center; font-size:0.95rem; color:#666; margin:-0.3rem auto 1.2rem; font-style:italic;">
-        &mdash; Nancy Cartwright, philosopher of science
+      <p style="text-align:center; font-size:0.95rem; color:#666; margin:-0.3rem auto 0.5rem; font-style:italic;">
+        &mdash; Nancy Cartwright &mdash; but this is a <strong style="color:#D55E00;">logical fact</strong>, not merely her opinion
       </p>
 
-      <svg viewBox="0 0 820 220" width="820" height="220" style="display:block;margin:0 auto 0.8rem;max-width:100%">
-        <!-- LEFT BOX: Data alone -->
-        <rect x="20" y="30" width="220" height="160" rx="10" fill="#f5f5f3" stroke="#ccc" stroke-width="1.5"/>
-        <text x="130" y="75" text-anchor="middle" font-size="18" fill="#333" font-weight="700">Data alone</text>
-        <text x="130" y="105" text-anchor="middle" font-size="13" fill="#666">patterns, correlations,</text>
-        <text x="130" y="122" text-anchor="middle" font-size="13" fill="#666">associations</text>
-        <text x="130" y="160" text-anchor="middle" font-size="12" fill="#999" font-style="italic">descriptive, not causal</text>
-
-        <!-- PLUS SIGN -->
-        <text x="290" y="120" text-anchor="middle" font-size="32" fill="#0072B2" font-weight="700">+</text>
-
-        <!-- MIDDLE BOX: Causal assumptions -->
-        <rect x="330" y="30" width="220" height="160" rx="10" fill="rgba(0,114,178,0.07)" stroke="#0072B2" stroke-width="1.5"/>
-        <text x="440" y="68" text-anchor="middle" font-size="16" fill="#0072B2" font-weight="700">Causal</text>
-        <text x="440" y="88" text-anchor="middle" font-size="16" fill="#0072B2" font-weight="700">Assumptions</text>
-        <text x="440" y="118" text-anchor="middle" font-size="12" fill="#555">parallel trends,</text>
-        <text x="440" y="134" text-anchor="middle" font-size="12" fill="#555">exclusion restrictions,</text>
-        <text x="440" y="150" text-anchor="middle" font-size="12" fill="#555">exogeneity, ...</text>
-        <text x="440" y="175" text-anchor="middle" font-size="11" fill="#0072B2" font-style="italic">these are what you bring</text>
-
-        <!-- ARROW -->
-        <line x1="570" y1="110" x2="630" y2="110" stroke="#009E73" stroke-width="3" marker-end="url(#arrowGreen)"/>
+      <!-- ===== Central SVG diagram ===== -->
+      <svg viewBox="0 0 860 280" width="860" height="280" style="display:block;margin:0 auto 0.5rem;max-width:100%">
         <defs>
           <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
             <path d="M0,0 L10,3.5 L0,7 Z" fill="#009E73"/>
           </marker>
+          <marker id="arrowRed" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <path d="M0,0 L10,3.5 L0,7 Z" fill="#D55E00"/>
+          </marker>
         </defs>
 
-        <!-- RIGHT BOX: Causal inference -->
-        <rect x="640" y="50" width="160" height="120" rx="10" fill="rgba(0,158,115,0.08)" stroke="#009E73" stroke-width="2"/>
-        <text x="720" y="95" text-anchor="middle" font-size="17" fill="#009E73" font-weight="700">Causal</text>
-        <text x="720" y="118" text-anchor="middle" font-size="17" fill="#009E73" font-weight="700">Inference</text>
-        <text x="720" y="150" text-anchor="middle" font-size="11" fill="#009E73" font-style="italic">the goal</text>
+        <!-- DATA box (left) -->
+        <rect x="20" y="70" width="200" height="140" rx="10" fill="#f5f5f3" stroke="#999" stroke-width="1.5"/>
+        <text x="120" y="110" text-anchor="middle" font-size="19" fill="#333" font-weight="700">Data Alone</text>
+        <text x="120" y="136" text-anchor="middle" font-size="12.5" fill="#666">correlations, patterns,</text>
+        <text x="120" y="153" text-anchor="middle" font-size="12.5" fill="#666">associations, trends</text>
+        <text x="120" y="186" text-anchor="middle" font-size="11.5" fill="#999" font-style="italic">descriptive only</text>
+
+        <!-- DEAD-END path (top): Data alone --> X -->
+        <line x1="220" y1="110" x2="310" y2="50" stroke="#D55E00" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arrowRed)"/>
+        <!-- X mark -->
+        <circle cx="340" cy="38" r="22" fill="rgba(213,94,0,0.10)" stroke="#D55E00" stroke-width="2"/>
+        <text x="340" y="46" text-anchor="middle" font-size="22" fill="#D55E00" font-weight="700">&#x2717;</text>
+        <text x="400" y="30" text-anchor="start" font-size="12" fill="#D55E00" font-weight="600">No causal conclusions</text>
+        <text x="400" y="47" text-anchor="start" font-size="11" fill="#D55E00" font-style="italic">logically impossible</text>
+
+        <!-- PLUS sign -->
+        <text x="280" y="150" text-anchor="middle" font-size="36" fill="#0072B2" font-weight="700">+</text>
+
+        <!-- ASSUMPTIONS box (middle) -->
+        <rect x="320" y="80" width="220" height="120" rx="10" fill="rgba(0,114,178,0.07)" stroke="#0072B2" stroke-width="1.5"/>
+        <text x="430" y="112" text-anchor="middle" font-size="17" fill="#0072B2" font-weight="700">Causal Assumptions</text>
+        <text x="430" y="138" text-anchor="middle" font-size="12" fill="#555">parallel trends, exclusion</text>
+        <text x="430" y="155" text-anchor="middle" font-size="12" fill="#555">restrictions, randomization, ...</text>
+        <text x="430" y="185" text-anchor="middle" font-size="11" fill="#0072B2" font-style="italic">you must bring these in</text>
+
+        <!-- VALID-PATH arrow -->
+        <line x1="545" y1="140" x2="620" y2="140" stroke="#009E73" stroke-width="3" marker-end="url(#arrowGreen)"/>
+
+        <!-- CAUSAL INFERENCE box (right) -->
+        <rect x="630" y="90" width="200" height="100" rx="10" fill="rgba(0,158,115,0.09)" stroke="#009E73" stroke-width="2"/>
+        <text x="730" y="130" text-anchor="middle" font-size="18" fill="#009E73" font-weight="700">Causal</text>
+        <text x="730" y="155" text-anchor="middle" font-size="18" fill="#009E73" font-weight="700">Inference</text>
+
+        <!-- Bottom label: the logical equation -->
+        <text x="430" y="242" text-anchor="middle" font-size="14" fill="#333" font-weight="600">
+          ALL causal inference = Data + Assumptions
+        </text>
+        <text x="430" y="264" text-anchor="middle" font-size="12.5" fill="#555" font-style="italic">
+          The question is never &quot;do I have assumptions?&quot; &mdash; it&rsquo;s &quot;how credible are they?&quot;
+        </text>
       </svg>
 
-      <div class="fragment" style="max-width:780px; margin:0 auto; padding:0.8rem 1.2rem; background:rgba(0,114,178,0.06); border-left:4px solid #0072B2; border-radius:4px; font-size:1rem; line-height:1.6;">
-        There is no such thing as purely &ldquo;data-driven&rdquo; causal inference. Every causal claim combines <strong>data</strong> with <strong>assumptions</strong> that cannot themselves be tested with data alone.
+      <!-- Key takeaway callout -->
+      <div class="fragment" style="max-width:780px; margin:0 auto; padding:0.7rem 1.2rem; background:rgba(213,94,0,0.06); border-left:4px solid #D55E00; border-radius:4px; font-size:0.95rem; line-height:1.55;">
+        This is not a philosophical opinion. It is a <strong style="color:#D55E00;">logical impossibility</strong> to derive causal conclusions from data alone&mdash;just as you cannot derive an &ldquo;ought&rdquo; from an &ldquo;is.&rdquo; Even RCTs require assumptions (proper randomization, no attrition, compliance). The assumptions may be easy to believe, but they <em>still exist</em>.
       </div>
 
-      <p class="fragment" style="text-align:center; font-size:1rem; margin-top:0.6rem; max-width:780px; margin-left:auto; margin-right:auto; line-height:1.5;">
-        In DID, that assumption is <strong>parallel trends</strong>. So how do we build confidence in it?
+      <p class="fragment" style="text-align:center; font-size:0.95rem; margin-top:0.5rem; max-width:780px; margin-left:auto; margin-right:auto; line-height:1.5;">
+        In DID, the key assumption is <strong>parallel trends</strong>&mdash;a statement about an unobservable counterfactual that <em>no amount of data can directly verify</em>.
       </p>
 
-      <button class="lecture-notes-btn" title="Lecture Notes">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Lecture Notes
-      </button>
-      <div class="notes-overlay">
-        <div class="notes-modal">
-          <button class="notes-close">&times;</button>
-          <h3>Lecture Notes: Cartwright's Principle</h3>
-          <p>Nancy Cartwright is a philosopher of science who has written extensively about causal reasoning. Her phrase &ldquo;no causes in, no causes out&rdquo; captures a deep point: <strong>you cannot extract causal knowledge from a statistical procedure unless you feed causal assumptions into that procedure.</strong></p>
-          <p>This applies to every causal method in econometrics&mdash;DID, instrumental variables, regression discontinuity, randomized experiments. Even randomized experiments require the assumption that randomization was implemented correctly and that there is no attrition or noncompliance that violates the design.</p>
-          <div class="example-box">
-            <strong>Why this matters for DID:</strong> Students sometimes think that if the pre-trends look parallel, they have &ldquo;proven&rdquo; that the design works. But parallel pre-trends are <em>evidence in favor of</em> the assumption, not proof. The assumption is about what <em>would have happened</em>&mdash;a counterfactual&mdash;and no amount of data can directly verify a counterfactual.
-          </div>
-          <p>The right mindset is: causal inference is always a combination of data and judgment. Your job is to make the strongest case you can, knowing that certainty is not available.</p>
-        </div>
+      <!-- ===== Info buttons (new pattern) ===== -->
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-cartwright">Who is Nancy Cartwright?</button>
+        <button class="info-btn" data-dialog="dlg-rct-assumptions">Even RCTs Have Assumptions</button>
+        <button class="info-btn" data-dialog="dlg-did-assumptions">Assumptions in DID</button>
       </div>
 
+      <!-- ===== Dialog content (hidden templates) ===== -->
+      <template id="dlg-cartwright" data-title="Nancy Cartwright">
+        <p><strong>Nancy Cartwright</strong> is a philosopher of science at Durham University and UC San Diego. She has spent decades studying how causal claims are actually justified in the sciences.</p>
+        <p>Her phrase &ldquo;no causes in, no causes out&rdquo; is not a slogan or a personal stance&mdash;it captures a <strong>logical truth</strong>: statistical data describe patterns of association. To turn those patterns into causal statements, you must add assumptions that go beyond the data. No clever technique can bypass this requirement.</p>
+        <p>Think of it like deductive logic: if your premises contain no causal content, your conclusion cannot either. The machinery of econometrics does not manufacture causal knowledge out of thin air; it translates your causal assumptions into testable predictions.</p>
+      </template>
+
+      <template id="dlg-rct-assumptions" data-title="Even RCTs Have Assumptions">
+        <p>Randomized controlled trials are often called the &ldquo;gold standard,&rdquo; but even they rest on causal assumptions:</p>
+        <ul>
+          <li><strong>Proper randomization</strong> &mdash; the random assignment was actually implemented correctly and not compromised</li>
+          <li><strong>No systematic attrition</strong> &mdash; participants did not drop out in a way correlated with treatment</li>
+          <li><strong>Compliance</strong> &mdash; subjects in the treatment group actually received the treatment (and controls did not)</li>
+          <li><strong>SUTVA</strong> &mdash; one person&rsquo;s treatment does not affect another person&rsquo;s outcome (no spillovers)</li>
+        </ul>
+        <div class="example-box">
+          <strong>Key insight:</strong> In a well-run RCT these assumptions may be <em>trivially easy to believe</em>&mdash;but that does not mean they disappear. They are still there, doing the logical work that bridges data and causation. The difference between a good study and a bad one is not &ldquo;assumptions vs. no assumptions&rdquo;&mdash;it is <em>credible</em> assumptions vs. <em>incredible</em> ones.
+        </div>
+      </template>
+
+      <template id="dlg-did-assumptions" data-title="The Parallel Trends Assumption in DID">
+        <p>In difference-in-differences, the critical assumption is <strong>parallel trends</strong>: absent treatment, the treatment and control groups would have followed the same trajectory over time.</p>
+        <p>This is a statement about a <strong>counterfactual</strong>&mdash;something we can never directly observe. No amount of data can prove it, because it describes a world that did not happen.</p>
+        <div class="example-box">
+          <strong>What about pre-trends?</strong> Showing that the groups trended together <em>before</em> treatment is helpful evidence, but it is not proof. Pre-treatment parallel trends are <em>consistent with</em> the assumption, but the assumption is about what would have happened <em>after</em> treatment&mdash;and that path is inherently unobservable.
+        </div>
+        <p>Your job as a researcher is to make the strongest possible case for why parallel trends is credible in your setting, while being transparent that it is an assumption, not a fact you can demonstrate with data.</p>
+      </template>
+
       <footer class="slide-footer">
-        <span class="slide-number" id="slide-number">12c / 28</span>
+        <span class="slide-number" id="slide-number">10 / 25</span>
       </footer>
     </div>
   </div>

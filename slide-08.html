@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-  <div class="slide-container" data-current-slide="8" data-total-slides="22">
+  <div class="slide-container" data-current-slide="8" data-total-slides="25" data-prev-slide="slide-07.html" data-next-slide="slide-10.html">
     <div class="slide">
       <a href="index.html" class="home-btn" title="Table of Contents">
         <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
@@ -52,25 +52,35 @@
         The DID is literally the difference of the two differences!
       </p>
 
-      <button class="lecture-notes-btn" title="Lecture Notes">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Lecture Notes
-      </button>
-      <div class="notes-overlay">
-        <div class="notes-modal">
-          <button class="notes-close">&times;</button>
-          <h3>Lecture Notes: Working Through the Numbers</h3>
-          <p>The DID calculation is straightforward: the treatment group went from 10.0 to 15.6 (a change of +5.6). The control group went from 10.0 to 11.7 (a change of +1.7). The second difference is 5.6 &minus; 1.7 = 3.9.</p>
-          <p>What does the 1.7 represent? It is what happened to the control group&mdash;and under the parallel trends assumption, it is what <em>would have happened</em> to the treatment group absent the policy. So we expected 11.7 for the treatment group, but we observed 15.6. The difference of 3.9 is our estimate of the causal effect.</p>
-          <div class="example-box">
-            <strong>On the exam:</strong> You will be given numbers and asked to compute the DID estimate. The arithmetic is the easy part. The harder (and more important) part will be: based on evidence presented, do you think the parallel trends assumption is reasonable? If not, what are the implications?
-          </div>
-        </div>
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s08-numbers">Working Through the Numbers</button>
+        <button class="info-btn" data-dialog="dlg-s08-exam-tip">Exam Tip</button>
+        <button class="info-btn" data-dialog="dlg-s08-did-regression">The DID Regression</button>
       </div>
 
       <footer class="slide-footer">
-        <span class="slide-number" id="slide-number">8 / 22</span>
+        <span class="slide-number" id="slide-number">8 / 25</span>
       </footer>
+      <template id="dlg-s08-numbers" data-title="Working Through the Numbers">
+        <p>The DID calculation is straightforward: the treatment group went from 10.0 to 15.6 (a change of +5.6). The control group went from 10.0 to 11.7 (a change of +1.7). The second difference is 5.6 &minus; 1.7 = 3.9.</p>
+        <p>What does the 1.7 represent? It is what happened to the control group&mdash;and under the parallel trends assumption, it is what <em>would have happened</em> to the treatment group absent the policy. So we expected 11.7 for the treatment group, but we observed 15.6. The difference of 3.9 is our estimate of the causal effect.</p>
+      </template>
+
+      <template id="dlg-s08-exam-tip" data-title="Exam Tip">
+        <p><strong>On the exam:</strong> You will be given numbers and asked to compute the DID estimate. The arithmetic is the easy part.</p>
+        <p>The harder (and more important) part will be: based on evidence presented, do you think the parallel trends assumption is reasonable? If not, what are the implications?</p>
+      </template>
+
+      <template id="dlg-s08-did-regression" data-title="The DID Regression">
+        <p>We can express DID as a regression equation:</p>
+        <p style="font-size:1.1em;text-align:center;margin:1rem 0;font-family:'Source Code Pro',monospace">
+          Y<sub>it</sub> = &beta;<sub>0</sub> + &beta;<sub>1</sub> &middot; Treat<sub>i</sub> + &beta;<sub>2</sub> &middot; Post<sub>t</sub> + &beta;<sub>3</sub> &middot; (Treat<sub>i</sub> &times; Post<sub>t</sub>) + u<sub>it</sub>
+        </p>
+        <p>&beta;<sub>0</sub> = baseline mean (control group, pre-period)</p>
+        <p>&beta;<sub>1</sub> = time-invariant difference between groups</p>
+        <p>&beta;<sub>2</sub> = common time trend (change for the control group)</p>
+        <p><strong>&beta;<sub>3</sub> = the DID estimate &mdash; the causal effect of treatment!</strong></p>
+      </template>
     </div>
   </div>
   <script src="assets/slides.js"></script>

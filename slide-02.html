@@ -11,7 +11,7 @@
     onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]});"></script>
 </head>
 <body>
-  <div class="slide-container" data-current-slide="2" data-total-slides="22">
+  <div class="slide-container" data-current-slide="2" data-total-slides="25" data-prev-slide="slide-01.html" data-next-slide="slide-04.html">
     <div class="slide">
       <a href="index.html" class="home-btn" title="Table of Contents">
         <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
@@ -43,26 +43,24 @@
         </blockquote>
       </div>
 
-      <button class="lecture-notes-btn" title="Lecture Notes">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Lecture Notes
-      </button>
-      <div class="notes-overlay">
-        <div class="notes-modal">
-          <button class="notes-close">&times;</button>
-          <h3>Lecture Notes: The Fundamental Problem</h3>
-          <p>The potential outcomes framework describes possible worlds that <em>could have existed</em>. For any person or unit, there is a world where they received the treatment and a world where they did not.</p>
-          <p>The fundamental problem of causal inference is that <strong>the world can only unfold in one way</strong>. If you are in a pharmaceutical trial and I give you a pill tomorrow, I will never know what would have happened tomorrow if I had not given you the pill.</p>
-          <div class="example-box">
-            <strong>Key thought experiment:</strong> Even if I give you a placebo tomorrow and the real medication next week, I still cannot learn what would have happened had I given you the medication <em>tomorrow</em>. There is no way to rewind and replay history for the same individual.
-          </div>
-          <p>This is why we need assumptions. With randomized experiments, we can learn about <em>average</em> effects across groups, but we never defeat the fundamental problem for any single person.</p>
-        </div>
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s02-potential-outcomes">Potential Outcomes Framework</button>
+        <button class="info-btn" data-dialog="dlg-s02-thought-experiment">Thought Experiment</button>
       </div>
 
       <footer class="slide-footer">
-        <span class="slide-number" id="slide-number">2 / 22</span>
+        <span class="slide-number" id="slide-number">2 / 25</span>
       </footer>
+      <template id="dlg-s02-potential-outcomes" data-title="Potential Outcomes Framework">
+        <p>The potential outcomes framework describes possible worlds that <em>could have existed</em>. For any person or unit, there is a world where they received the treatment and a world where they did not.</p>
+        <p>The fundamental problem of causal inference is that <strong>the world can only unfold in one way</strong>. If you are in a pharmaceutical trial and I give you a pill tomorrow, I will never know what would have happened tomorrow if I had not given you the pill.</p>
+        <p>This is why we need assumptions. With randomized experiments, we can learn about <em>average</em> effects across groups, but we never defeat the fundamental problem for any single person.</p>
+      </template>
+
+      <template id="dlg-s02-thought-experiment" data-title="Thought Experiment">
+        <p><strong>Key thought experiment:</strong> Even if I give you a placebo tomorrow and the real medication next week, I still cannot learn what would have happened had I given you the medication <em>tomorrow</em>. There is no way to rewind and replay history for the same individual.</p>
+        <p>This illustrates why the fundamental problem is truly fundamental&mdash;no clever experimental design can reveal the individual-level counterfactual.</p>
+      </template>
     </div>
   </div>
   <script src="assets/slides.js"></script>

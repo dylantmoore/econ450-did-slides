@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-  <div class="slide-container" data-current-slide="12" data-total-slides="27" data-next-slide="slide-12c.html">
+  <div class="slide-container" data-current-slide="12" data-total-slides="25" data-prev-slide="slide-11.html" data-next-slide="slide-13.html">
     <div class="slide">
       <a href="index.html" class="home-btn" title="Table of Contents">
         <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
@@ -97,26 +97,23 @@
         Always check: Do the groups move in parallel <em>before</em> treatment?
       </p>
 
-      <button class="lecture-notes-btn" title="Lecture Notes">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Lecture Notes
-      </button>
-      <div class="notes-overlay">
-        <div class="notes-modal">
-          <button class="notes-close">&times;</button>
-          <h3>Lecture Notes: You Can See It Coming</h3>
-          <p>When parallel trends are violated, you can often <strong>see the violation in the pre-treatment data</strong>. If the treatment group was already diverging from the control group before treatment occurred, then continued divergence afterward is not surprising&mdash;and is not evidence of a causal effect.</p>
-          <p>This is why we look at pre-trends: if I can "predict" the post-treatment divergence just by extrapolating the pre-treatment pattern, then DID will <strong>overestimate</strong> (or misestimate) the treatment effect.</p>
-          <div class="example-box">
-            <strong>What we want to see is a "surprise."</strong> In the pre-treatment period, the two groups are evolving similarly. Then suddenly, right when treatment occurs, there is a break&mdash;an unexpected divergence. That break is what we interpret as the causal effect.
-          </div>
-          <p>In contrast, if the data shows a smooth continuation of a pre-existing trend through the treatment date, there is no "surprise" and DID is not credible.</p>
-        </div>
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s12-pre-trends">Reading Pre-Trends</button>
+        <button class="info-btn" data-dialog="dlg-s12-surprise">The "Surprise" Test</button>
       </div>
 
       <footer class="slide-footer">
-        <span class="slide-number" id="slide-number">12 / 22</span>
+        <span class="slide-number" id="slide-number">12 / 25</span>
       </footer>
+      <template id="dlg-s12-pre-trends" data-title="Reading Pre-Trends">
+        <p>When parallel trends are violated, you can often <strong>see the violation in the pre-treatment data</strong>. If the treatment group was already diverging from the control group before treatment occurred, then continued divergence afterward is not surprising&mdash;and is not evidence of a causal effect.</p>
+        <p>This is why we look at pre-trends: if I can "predict" the post-treatment divergence just by extrapolating the pre-treatment pattern, then DID will <strong>overestimate</strong> (or misestimate) the treatment effect.</p>
+      </template>
+
+      <template id="dlg-s12-surprise" data-title='The "Surprise" Test'>
+        <p><strong>What we want to see is a "surprise."</strong> In the pre-treatment period, the two groups are evolving similarly. Then suddenly, right when treatment occurs, there is a break&mdash;an unexpected divergence. That break is what we interpret as the causal effect.</p>
+        <p>In contrast, if the data shows a smooth continuation of a pre-existing trend through the treatment date, there is no "surprise" and DID is not credible.</p>
+      </template>
     </div>
   </div>
   <script src="assets/slides.js"></script>

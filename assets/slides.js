@@ -40,6 +40,10 @@ class SlidePresenter {
             e.target.closest('.home-btn')) {
           return;
         }
+        // Don't advance if info dialog is open
+        if (window.infoDialogs && window.infoDialogs.isOpen()) {
+          return;
+        }
         this.next();
       });
 
@@ -49,6 +53,11 @@ class SlidePresenter {
   }
 
   handleKeydown(e) {
+    // If info dialog is open, don't handle navigation keys
+    if (window.infoDialogs && window.infoDialogs.isOpen()) {
+      return;
+    }
+
     switch (e.key) {
       case 'ArrowRight':
       case ' ':
@@ -148,78 +157,88 @@ class SlidePresenter {
   }
 }
 
-// Lecture Notes Modal Controller
-class LectureNotesModal {
+/**
+ * Info Dialog Manager
+ * Shared overlay dialog triggered by inline .info-btn buttons.
+ * Replaces the old LectureNotesModal and DetailButtons classes.
+ */
+class InfoDialogManager {
   constructor() {
-    this.overlay = document.querySelector('.notes-overlay');
-    this.btn = document.querySelector('.lecture-notes-btn');
-    if (!this.overlay || !this.btn) return;
+    this.overlay = null;
+    this.init();
+  }
 
-    this.btn.addEventListener('click', () => this.open());
+  init() {
+    // Create shared overlay element
+    this.overlay = document.createElement('div');
+    this.overlay.className = 'info-dialog-overlay';
+    this.overlay.innerHTML = `
+      <div class="info-dialog">
+        <button class="close-btn" aria-label="Close">&times;</button>
+        <h3 class="dialog-title"></h3>
+        <div class="dialog-body"></div>
+      </div>
+    `;
+    document.body.appendChild(this.overlay);
+
+    // Close on overlay click (outside dialog) - MUST stopPropagation
     this.overlay.addEventListener('click', (e) => {
-      e.stopPropagation(); // Prevent click from bubbling to slide (which would advance)
+      e.stopPropagation();
       if (e.target === this.overlay) this.close();
     });
-    const closeBtn = this.overlay.querySelector('.notes-close');
-    if (closeBtn) closeBtn.addEventListener('click', () => this.close());
 
-    // Capture-phase listener so it fires before custom slide handlers
+    // Close on X button
+    this.overlay.querySelector('.close-btn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.close();
+    });
+
+    // Close on Escape
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && this.isOpen()) {
+      if (e.key === 'Escape' && this.overlay.classList.contains('open')) {
         e.preventDefault();
-        e.stopImmediatePropagation();
+        e.stopPropagation();
         this.close();
       }
-    }, true);
+    });
+
+    // Wire up all info buttons
+    document.querySelectorAll('.info-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const target = document.getElementById(btn.dataset.dialog);
+        if (target) {
+          this.open(
+            target.dataset.title || btn.textContent,
+            target.innerHTML
+          );
+        }
+      });
+    });
   }
 
   isOpen() {
     return this.overlay && this.overlay.classList.contains('open');
   }
 
-  open() {
-    if (this.overlay) this.overlay.classList.add('open');
+  open(title, bodyHtml) {
+    this.overlay.querySelector('.dialog-title').textContent = title;
+    const body = this.overlay.querySelector('.dialog-body');
+    body.innerHTML = bodyHtml;
+    this.overlay.classList.add('open');
+    // Re-render MathJax if available
+    if (window.MathJax) {
+      MathJax.typesetPromise([body]).catch(() => {});
+    }
   }
 
   close() {
-    if (this.overlay) this.overlay.classList.remove('open');
+    this.overlay.classList.remove('open');
   }
-}
-
-// Inline detail button handler (for slides with multiple detail popups)
-class DetailButtons {
-  constructor() {
-    this.activeOverlay = null;
-    document.querySelectorAll('.detail-btn[data-detail]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const id = btn.getAttribute('data-detail');
-        const overlay = document.getElementById(id);
-        if (overlay) this.open(overlay);
-      });
-    });
-    document.querySelectorAll('.notes-overlay').forEach(overlay => {
-      overlay.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent click from bubbling to slide (which would advance)
-        if (e.target === overlay) this.close();
-      });
-      const closeBtn = overlay.querySelector('.notes-close');
-      if (closeBtn) closeBtn.addEventListener('click', () => this.close());
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && this.activeOverlay) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        this.close();
-      }
-    }, true);
-  }
-  open(overlay) { this.activeOverlay = overlay; overlay.classList.add('open'); }
-  close() { if (this.activeOverlay) { this.activeOverlay.classList.remove('open'); this.activeOverlay = null; } }
 }
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   window.slidePresenter = new SlidePresenter();
-  window.lectureNotes = new LectureNotesModal();
-  window.detailButtons = new DetailButtons();
+  window.infoDialogs = new InfoDialogManager();
 });

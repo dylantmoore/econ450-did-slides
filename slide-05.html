@@ -11,7 +11,7 @@
     onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]});"></script>
 </head>
 <body>
-  <div class="slide-container" data-current-slide="5" data-total-slides="22">
+  <div class="slide-container" data-current-slide="5" data-total-slides="25" data-prev-slide="slide-03.html" data-next-slide="slide-06.html">
     <div class="slide">
       <a href="index.html" class="home-btn" title="Table of Contents">
         <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
@@ -44,26 +44,24 @@
         </div>
       </div>
 
-      <button class="lecture-notes-btn" title="Lecture Notes">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Lecture Notes
-      </button>
-      <div class="notes-overlay">
-        <div class="notes-modal">
-          <button class="notes-close">&times;</button>
-          <h3>Lecture Notes: Why DID Is So Important</h3>
-          <p>Difference-in-differences is arguably the <strong>workhorse of modern empirical economics</strong>, particularly for public policy questions. The reason is simple: we usually cannot randomly assign policies.</p>
-          <div class="example-box">
-            You cannot go to Congress and say: "Please randomly assign tax credits to some states but not others so we can learn what happens." Politicians would not think this is a great idea.
-          </div>
-          <p>Instead, different states and jurisdictions adopt different policies at different times. DID exploits this natural variation by comparing places that adopted a policy to places that did not, before and after adoption.</p>
-          <p>The key assumption&mdash;parallel trends&mdash;says that in the absence of treatment, both groups would have changed at the same rate. This is not about having the same <em>level</em> of the outcome (they can start from very different places). It is about having the same <em>trajectory</em>.</p>
-        </div>
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s05-why-did">Why DID Is So Important</button>
+        <button class="info-btn" data-dialog="dlg-s05-parallel-trends">Parallel Trends Intuition</button>
       </div>
 
       <footer class="slide-footer">
-        <span class="slide-number" id="slide-number">5 / 22</span>
+        <span class="slide-number" id="slide-number">5 / 25</span>
       </footer>
+      <template id="dlg-s05-why-did" data-title="Why DID Is So Important">
+        <p>Difference-in-differences is arguably the <strong>workhorse of modern empirical economics</strong>, particularly for public policy questions. The reason is simple: we usually cannot randomly assign policies.</p>
+        <p>You cannot go to Congress and say: "Please randomly assign tax credits to some states but not others so we can learn what happens." Politicians would not think this is a great idea.</p>
+        <p>Instead, different states and jurisdictions adopt different policies at different times. DID exploits this natural variation by comparing places that adopted a policy to places that did not, before and after adoption.</p>
+      </template>
+
+      <template id="dlg-s05-parallel-trends" data-title="Parallel Trends Intuition">
+        <p>The key assumption&mdash;parallel trends&mdash;says that in the absence of treatment, both groups would have changed at the same rate.</p>
+        <p>This is not about having the same <em>level</em> of the outcome (they can start from very different places). It is about having the same <em>trajectory</em>.</p>
+      </template>
     </div>
   </div>
   <script src="assets/slides.js"></script>

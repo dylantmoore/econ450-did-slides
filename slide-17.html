@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-  <div class="slide-container" data-current-slide="17" data-total-slides="22">
+  <div class="slide-container" data-current-slide="18" data-total-slides="25" data-prev-slide="slide-19.html" data-next-slide="slide-16.html">
     <div class="slide">
       <a href="index.html" class="home-btn" title="Table of Contents">
         <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
@@ -164,25 +164,27 @@
         </svg>
       </div>
 
-      <button class="lecture-notes-btn" title="Lecture Notes">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Lecture Notes
-      </button>
-      <div class="notes-overlay">
-        <div class="notes-modal">
-          <button class="notes-close">&times;</button>
-          <h3>Lecture Notes: Reading the "Surprise"</h3>
-          <p>When you look at an event study plot, think of it as looking for a <strong>surprise</strong>. The pre-treatment coefficients establish a baseline: in these two groups, the difference in outcomes was roughly constant (near zero relative to the reference). Then suddenly, at the moment of treatment, something changes.</p>
-          <p>If I see zeros in the pre-period and then positive numbers in the post-period, that is the surprise&mdash;and it is what we interpret as a causal effect, provided we trust the parallel trends assumption.</p>
-          <div class="example-box">
-            <strong>Confidence intervals matter too:</strong> People sometimes say "as long as the confidence intervals overlap with zero in the pre-period, parallel trends holds." This is a useful shorthand but is not quite right formally. Still, it is the basic idea&mdash;you want to see that the pre-treatment estimates are statistically indistinguishable from zero.
-          </div>
-          <p><strong>Bouncing post-treatment effects</strong> (positive one year, negative the next) usually indicate one of two things: (1) there is genuinely no treatment effect, or (2) your sample is too small and you lack the statistical power to detect an effect. Wide confidence intervals alongside bouncing point estimates are a telltale sign of low power.</p>
-        </div>
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s17-surprise">Reading the "Surprise"</button>
+        <button class="info-btn" data-dialog="dlg-s17-ci">Confidence Intervals</button>
+        <button class="info-btn" data-dialog="dlg-s17-bouncing">Bouncing Effects</button>
       </div>
 
+      <template id="dlg-s17-surprise" data-title="Reading the &ldquo;Surprise&rdquo;">
+        <p>When you look at an event study plot, think of it as looking for a <strong>surprise</strong>. The pre-treatment coefficients establish a baseline: in these two groups, the difference in outcomes was roughly constant (near zero relative to the reference). Then suddenly, at the moment of treatment, something changes.</p>
+        <p>If you see zeros in the pre-period and then positive numbers in the post-period, that is the surprise&mdash;and it is what we interpret as a causal effect, provided we trust the parallel trends assumption.</p>
+      </template>
+
+      <template id="dlg-s17-ci" data-title="Confidence Intervals in Pre-Trends">
+        <p>People sometimes say &ldquo;as long as the confidence intervals overlap with zero in the pre-period, parallel trends holds.&rdquo; This is a useful shorthand but is not quite right formally. Still, it is the basic idea&mdash;you want to see that the pre-treatment estimates are statistically indistinguishable from zero.</p>
+      </template>
+
+      <template id="dlg-s17-bouncing" data-title="Bouncing Post-Treatment Effects">
+        <p><strong>Bouncing post-treatment effects</strong> (positive one year, negative the next) usually indicate one of two things: (1) there is genuinely no treatment effect, or (2) your sample is too small and you lack the statistical power to detect an effect. Wide confidence intervals alongside bouncing point estimates are a telltale sign of low power.</p>
+      </template>
+
       <footer class="slide-footer">
-        <span class="slide-number" id="slide-number">17 / 22</span>
+        <span class="slide-number" id="slide-number">18 / 25</span>
       </footer>
     </div>
   </div>

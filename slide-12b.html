@@ -35,7 +35,7 @@
   </style>
 </head>
 <body>
-  <div class="slide-container" data-current-slide="12" data-total-slides="28" data-prev-slide="slide-12c.html" data-next-slide="slide-13.html">
+  <div class="slide-container" data-current-slide="23" data-total-slides="25" data-prev-slide="slide-19b.html" data-next-slide="slide-21.html">
     <div class="slide">
       <a href="index.html" class="home-btn" title="Table of Contents">
         <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
@@ -53,170 +53,126 @@
         <div class="evidence-card" style="border-left:4px solid #009E73;">
           <h3 style="color:#009E73;">Placebo Tests</h3>
           <p>Apply the DID method where you <em>know</em> the effect should be zero. If you get zero, your method seems to work in this context.</p>
-          <button class="detail-btn" data-detail="detail-placebo">More Detail</button>
+          <button class="info-btn" data-dialog="dlg-s12b-placebo">More Detail</button>
         </div>
 
         <!-- Card 2: Contextual / Qualitative Evidence -->
         <div class="evidence-card" style="border-left:4px solid #0072B2;">
           <h3 style="color:#0072B2;">Context &amp; Qualitative Evidence</h3>
           <p>Tell a story about <em>why</em> you believe the two groups would have evolved similarly. Institutional details matter.</p>
-          <button class="detail-btn" data-detail="detail-context">More Detail</button>
+          <button class="info-btn" data-dialog="dlg-s12b-context">More Detail</button>
         </div>
 
         <!-- Card 3: Bouncing Post-Treatment Effects -->
         <div class="evidence-card" style="border-left:4px solid #D55E00;">
           <h3 style="color:#D55E00;">Bouncing Post-Treatment Effects</h3>
           <p>If effects flip between positive and negative after treatment&mdash;even significant ones&mdash;be suspicious unless you have a good explanation.</p>
-          <button class="detail-btn" data-detail="detail-bouncing">More Detail</button>
+          <button class="info-btn" data-dialog="dlg-s12b-bouncing">More Detail</button>
         </div>
 
         <!-- Card 4: Change in Trajectory -->
         <div class="evidence-card" style="border-left:4px solid #CC79A7;">
           <h3 style="color:#CC79A7;">Change in Trajectory</h3>
           <p>Even imperfect pre-trends might be okay if there is a clear <em>break</em> at the moment of treatment.</p>
-          <button class="detail-btn" data-detail="detail-trajectory">More Detail</button>
+          <button class="info-btn" data-dialog="dlg-s12b-trajectory">More Detail</button>
         </div>
       </div>
 
-      <!-- Placebo Tests Detail Modal -->
-      <div class="notes-overlay" id="detail-placebo">
-        <div class="notes-modal">
-          <button class="notes-close">&times;</button>
-          <h3>Placebo Tests</h3>
-          <p>A placebo test asks: if I apply my method to a situation where I <em>know</em> nothing happened, do I correctly find zero?</p>
-          <svg viewBox="0 0 500 180" width="500" height="180" style="display:block;margin:0.8rem auto;max-width:100%;font-family:'Segoe UI',system-ui,sans-serif;">
-            <rect x="0" y="0" width="500" height="180" fill="#fafafa" rx="6"/>
-            <!-- Axes -->
-            <line x1="60" y1="10" x2="60" y2="145" stroke="#333" stroke-width="1"/>
-            <line x1="60" y1="145" x2="460" y2="145" stroke="#333" stroke-width="1"/>
-            <!-- Zero line -->
-            <line x1="60" y1="85" x2="460" y2="85" stroke="#333" stroke-width="0.8" stroke-dasharray="4,3"/>
-            <!-- Treatment line -->
-            <line x1="260" y1="15" x2="260" y2="140" stroke="#999" stroke-width="1" stroke-dasharray="4,3"/>
-            <text x="260" y="12" text-anchor="middle" fill="#999" font-size="9" font-style="italic">Treatment</text>
-            <!-- Points near zero everywhere -->
-            <circle cx="120" cy="88" r="4" fill="#009E73"/>
-            <circle cx="190" cy="82" r="4" fill="#009E73"/>
-            <circle cx="260" cy="85" r="5" fill="none" stroke="#009E73" stroke-width="2"/>
-            <circle cx="330" cy="83" r="4" fill="#009E73"/>
-            <circle cx="400" cy="87" r="4" fill="#009E73"/>
-            <!-- CIs -->
-            <line x1="120" y1="68" x2="120" y2="108" stroke="#009E73" stroke-width="1.5"/>
-            <line x1="190" y1="62" x2="190" y2="102" stroke="#009E73" stroke-width="1.5"/>
-            <line x1="330" y1="63" x2="330" y2="103" stroke="#009E73" stroke-width="1.5"/>
-            <line x1="400" y1="67" x2="400" y2="107" stroke="#009E73" stroke-width="1.5"/>
-            <!-- Label -->
-            <text x="260" y="170" text-anchor="middle" fill="#009E73" font-size="11" font-weight="600">All coefficients near zero = method works here</text>
-          </svg>
-          <div class="example-box">
-            <strong>Grocery store example:</strong> The researchers applied their DID method to the <em>control stores</em>&mdash;where no price change occurred&mdash;and showed that the estimated effect was zero. This is a placebo test: if the method works where nothing happened, we have more confidence it works where something did happen.
-          </div>
+      <template id="dlg-s12b-placebo" data-title="Placebo Tests">
+        <p>A placebo test asks: if I apply my method to a situation where I <em>know</em> nothing happened, do I correctly find zero?</p>
+        <svg viewBox="0 0 500 180" width="500" height="180" style="display:block;margin:0.8rem auto;max-width:100%;font-family:'Segoe UI',system-ui,sans-serif;">
+          <rect x="0" y="0" width="500" height="180" fill="#fafafa" rx="6"/>
+          <line x1="60" y1="10" x2="60" y2="145" stroke="#333" stroke-width="1"/>
+          <line x1="60" y1="145" x2="460" y2="145" stroke="#333" stroke-width="1"/>
+          <line x1="60" y1="85" x2="460" y2="85" stroke="#333" stroke-width="0.8" stroke-dasharray="4,3"/>
+          <line x1="260" y1="15" x2="260" y2="140" stroke="#999" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="260" y="12" text-anchor="middle" fill="#999" font-size="9" font-style="italic">Treatment</text>
+          <circle cx="120" cy="88" r="4" fill="#009E73"/>
+          <circle cx="190" cy="82" r="4" fill="#009E73"/>
+          <circle cx="260" cy="85" r="5" fill="none" stroke="#009E73" stroke-width="2"/>
+          <circle cx="330" cy="83" r="4" fill="#009E73"/>
+          <circle cx="400" cy="87" r="4" fill="#009E73"/>
+          <line x1="120" y1="68" x2="120" y2="108" stroke="#009E73" stroke-width="1.5"/>
+          <line x1="190" y1="62" x2="190" y2="102" stroke="#009E73" stroke-width="1.5"/>
+          <line x1="330" y1="63" x2="330" y2="103" stroke="#009E73" stroke-width="1.5"/>
+          <line x1="400" y1="67" x2="400" y2="107" stroke="#009E73" stroke-width="1.5"/>
+          <text x="260" y="170" text-anchor="middle" fill="#009E73" font-size="11" font-weight="600">All coefficients near zero = method works here</text>
+        </svg>
+        <div class="example-box">
+          <strong>Grocery store example:</strong> The researchers applied their DID method to the <em>control stores</em>&mdash;where no price change occurred&mdash;and showed that the estimated effect was zero. This is a placebo test: if the method works where nothing happened, we have more confidence it works where something did happen.
         </div>
-      </div>
+      </template>
 
-      <!-- Context Detail Modal -->
-      <div class="notes-overlay" id="detail-context">
-        <div class="notes-modal">
-          <button class="notes-close">&times;</button>
-          <h3>Context &amp; Qualitative Evidence</h3>
-          <p>Pre-trends are not the only evidence that matters. Researchers also build a <strong>qualitative case</strong> for why parallel trends should hold.</p>
-          <p>This might include:</p>
-          <ul>
-            <li>The treatment and control units are geographically close</li>
-            <li>They serve similar populations or markets</li>
-            <li>Treatment assignment was somewhat arbitrary or quasi-random</li>
-            <li>There is no obvious reason for differential trends</li>
-          </ul>
-          <div class="example-box">
-            <strong>Grocery store example:</strong> The stores were in the same neighborhood in California, sold the same products, and had similar levels of demand. The researchers argued there was no particular reason one store was chosen over the other two. This institutional context is what really supports the assumption&mdash;not just the graph.
-          </div>
+      <template id="dlg-s12b-context" data-title="Context &amp; Qualitative Evidence">
+        <p>Pre-trends are not the only evidence that matters. Researchers also build a <strong>qualitative case</strong> for why parallel trends should hold.</p>
+        <p>This might include:</p>
+        <ul>
+          <li>The treatment and control units are geographically close</li>
+          <li>They serve similar populations or markets</li>
+          <li>Treatment assignment was somewhat arbitrary or quasi-random</li>
+          <li>There is no obvious reason for differential trends</li>
+        </ul>
+        <div class="example-box">
+          <strong>Grocery store example:</strong> The stores were in the same neighborhood in California, sold the same products, and had similar levels of demand. The researchers argued there was no particular reason one store was chosen over the other two. This institutional context is what really supports the assumption&mdash;not just the graph.
         </div>
-      </div>
+      </template>
 
-      <!-- Bouncing Effects Detail Modal -->
-      <div class="notes-overlay" id="detail-bouncing">
-        <div class="notes-modal">
-          <button class="notes-close">&times;</button>
-          <h3>Bouncing Post-Treatment Effects</h3>
-          <p>When the post-treatment coefficients bounce around&mdash;positive one period, negative the next&mdash;it is hard to tell a coherent causal story, <strong>even when each individual estimate is statistically significant.</strong></p>
-          <svg viewBox="0 0 500 180" width="500" height="180" style="display:block;margin:0.8rem auto;max-width:100%;font-family:'Segoe UI',system-ui,sans-serif;">
-            <rect x="0" y="0" width="500" height="180" fill="#fafafa" rx="6"/>
-            <!-- Axes -->
-            <line x1="60" y1="10" x2="60" y2="145" stroke="#333" stroke-width="1"/>
-            <line x1="60" y1="145" x2="460" y2="145" stroke="#333" stroke-width="1"/>
-            <!-- Zero line -->
-            <line x1="60" y1="85" x2="460" y2="85" stroke="#333" stroke-width="0.8" stroke-dasharray="4,3"/>
-            <text x="55" y="85" text-anchor="end" font-size="9" fill="#999">0</text>
-            <!-- Treatment line -->
-            <line x1="220" y1="15" x2="220" y2="140" stroke="#999" stroke-width="1" stroke-dasharray="4,3"/>
-            <!-- Pre-period near zero -->
-            <circle cx="100" cy="88" r="4" fill="#999"/>
-            <line x1="100" y1="78" x2="100" y2="98" stroke="#999" stroke-width="1.5"/>
-            <circle cx="160" cy="83" r="4" fill="#999"/>
-            <line x1="160" y1="73" x2="160" y2="93" stroke="#999" stroke-width="1.5"/>
-            <circle cx="220" cy="85" r="5" fill="none" stroke="#999" stroke-width="2"/>
-            <!-- Post-period: bouncing but SIGNIFICANT (narrow CIs that don't cross zero) -->
-            <!-- Period +1: significant positive (point at 45, CI 30-60, zero at 85) -->
-            <circle cx="280" cy="45" r="4" fill="#D55E00"/>
-            <line x1="280" y1="30" x2="280" y2="60" stroke="#D55E00" stroke-width="2"/>
-            <!-- Period +2: significant NEGATIVE (point at 120, CI 105-135, zero at 85) -->
-            <circle cx="340" cy="120" r="4" fill="#D55E00"/>
-            <line x1="340" y1="105" x2="340" y2="135" stroke="#D55E00" stroke-width="2"/>
-            <!-- Period +3: significant positive again (point at 40, CI 25-55) -->
-            <circle cx="400" cy="40" r="4" fill="#D55E00"/>
-            <line x1="400" y1="25" x2="400" y2="55" stroke="#D55E00" stroke-width="2"/>
-            <!-- Stars for significance -->
-            <text x="280" y="22" text-anchor="middle" fill="#D55E00" font-size="10" font-weight="bold">*</text>
-            <text x="340" y="143" text-anchor="middle" fill="#D55E00" font-size="10" font-weight="bold">*</text>
-            <text x="400" y="17" text-anchor="middle" fill="#D55E00" font-size="10" font-weight="bold">*</text>
-            <!-- Label -->
-            <text x="340" y="170" text-anchor="middle" fill="#D55E00" font-size="11" font-weight="600">Significant but bouncing = be suspicious</text>
-          </svg>
-          <p>Ask yourself: <strong>does your theory predict this pattern?</strong> If your theory says the treatment should increase the outcome, but the effects flip between large positive and large negative&mdash;even if each is individually &ldquo;significant&rdquo;&mdash;something is likely wrong.</p>
-          <ul>
-            <li><strong>Specification issues:</strong> The model may be picking up noise or confounders rather than a real effect.</li>
-            <li><strong>No coherent story:</strong> If you cannot explain <em>why</em> the effect would reverse each period, the results should not be trusted as causal evidence.</li>
-          </ul>
-        </div>
-      </div>
+      <template id="dlg-s12b-bouncing" data-title="Bouncing Post-Treatment Effects">
+        <p>When the post-treatment coefficients bounce around&mdash;positive one period, negative the next&mdash;it is hard to tell a coherent causal story, <strong>even when each individual estimate is statistically significant.</strong></p>
+        <svg viewBox="0 0 500 180" width="500" height="180" style="display:block;margin:0.8rem auto;max-width:100%;font-family:'Segoe UI',system-ui,sans-serif;">
+          <rect x="0" y="0" width="500" height="180" fill="#fafafa" rx="6"/>
+          <line x1="60" y1="10" x2="60" y2="145" stroke="#333" stroke-width="1"/>
+          <line x1="60" y1="145" x2="460" y2="145" stroke="#333" stroke-width="1"/>
+          <line x1="60" y1="85" x2="460" y2="85" stroke="#333" stroke-width="0.8" stroke-dasharray="4,3"/>
+          <text x="55" y="85" text-anchor="end" font-size="9" fill="#999">0</text>
+          <line x1="220" y1="15" x2="220" y2="140" stroke="#999" stroke-width="1" stroke-dasharray="4,3"/>
+          <circle cx="100" cy="88" r="4" fill="#999"/>
+          <line x1="100" y1="78" x2="100" y2="98" stroke="#999" stroke-width="1.5"/>
+          <circle cx="160" cy="83" r="4" fill="#999"/>
+          <line x1="160" y1="73" x2="160" y2="93" stroke="#999" stroke-width="1.5"/>
+          <circle cx="220" cy="85" r="5" fill="none" stroke="#999" stroke-width="2"/>
+          <circle cx="280" cy="45" r="4" fill="#D55E00"/>
+          <line x1="280" y1="30" x2="280" y2="60" stroke="#D55E00" stroke-width="2"/>
+          <circle cx="340" cy="120" r="4" fill="#D55E00"/>
+          <line x1="340" y1="105" x2="340" y2="135" stroke="#D55E00" stroke-width="2"/>
+          <circle cx="400" cy="40" r="4" fill="#D55E00"/>
+          <line x1="400" y1="25" x2="400" y2="55" stroke="#D55E00" stroke-width="2"/>
+          <text x="280" y="22" text-anchor="middle" fill="#D55E00" font-size="10" font-weight="bold">*</text>
+          <text x="340" y="143" text-anchor="middle" fill="#D55E00" font-size="10" font-weight="bold">*</text>
+          <text x="400" y="17" text-anchor="middle" fill="#D55E00" font-size="10" font-weight="bold">*</text>
+          <text x="340" y="170" text-anchor="middle" fill="#D55E00" font-size="11" font-weight="600">Significant but bouncing = be suspicious</text>
+        </svg>
+        <p>Ask yourself: <strong>does your theory predict this pattern?</strong> If your theory says the treatment should increase the outcome, but the effects flip between large positive and large negative&mdash;even if each is individually &ldquo;significant&rdquo;&mdash;something is likely wrong.</p>
+        <ul>
+          <li><strong>Specification issues:</strong> The model may be picking up noise or confounders rather than a real effect.</li>
+          <li><strong>No coherent story:</strong> If you cannot explain <em>why</em> the effect would reverse each period, the results should not be trusted as causal evidence.</li>
+        </ul>
+      </template>
 
-      <!-- Trajectory Change Detail Modal -->
-      <div class="notes-overlay" id="detail-trajectory">
-        <div class="notes-modal">
-          <button class="notes-close">&times;</button>
-          <h3>Change in Trajectory</h3>
-          <p>Bad pre-trends do not always kill your analysis. What matters is whether there is a visible <strong>break</strong> at the moment of treatment.</p>
-          <svg viewBox="0 0 500 180" width="500" height="180" style="display:block;margin:0.8rem auto;max-width:100%;font-family:'Segoe UI',system-ui,sans-serif;">
-            <rect x="0" y="0" width="500" height="180" fill="#fafafa" rx="6"/>
-            <!-- Axes -->
-            <line x1="60" y1="10" x2="60" y2="145" stroke="#333" stroke-width="1"/>
-            <line x1="60" y1="145" x2="460" y2="145" stroke="#333" stroke-width="1"/>
-            <!-- Zero line -->
-            <line x1="60" y1="85" x2="460" y2="85" stroke="#333" stroke-width="0.8" stroke-dasharray="4,3"/>
-            <!-- Treatment line -->
-            <line x1="260" y1="15" x2="260" y2="140" stroke="#999" stroke-width="1" stroke-dasharray="4,3"/>
-            <!-- Pre-period: trending DOWN (negative pre-trend) -->
-            <circle cx="120" cy="75" r="4" fill="#CC79A7"/>
-            <circle cx="190" cy="90" r="4" fill="#CC79A7"/>
-            <circle cx="260" cy="100" r="5" fill="none" stroke="#CC79A7" stroke-width="2"/>
-            <!-- Post: suddenly going UP (trajectory reversal) -->
-            <circle cx="330" cy="65" r="4" fill="#CC79A7"/>
-            <circle cx="400" cy="40" r="4" fill="#CC79A7"/>
-            <!-- Pre-trend continuation (dashed, extrapolation) -->
-            <line x1="260" y1="100" x2="400" y2="125" stroke="#999" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/>
-            <!-- Arrow showing the break -->
-            <path d="M 290,100 C 290,80 310,70 330,65" fill="none" stroke="#CC79A7" stroke-width="2"/>
-            <text x="315" y="52" font-size="10" fill="#CC79A7" font-weight="600">Break!</text>
-            <!-- Label -->
-            <text x="260" y="170" text-anchor="middle" fill="#CC79A7" font-size="11" font-weight="600">Trend reversal at treatment = still a "surprise"</text>
-          </svg>
-          <p>If the treatment group was trending <em>downward</em> relative to the control before treatment, and then <strong>suddenly reverses</strong> to trend upward, that reversal coinciding with treatment is still a kind of "surprise." It may still indicate a causal effect, but estimating the magnitude requires more sophisticated methods than simple DID.</p>
-          <p>The story that truly kills DID is one where the post-treatment pattern is just a <em>smooth continuation</em> of the pre-treatment trend&mdash;no break, no surprise.</p>
-        </div>
-      </div>
+      <template id="dlg-s12b-trajectory" data-title="Change in Trajectory">
+        <p>Bad pre-trends do not always kill your analysis. What matters is whether there is a visible <strong>break</strong> at the moment of treatment.</p>
+        <svg viewBox="0 0 500 180" width="500" height="180" style="display:block;margin:0.8rem auto;max-width:100%;font-family:'Segoe UI',system-ui,sans-serif;">
+          <rect x="0" y="0" width="500" height="180" fill="#fafafa" rx="6"/>
+          <line x1="60" y1="10" x2="60" y2="145" stroke="#333" stroke-width="1"/>
+          <line x1="60" y1="145" x2="460" y2="145" stroke="#333" stroke-width="1"/>
+          <line x1="60" y1="85" x2="460" y2="85" stroke="#333" stroke-width="0.8" stroke-dasharray="4,3"/>
+          <line x1="260" y1="15" x2="260" y2="140" stroke="#999" stroke-width="1" stroke-dasharray="4,3"/>
+          <circle cx="120" cy="75" r="4" fill="#CC79A7"/>
+          <circle cx="190" cy="90" r="4" fill="#CC79A7"/>
+          <circle cx="260" cy="100" r="5" fill="none" stroke="#CC79A7" stroke-width="2"/>
+          <circle cx="330" cy="65" r="4" fill="#CC79A7"/>
+          <circle cx="400" cy="40" r="4" fill="#CC79A7"/>
+          <line x1="260" y1="100" x2="400" y2="125" stroke="#999" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/>
+          <path d="M 290,100 C 290,80 310,70 330,65" fill="none" stroke="#CC79A7" stroke-width="2"/>
+          <text x="315" y="52" font-size="10" fill="#CC79A7" font-weight="600">Break!</text>
+          <text x="260" y="170" text-anchor="middle" fill="#CC79A7" font-size="11" font-weight="600">Trend reversal at treatment = still a "surprise"</text>
+        </svg>
+        <p>If the treatment group was trending <em>downward</em> relative to the control before treatment, and then <strong>suddenly reverses</strong> to trend upward, that reversal coinciding with treatment is still a kind of &ldquo;surprise.&rdquo; It may still indicate a causal effect, but estimating the magnitude requires more sophisticated methods than simple DID.</p>
+        <p>The story that truly kills DID is one where the post-treatment pattern is just a <em>smooth continuation</em> of the pre-treatment trend&mdash;no break, no surprise.</p>
+      </template>
 
       <footer class="slide-footer">
-        <span class="slide-number" id="slide-number">12b / 27</span>
+        <span class="slide-number" id="slide-number">23 / 25</span>
       </footer>
     </div>
   </div>

@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <div class="slide-container" data-current-slide="15" data-total-slides="22" data-next-slide="slide-19.html">
+  <div class="slide-container" data-current-slide="16" data-total-slides="25" data-prev-slide="slide-14.html" data-next-slide="slide-19.html">
     <div class="slide">
       <a href="index.html" class="home-btn" title="Table of Contents">
         <svg viewBox="0 0 24 24">
@@ -45,30 +45,28 @@
         </div>
       </div>
 
-      <button class="lecture-notes-btn" title="Lecture Notes">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Lecture Notes
-      </button>
-      <div class="notes-overlay">
-        <div class="notes-modal">
-          <button class="notes-close">&times;</button>
-          <h3>Lecture Notes: The Simplest Way to Think About Event Studies</h3>
-          <p>Here is probably the easiest way to understand what an event study plot shows:</p>
-          <ol style="margin:0.5rem 0 0.5rem 1.5rem;">
-            <li>Plot the outcome variable for the treatment group over time.</li>
-            <li>Plot the outcome variable for the control group over time on the same graph.</li>
-            <li><strong>Slide one line up or down</strong> so that the two lines overlap at one point in time (the reference period, usually <em>t</em> = &minus;1).</li>
-            <li>The gap between the two lines at every other point in time is what the event study is plotting.</li>
-          </ol>
-          <p>That is it. The event study coefficients are just the difference between the two groups' outcomes after forcing them to overlap at the reference period.</p>
-          <div class="example-box">
-            The pre-treatment coefficients tell you whether the two groups were on similar trajectories before the policy. The post-treatment coefficients tell you how the groups diverged after the policy&mdash;and those divergences are your estimates of the causal effect (if you trust the parallel trends assumption).
-          </div>
-        </div>
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s15-intuition">Simplest Intuition</button>
+        <button class="info-btn" data-dialog="dlg-s15-prepost">Pre- vs. Post-Treatment</button>
       </div>
 
+      <template id="dlg-s15-intuition" data-title="The Simplest Way to Think About Event Studies">
+        <p>Here is probably the easiest way to understand what an event study plot shows:</p>
+        <ol style="margin:0.5rem 0 0.5rem 1.5rem;">
+          <li>Plot the outcome variable for the treatment group over time.</li>
+          <li>Plot the outcome variable for the control group over time on the same graph.</li>
+          <li><strong>Slide one line up or down</strong> so that the two lines overlap at one point in time (the reference period, usually <em>t</em> = &minus;1).</li>
+          <li>The gap between the two lines at every other point in time is what the event study is plotting.</li>
+        </ol>
+        <p>That is it. The event study coefficients are just the difference between the two groups' outcomes after forcing them to overlap at the reference period.</p>
+      </template>
+
+      <template id="dlg-s15-prepost" data-title="Pre- vs. Post-Treatment Coefficients">
+        <p>The pre-treatment coefficients tell you whether the two groups were on similar trajectories before the policy. The post-treatment coefficients tell you how the groups diverged after the policy&mdash;and those divergences are your estimates of the causal effect (if you trust the parallel trends assumption).</p>
+      </template>
+
       <footer class="slide-footer">
-        <span class="slide-number" id="slide-number">15 / 22</span>
+        <span class="slide-number" id="slide-number">16 / 25</span>
       </footer>
     </div>
   </div>

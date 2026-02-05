@@ -389,142 +389,146 @@ code, .mono {
   }
 }
 
-/* Lecture Notes Button */
-.lecture-notes-btn {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background: var(--accent-color);
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
+/* ── Info Buttons ── */
+.info-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.8rem 0;
+}
+
+.info-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #e8f4f8;
+  color: #0072B2;
+  border: 1.5px solid #0072B2;
+  padding: 0.25rem 0.8rem;
   border-radius: 20px;
   cursor: pointer;
-  font-family: var(--font-main);
-  font-size: 0.85rem;
-  font-weight: 500;
-  display: flex;
+  font-family: 'Source Sans Pro', 'Source Sans 3', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.15s;
+  white-space: nowrap;
+}
+
+.info-btn:hover {
+  background: #0072B2;
+  color: white;
+  transform: translateY(-1px);
+}
+
+.info-btn::before {
+  content: "?";
+  display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  transition: background 0.2s, transform 0.2s;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  z-index: 100;
-}
-
-.lecture-notes-btn:hover {
-  background: #005a8f;
-  transform: scale(1.05);
-}
-
-.lecture-notes-btn svg {
+  justify-content: center;
   width: 16px;
   height: 16px;
-  fill: currentColor;
+  border-radius: 50%;
+  background: #0072B2;
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  flex-shrink: 0;
 }
 
-/* Lecture Notes Modal */
-.notes-overlay {
-  display: none;
+.info-btn:hover::before {
+  background: white;
+  color: #0072B2;
+}
+
+/* ── Info Dialog Overlay ── */
+.info-dialog-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 200;
-  justify-content: center;
-  align-items: center;
-}
-
-.notes-overlay.open {
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
 }
 
-.notes-modal {
-  background: #FAFAF8;
+.info-dialog-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.info-dialog {
+  background: white;
   border-radius: 12px;
   padding: 2rem 2.5rem;
-  max-width: 680px;
+  max-width: 720px;
   width: 90%;
-  max-height: 80vh;
+  max-height: 70vh;
   overflow-y: auto;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  transform: translateY(20px) scale(0.97);
+  transition: transform 0.25s ease;
   position: relative;
-  font-size: 1rem;
-  line-height: 1.7;
-}
-
-.notes-modal h3 {
-  color: var(--accent-color);
-  font-size: 1.3rem;
-  margin: 0 0 1rem 0;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--accent-color);
-}
-
-.notes-modal p {
-  margin: 0.6rem 0;
-}
-
-.notes-modal ul {
-  margin: 0.5rem 0 0.5rem 1.5rem;
-}
-
-.notes-modal li {
-  margin-bottom: 0.3rem;
-}
-
-.notes-modal .example-box {
-  background: rgba(0, 114, 178, 0.06);
-  border-left: 3px solid var(--accent-color);
-  padding: 0.8rem 1rem;
-  border-radius: 4px;
-  margin: 0.8rem 0;
   font-size: 0.95rem;
+  line-height: 1.6;
 }
 
-.notes-close {
+.info-dialog-overlay.open .info-dialog {
+  transform: translateY(0) scale(1);
+}
+
+.info-dialog h3 {
+  color: #0072B2;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #0072B2;
+}
+
+.info-dialog .close-btn {
   position: absolute;
-  top: 0.8rem;
+  top: 1rem;
   right: 1rem;
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+  color: #888;
   cursor: pointer;
-  color: #999;
-  line-height: 1;
-  padding: 0.2rem 0.4rem;
-  transition: color 0.2s;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s;
 }
 
-.notes-close:hover {
+.info-dialog .close-btn:hover {
+  background: #f0f0f0;
   color: #333;
 }
 
-/* Inline detail buttons (for cards with individual popups) */
-.detail-btn {
-  background: var(--accent-color);
-  color: white;
-  border: none;
-  padding: 0.3rem 0.8rem;
-  border-radius: 14px;
-  cursor: pointer;
-  font-family: var(--font-main);
-  font-size: 0.75rem;
-  font-weight: 500;
-  transition: background 0.2s;
-  margin-top: 0.4rem;
+/* Dialog body styling */
+.info-dialog .dialog-body p { margin-bottom: 0.8rem; }
+.info-dialog .dialog-body strong { color: #0072B2; }
+.info-dialog .dialog-body ul, .info-dialog .dialog-body ol {
+  margin: 0.5rem 0 1rem 1.5rem;
 }
-
-.detail-btn:hover {
-  background: #005a8f;
+.info-dialog .dialog-body li { margin-bottom: 0.4rem; }
+.info-dialog .dialog-body .example-box {
+  background: #f0f7fa;
+  border-left: 3px solid #0072B2;
+  padding: 0.8rem 1rem;
+  margin: 1rem 0;
+  border-radius: 0 6px 6px 0;
 }
 
 /* Print styles */
 @media print {
   .nav-controls,
-  .lecture-notes-btn,
-  .notes-overlay {
+  .info-dialog-overlay {
     display: none !important;
   }
 

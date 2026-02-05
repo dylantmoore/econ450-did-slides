@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Building an Event Study from Data</title>
+  <title>Example: Noisy Pre-trends</title>
   <link rel="stylesheet" href="assets/styles.css">
   <style>
     /* ------- Viz layer system ------- */
@@ -123,15 +123,15 @@
 </head>
 
 <body>
-  <div class="slide-container" data-current-slide="17" data-total-slides="25" data-prev-slide="slide-15.html"
-    data-next-slide="slide-17.html">
+  <div class="slide-container" data-current-slide="21" data-total-slides="25" data-prev-slide="slide-18.html"
+    data-next-slide="slide-19b.html">
     <div class="slide">
       <a href="index.html" class="home-btn" title="Table of Contents">
         <svg viewBox="0 0 24 24">
           <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
         </svg>
       </a>
-      <h2>Building an Event Study from Data</h2>
+      <h2>Example: Noisy Pre-trends</h2>
       <div class="slide-content" style="align-items:center;">
 
         <svg id="event-build-viz" viewBox="0 0 900 460" width="100%" style="max-width:900px;">
@@ -202,11 +202,11 @@
                ========================================================= -->
           <g id="treat-line" class="viz-group" style="transition: opacity 0.4s ease, transform 1s ease;">
             <polyline class="draw-line" id="treat-polyline"
-              points="130,337 230,319 330,292 430,238 530,175 630,121 730,85" fill="none" stroke="#009E73"
+              points="130,310 230,301 330,292 430,238 530,175 630,121 730,85" fill="none" stroke="#009E73"
               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
             <!-- dots -->
-            <circle class="dot-pop" cx="130" cy="337" r="5" fill="#009E73" />
-            <circle class="dot-pop" cx="230" cy="319" r="5" fill="#009E73" />
+            <circle class="dot-pop" cx="130" cy="310" r="5" fill="#009E73" />
+            <circle class="dot-pop" cx="230" cy="301" r="5" fill="#009E73" />
             <circle class="dot-pop" cx="330" cy="292" r="5" fill="#009E73" />
             <circle class="dot-pop" cx="430" cy="238" r="5" fill="#009E73" />
             <circle class="dot-pop" cx="530" cy="175" r="5" fill="#009E73" />
@@ -318,10 +318,10 @@
                ========================================================= -->
           <g id="norm-lines" class="viz-group">
             <!-- Treatment normalized line -->
-            <polyline points="130,350 230,330 330,300 430,240 530,170 630,110 730,70" fill="none" stroke="#009E73"
+            <polyline points="130,320 230,310 330,300 430,240 530,170 630,110 730,70" fill="none" stroke="#009E73"
               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-            <circle cx="130" cy="350" r="5" fill="#009E73" />
-            <circle cx="230" cy="330" r="5" fill="#009E73" />
+            <circle cx="130" cy="320" r="5" fill="#009E73" />
+            <circle cx="230" cy="310" r="5" fill="#009E73" />
             <circle cx="330" cy="300" r="5" fill="#009E73" />
             <circle cx="430" cy="240" r="5" fill="#009E73" />
             <circle cx="530" cy="170" r="5" fill="#009E73" />
@@ -458,14 +458,14 @@
               opacity="0.4" />
 
             <!-- CI bars (vertical whiskers) -->
-            <!-- t=-3 coeff=0, CI: -2 to 2 => y 320 to 280 -->
-            <line class="ci-bar" x1="130" y1="320" x2="130" y2="280" stroke="#4a4a4a" stroke-width="1.5" />
-            <line class="ci-bar" x1="124" y1="320" x2="136" y2="320" stroke="#4a4a4a" stroke-width="1.5" />
-            <line class="ci-bar" x1="124" y1="280" x2="136" y2="280" stroke="#4a4a4a" stroke-width="1.5" />
-            <!-- t=-2 coeff=0 -->
-            <line class="ci-bar" x1="230" y1="320" x2="230" y2="280" stroke="#4a4a4a" stroke-width="1.5" />
-            <line class="ci-bar" x1="224" y1="320" x2="236" y2="320" stroke="#4a4a4a" stroke-width="1.5" />
-            <line class="ci-bar" x1="224" y1="280" x2="236" y2="280" stroke="#4a4a4a" stroke-width="1.5" />
+            <!-- t=-3 coeff=3, CI: -1 to 7 => y 310 to 230 -->
+            <line class="ci-bar" x1="130" y1="310" x2="130" y2="230" stroke="#4a4a4a" stroke-width="1.5" />
+            <line class="ci-bar" x1="124" y1="310" x2="136" y2="310" stroke="#4a4a4a" stroke-width="1.5" />
+            <line class="ci-bar" x1="124" y1="230" x2="136" y2="230" stroke="#4a4a4a" stroke-width="1.5" />
+            <!-- t=-2 coeff=2, CI: -1 to 5 => y 310 to 250 -->
+            <line class="ci-bar" x1="230" y1="310" x2="230" y2="250" stroke="#4a4a4a" stroke-width="1.5" />
+            <line class="ci-bar" x1="224" y1="310" x2="236" y2="310" stroke="#4a4a4a" stroke-width="1.5" />
+            <line class="ci-bar" x1="224" y1="250" x2="236" y2="250" stroke="#4a4a4a" stroke-width="1.5" />
             <!-- t=-1 reference (no CI) -->
             <!-- t=0 coeff=3, CI: 1 to 5 => y 290 to 250 -->
             <line class="ci-bar" x1="430" y1="290" x2="430" y2="250" stroke="#0072B2" stroke-width="1.5" />
@@ -486,8 +486,8 @@
 
             <!-- Event study dots -->
             <!-- Pre-period (muted) -->
-            <circle class="event-dot" cx="130" cy="300" r="6" fill="#4a4a4a" />
-            <circle class="event-dot" cx="230" cy="300" r="6" fill="#4a4a4a" />
+            <circle class="event-dot" cx="130" cy="270" r="6" fill="#4a4a4a" />
+            <circle class="event-dot" cx="230" cy="280" r="6" fill="#4a4a4a" />
             <!-- Reference period (hollow) -->
             <circle class="event-dot" cx="330" cy="300" r="7" fill="#FAFAF8" stroke="#0072B2" stroke-width="2.5" />
             <!-- Post-period (blue filled) -->
@@ -503,7 +503,8 @@
           <g id="event-annotations" class="viz-group">
             <!-- Pre-trend bracket (positioned below dots, above x-axis) -->
             <path d="M 120,340 L 120,335 L 340,335 L 340,340" fill="none" stroke="#4a4a4a" stroke-width="1.5" />
-            <text x="230" y="355" font-size="12" fill="#4a4a4a" text-anchor="middle" font-style="italic">Pre-trends =
+            <text x="230" y="355" font-size="12" fill="#4a4a4a" text-anchor="middle" font-style="italic">Noisy
+              Pre-trends
               0</text>
             <!-- Post-period bracket -->
             <path d="M 420,340 L 420,335 L 740,335 L 740,340" fill="none" stroke="#0072B2" stroke-width="1.5" />
@@ -518,23 +519,8 @@
             style="font-family:var(--font-mono);">&rarr;</span> to advance</p>
       </div>
 
-      <div class="info-buttons">
-        <button class="info-btn" data-dialog="dlg-s19-construction">How the Event Study Is Built</button>
-        <button class="info-btn" data-dialog="dlg-s19-prepost">Pre- vs. Post-Treatment</button>
-      </div>
-
-      <template id="dlg-s19-construction" data-title="How the Event Study Is Built">
-        <p>This animation shows exactly what happens when we construct an event study. In each step, we are performing a DID exercise&mdash;picking a reference period (typically <em>t</em> = &minus;1), and comparing the difference between treatment and control at every other time point to the difference at the reference.</p>
-        <p>The key insight: we take the raw data where the groups may have different levels, normalize them so they overlap at one point, and then the remaining gaps are the event study coefficients.</p>
-      </template>
-
-      <template id="dlg-s19-prepost" data-title="Pre- vs. Post-Treatment Interpretation">
-        <p><strong>In the pre-treatment period:</strong> If the coefficients are near zero, that tells us the two groups were on parallel tracks before the treatment. This is the evidence we use to argue that the parallel trends assumption is plausible.</p>
-        <p><strong>In the post-treatment period:</strong> The coefficients tell us how much the treatment group diverged from what we would have expected based on the control group's trajectory. These are our treatment effect estimates.</p>
-      </template>
-
       <footer class="slide-footer">
-        <span class="slide-number" id="slide-number">17 / 25</span>
+        <span class="slide-number" id="slide-number">21 / 25</span>
       </footer>
     </div>
   </div>
@@ -554,7 +540,7 @@
           'Normalize: subtract each group\u2019s reference-period (t = \u22121) value',
           'Measure the gap between curves at each post-treatment period',
           'Transform gaps into event-study coefficients with confidence intervals',
-          'The clean event study: pre-trends near zero, growing post-treatment effects'
+          'Noisy pre-trends: Estimates bounce around zero but don\'t show a clear trend'
         ];
 
         document.addEventListener('keydown', (e) => this.handleKeydown(e));
@@ -592,7 +578,7 @@
           if (container && container.dataset.nextSlide) {
             window.location.href = container.dataset.nextSlide;
           } else {
-            window.location.href = 'slide-17.html';
+            window.location.href = 'slide-19b.html';
           }
         }
       }
@@ -606,7 +592,7 @@
           if (container && container.dataset.prevSlide) {
             window.location.href = container.dataset.prevSlide;
           } else {
-            window.location.href = 'slide-15.html';
+            window.location.href = 'slide-18.html';
           }
         }
       }
