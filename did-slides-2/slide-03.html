@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Difference-in-Differences Approach</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="slide-container" data-current-slide="3" data-total-slides="18" data-prev-slide="slide-02.html" data-next-slide="slide-04.html">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+      <h2>A Difference-in-Differences Approach</h2>
+
+      <div class="two-column" style="align-items: start; gap: 2rem;">
+        <div>
+          <div class="fragment">
+            <div style="padding: 1rem 1.5rem; margin-bottom: 1rem; background: rgba(0, 158, 115, 0.08); border: 2px solid #009E73; border-radius: 8px;">
+              <p style="margin: 0 0 0.5rem 0;"><strong style="color: #009E73;">Treatment Group</strong></p>
+              <p style="margin: 0; font-size: 0.95em;">North Waziristan</p>
+              <p style="margin: 0.5rem 0 0 0; font-size: 0.85em; color: #666;">(Inside the "flight box")</p>
+            </div>
+          </div>
+
+          <div class="fragment">
+            <div style="padding: 1rem 1.5rem; margin-bottom: 1rem; background: rgba(213, 94, 0, 0.08); border: 2px solid #D55E00; border-radius: 8px;">
+              <p style="margin: 0 0 0.5rem 0;"><strong style="color: #D55E00;">Control Group</strong></p>
+              <p style="margin: 0; font-size: 0.95em;">Other FATA agencies:</p>
+              <ul style="margin: 0.5rem 0 0 1.2rem; font-size: 0.85em; color: #666;">
+                <li>Bajaur</li>
+                <li>Mohmand</li>
+                <li>Khyber</li>
+                <li>Kurram</li>
+                <li>Orakzai</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="fragment">
+            <div style="padding: 1rem 1.5rem; background: rgba(0, 114, 178, 0.08); border: 2px solid #0072B2; border-radius: 8px;">
+              <p style="margin: 0 0 0.5rem 0;"><strong style="color: #0072B2;">Treatment Period</strong></p>
+              <p style="margin: 0; font-size: 0.95em;">January 2008 onward</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="fragment">
+          <img src="images/drones-map-treatment.png" alt="Map showing treatment and control areas in FATA region" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+        </div>
+      </div>
+
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s03-identification">The Geographic Identification Strategy</button>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number" id="slide-number">3 / 18</span>
+      </footer>
+
+      <template id="dlg-s03-identification" data-title="The Geographic Identification Strategy">
+        <p>The identification strategy relies on the fact that the US drone program was <strong>geographically concentrated</strong> in North Waziristan, which fell within the "flight box"&mdash;the designated area where drones could operate.</p>
+        <p>Other FATA agencies, while similar in many respects (tribal governance, militant presence, proximity to Afghanistan), were <em>outside</em> this operational zone during the early years of the program.</p>
+        <p>This creates a natural experiment: we can compare violence trends in the targeted area versus the non-targeted areas before and after the program began.</p>
+        <p><strong>Key assumption:</strong> In the absence of the drone program, violence trends in North Waziristan would have evolved similarly to the other FATA agencies.</p>
+      </template>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

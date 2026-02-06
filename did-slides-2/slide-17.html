@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audits vs Other Policies</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="slide-container" data-current-slide="17" data-total-slides="18" data-prev-slide="slide-16.html" data-next-slide="slide-18.html">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+      <h2>How Audits Compare to Tax Rate Changes</h2>
+
+      <div class="fragment">
+        <div style="max-width: 700px; margin: 1rem auto;">
+          <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <div style="flex: 1; text-align: center; padding: 1rem; background: linear-gradient(135deg, rgba(213,94,0,0.1), rgba(230,159,0,0.1)); border-radius: 8px;">
+              <p style="margin: 0; font-size: 0.9rem; color: #666;">Tax Rate Changes</p>
+              <p style="margin: 0.3rem 0 0 0; font-size: 1.5rem; font-weight: bold;">MVPF: 1.0 <span style="font-size: 1rem; color: #D55E00;">&#8594;</span> 2.0+</p>
+              <p style="margin: 0.3rem 0 0 0; font-size: 0.85rem; color: #666;">Low income &#8594; High income</p>
+            </div>
+            <div style="font-size: 1.5rem; color: #666;">vs</div>
+            <div style="flex: 1; text-align: center; padding: 1rem; background: linear-gradient(135deg, rgba(0,158,115,0.1), rgba(0,114,178,0.1)); border-radius: 8px;">
+              <p style="margin: 0; font-size: 0.9rem; color: #666;">Tax Audits</p>
+              <p style="margin: 0.3rem 0 0 0; font-size: 1.5rem; font-weight: bold;">MVPF: 1.30 <span style="font-size: 1rem; color: #009E73;">&#8594;</span> 1.15</p>
+              <p style="margin: 0.3rem 0 0 0; font-size: 0.85rem; color: #666;">Low income &#8594; High income</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="border: 2px solid #0072B2; border-radius: 8px; padding: 1.2rem; margin: 1rem auto; max-width: 700px; background: rgba(0,114,178,0.04);">
+          <p style="margin: 0 0 0.8rem 0; text-align: center;">
+            <strong style="color: #0072B2; font-size: 1.05rem;">The Key Insight</strong>
+          </p>
+          <p style="margin: 0; font-size: 0.95rem; text-align: center;">
+            MVPFs of tax/transfer policies <strong>increase</strong> with income<br>
+            MVPFs of audits <strong>decrease</strong> with income
+          </p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #009E73; padding: 0.8rem 1.2rem; margin: 1rem auto; max-width: 700px; background: rgba(0,158,115,0.04); border-radius: 4px;">
+          <p style="margin: 0; font-size: 0.95rem;">
+            <strong style="color: #009E73;">Policy implication:</strong> Audits on high-income taxpayers raise revenue at <em>lower welfare cost</em> than increasing their tax rates.
+          </p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #D55E00; padding: 0.8rem 1.2rem; margin: 1rem auto; max-width: 700px; background: rgba(213,94,0,0.04); border-radius: 4px;">
+          <p style="margin: 0; font-size: 0.95rem;">
+            <strong style="color: #D55E00;">Why?</strong> Raising tax rates on high earners creates big behavioral distortions (work less, shift income, relocate). Audits don't change incentives&mdash;they just enforce existing rules.
+          </p>
+        </div>
+      </div>
+
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s17-comparison">Understanding the Comparison</button>
+        <button class="info-btn" data-dialog="dlg-s17-policy">Policy Implications</button>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number">17 / 18</span>
+      </footer>
+
+      <template id="dlg-s17-comparison" data-title="Understanding the Comparison">
+        <p><strong>Why do tax rate MVPFs increase with income?</strong></p>
+        <p>High-income taxpayers respond more to tax rate changes:</p>
+        <ul>
+          <li>More flexibility in how/when they receive income</li>
+          <li>Greater ability to shift income across jurisdictions</li>
+          <li>More access to tax planning strategies</li>
+          <li>Higher opportunity cost of time (may work less)</li>
+        </ul>
+        <p>These behavioral responses mean that raising rates on high earners generates less revenue than you'd expect&mdash;and imposes welfare costs beyond the tax paid.</p>
+        <p><strong>Why do audit MVPFs decrease with income?</strong></p>
+        <p>Audits don't change the rules&mdash;they just enforce them. High-income taxpayers have more opportunities for underreporting, so audits find more. The behavioral distortion is minimal because audits are rare and unpredictable.</p>
+      </template>
+
+      <template id="dlg-s17-policy" data-title="Policy Implications">
+        <p><strong>What does this mean for tax policy?</strong></p>
+        <p>If you want to raise revenue from high earners, audits are more efficient than rate increases:</p>
+        <ul>
+          <li>Audits: MVPF = 1.15 (you lose $0.15 per $1 raised)</li>
+          <li>Rate hikes: MVPF > 2.0 (you lose $1+ per $1 raised)</li>
+        </ul>
+        <p><strong>The practical constraint:</strong> You can only audit so many people. The IRS can't audit everyone, so there are limits to how much revenue audits can generate.</p>
+        <p><strong>The broader point:</strong> MVPF provides a common metric for comparing <em>any</em> two policies. It allows us to say: "If you want to raise $X, here are your options ranked by efficiency."</p>
+        <p>This paper shows that expanding IRS enforcement on high earners is likely a more efficient revenue source than almost any alternative.</p>
+      </template>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Returns to Audits by Income</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="slide-container" data-current-slide="13" data-total-slides="18" data-prev-slide="slide-12.html" data-next-slide="slide-14.html">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+      <h2>Returns to Audits Vary by Income</h2>
+
+      <p style="text-align: center; font-size: 0.95rem; color: #666; margin-bottom: 1rem;">
+        How much revenue does $1 of audit spending generate?
+      </p>
+
+      <div class="fragment">
+        <div style="max-width: 700px; margin: 0 auto;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+            <thead>
+              <tr style="border-bottom: 2px solid #333;">
+                <th style="text-align: left; padding: 0.8rem 1rem;">Income Group</th>
+                <th style="text-align: right; padding: 0.8rem 1rem;">Revenue per $1 Spent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background: rgba(213, 94, 0, 0.08); border-bottom: 1px solid #ddd;">
+                <td style="padding: 0.8rem 1rem;"><strong>Bottom 50%</strong></td>
+                <td style="text-align: right; padding: 0.8rem 1rem; color: #D55E00; font-weight: bold;">$0.96</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 0.8rem 1rem;">50th-90th percentile</td>
+                <td style="text-align: right; padding: 0.8rem 1rem;">$2.17</td>
+              </tr>
+              <tr style="background: rgba(0, 158, 115, 0.08); border-bottom: 1px solid #ddd;">
+                <td style="padding: 0.8rem 1rem;"><strong>90th-99th percentile</strong></td>
+                <td style="text-align: right; padding: 0.8rem 1rem; color: #009E73; font-weight: bold;">$12.48</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 0.8rem 1rem;">Top 1%</td>
+                <td style="text-align: right; padding: 0.8rem 1rem;">$4.25</td>
+              </tr>
+              <tr style="background: rgba(0, 114, 178, 0.08);">
+                <td style="padding: 0.8rem 1rem;"><strong>Top 0.1%</strong></td>
+                <td style="text-align: right; padding: 0.8rem 1rem; color: #0072B2; font-weight: bold;">$6.29</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #D55E00; padding: 0.8rem 1.2rem; margin: 1rem auto; max-width: 700px; background: rgba(213,94,0,0.04); border-radius: 4px;">
+          <p style="margin: 0; font-size: 0.95rem;">
+            <strong style="color: #D55E00;">Key finding:</strong> Auditing low-income taxpayers actually <em>loses money</em>&mdash;the IRS spends more on the audit than it recovers.
+          </p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #009E73; padding: 0.8rem 1.2rem; margin: 1rem auto; max-width: 700px; background: rgba(0,158,115,0.04); border-radius: 4px;">
+          <p style="margin: 0; font-size: 0.95rem;">
+            <strong style="color: #009E73;">But wait:</strong> The 90-99th percentile returns $12.48 per dollar&mdash;more than the very top! Why?
+          </p>
+        </div>
+      </div>
+
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s13-why-varies">Why Returns Vary</button>
+        <button class="info-btn" data-dialog="dlg-s13-top-costly">Why Top Audits Are Costly</button>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number">13 / 18</span>
+      </footer>
+
+      <template id="dlg-s13-why-varies" data-title="Why Returns Vary by Income">
+        <p>The return on audit spending varies by income for several reasons:</p>
+        <ul>
+          <li><strong>Tax owed:</strong> Higher-income taxpayers simply owe more taxes, so there's more potential revenue to recover</li>
+          <li><strong>Complexity:</strong> Higher-income returns are more complex, with more opportunities for underreporting</li>
+          <li><strong>Audit costs:</strong> Simple returns (like those with only W-2 income) are cheap to audit but yield little</li>
+        </ul>
+        <p>The low returns for the bottom 50% largely reflect the fact that most low-income taxpayers have simple returns with income fully reported by employers (W-2s). There's just not much to find.</p>
+      </template>
+
+      <template id="dlg-s13-top-costly" data-title="Why Top Audits Are More Costly">
+        <p><strong>Why does the 90-99th percentile outperform the top 1%?</strong></p>
+        <p>Auditing the very wealthy is <em>expensive</em>:</p>
+        <ul>
+          <li>Complex financial structures (trusts, partnerships, S-corps)</li>
+          <li>More aggressive tax planning requiring specialized auditors</li>
+          <li>Longer audit duration (can take years)</li>
+          <li>Higher likelihood of appeals and litigation</li>
+        </ul>
+        <p>The 90-99th percentile represents a "sweet spot"&mdash;enough income to find substantial underpayment, but not so complex that audit costs explode.</p>
+        <p><strong>However:</strong> This is just the <em>direct</em> revenue. We haven't yet accounted for the <em>deterrence effect</em>...</p>
+      </template>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

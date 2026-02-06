@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clear Departure from Parallel Trends</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="slide-container" data-current-slide="11" data-total-slides="18" data-prev-slide="slide-10.html" data-next-slide="slide-12.html">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+      <h2>Clear Departure from Parallel Trends</h2>
+
+      <div class="fragment">
+        <div class="two-columns" style="gap: 1.5rem; margin: 1rem 0;">
+          <div style="text-align: center;">
+            <img src="images/irs-nonrandom.png" alt="Non-random audit event study showing pre-trend violations" class="slide-image" style="max-height: 45vh; border: 1px solid #d0d0d0; border-radius: 4px;">
+            <p class="image-caption" style="color: #D55E00; font-weight: 600;">Non-Random Audits</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Clear pre-trend violations visible</p>
+          </div>
+          <div style="text-align: center;">
+            <img src="images/irs-nrp-random.png" alt="NRP random audit event study showing flat pre-trends" class="slide-image" style="max-height: 45vh; border: 1px solid #d0d0d0; border-radius: 4px;">
+            <p class="image-caption" style="color: #009E73; font-weight: 600;">NRP Random Audits</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Flat pre-trends as expected</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <blockquote style="margin-top: 1rem;">
+          The non-random audit selection shows <strong>clear pre-trend violations</strong>&mdash;treated individuals were already changing their behavior <em>before</em> the audit occurred.
+        </blockquote>
+      </div>
+
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s11-panels">Understanding the Panels</button>
+        <button class="info-btn" data-dialog="dlg-s11-pretrends">What Pre-Trends Mean</button>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number" id="slide-number">11 / 18</span>
+      </footer>
+
+      <template id="dlg-s11-panels" data-title="Understanding the Panels">
+        <p><strong>Left Panel (Non-Random Audits):</strong></p>
+        <ul>
+          <li>Shows event study coefficients for operational audits selected through the IRS's normal targeting process</li>
+          <li>The pre-period coefficients are <strong>not zero</strong>&mdash;they show a clear upward trend before the audit</li>
+          <li>This suggests the IRS selected taxpayers who were <em>already</em> increasing their reported income</li>
+        </ul>
+        <p><strong>Right Panel (NRP Random Audits):</strong></p>
+        <ul>
+          <li>Shows event study coefficients for audits randomly assigned through the National Research Program</li>
+          <li>The pre-period coefficients are <strong>flat and near zero</strong>&mdash;exactly what we expect with random assignment</li>
+          <li>This validates that randomization eliminates selection bias</li>
+        </ul>
+      </template>
+
+      <template id="dlg-s11-pretrends" data-title="What Pre-Trends Mean">
+        <p>When we see non-zero pre-trends in an event study, it tells us that the treatment and control groups were <strong>already on different trajectories</strong> before treatment occurred.</p>
+        <p>In this context:</p>
+        <ul>
+          <li>The IRS likely targeted taxpayers whose income was <em>already rising</em></li>
+          <li>Some of that income increase would have happened regardless of the audit</li>
+          <li>The DID estimate attributes ALL of the post-audit income increase to the audit, overstating its true effect</li>
+        </ul>
+        <p><strong>Key insight:</strong> This is why we always check for parallel pre-trends in DID designs. Violations of parallel trends invalidate the counterfactual assumption underlying the entire method.</p>
+      </template>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

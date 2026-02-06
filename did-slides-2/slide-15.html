@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What is MVPF?</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="slide-container" data-current-slide="15" data-total-slides="18" data-prev-slide="slide-14.html" data-next-slide="slide-16.html">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+      <h2>The Marginal Value of Public Funds (MVPF)</h2>
+
+      <div class="fragment">
+        <div style="border: 2px solid #0072B2; border-radius: 8px; padding: 1.5rem; margin: 1rem auto; max-width: 700px; background: rgba(0,114,178,0.04);">
+          <p style="margin: 0 0 1rem 0; text-align: center; font-size: 1.1rem;">
+            <strong style="color: #0072B2;">The MVPF Formula</strong>
+          </p>
+          <div style="text-align: center; font-size: 1.3rem; font-family: 'Times New Roman', serif; margin: 1rem 0;">
+            MVPF = <span style="border-bottom: 1px solid #333; padding-bottom: 2px;">Willingness to Pay to Avoid Policy</span><br>
+            <span style="display: inline-block; margin-top: 0.3rem;">Net Cost to Government</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="max-width: 700px; margin: 1rem auto;">
+          <p style="font-size: 0.95rem; line-height: 1.6;">
+            <strong>For audits specifically:</strong>
+          </p>
+          <div style="text-align: center; font-size: 1.1rem; font-family: 'Times New Roman', serif; background: #f8f8f6; padding: 1rem; border-radius: 6px;">
+            MVPF = <span style="border-bottom: 1px solid #333;">(R + B)</span> / <span>(R - C)</span>
+          </div>
+          <p style="font-size: 0.9rem; color: #666; margin-top: 0.8rem;">
+            where <strong>R</strong> = revenue raised, <strong>C</strong> = audit cost, <strong>B</strong> = burden on taxpayer
+          </p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div class="two-columns" style="gap: 1.5rem; max-width: 700px; margin: 1rem auto;">
+          <div style="border-left: 4px solid #009E73; padding: 0.8rem 1rem; background: rgba(0,158,115,0.04); border-radius: 4px;">
+            <p style="margin: 0; font-size: 0.9rem;">
+              <strong style="color: #009E73;">Lower MVPF = Better</strong><br>
+              More efficient way to raise revenue
+            </p>
+          </div>
+          <div style="border-left: 4px solid #E69F00; padding: 0.8rem 1rem; background: rgba(230,159,0,0.04); border-radius: 4px;">
+            <p style="margin: 0; font-size: 0.9rem;">
+              <strong style="color: #E69F00;">Benchmark: MVPF = 1</strong><br>
+              A "lump-sum" tax with no distortions
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #CC79A7; padding: 0.8rem 1.2rem; margin: 1rem auto; max-width: 700px; background: rgba(204,121,167,0.04); border-radius: 4px;">
+          <p style="margin: 0; font-size: 0.95rem;">
+            <strong style="color: #CC79A7;">Intuition:</strong> MVPF captures the <em>welfare cost per dollar of revenue</em>. It tells us how much society "pays" (in burden + foregone revenue) for each dollar the government actually nets.
+          </p>
+        </div>
+      </div>
+
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s15-framework">The MVPF Framework</button>
+        <button class="info-btn" data-dialog="dlg-s15-why-burden">Why Include Burden?</button>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number">15 / 18</span>
+      </footer>
+
+      <template id="dlg-s15-framework" data-title="The MVPF Framework">
+        <p>The Marginal Value of Public Funds (MVPF) is a framework developed by Hendren and Sprung-Keyser to compare the efficiency of different government policies.</p>
+        <p><strong>The key insight:</strong> Every policy has two components:</p>
+        <ul>
+          <li><strong>Benefits to recipients:</strong> How much would they pay to receive the policy?</li>
+          <li><strong>Net cost to government:</strong> What does it actually cost to implement?</li>
+        </ul>
+        <p>MVPF = Benefits / Net Cost</p>
+        <p>A policy with MVPF > 1 means the benefits exceed the costs&mdash;it's welfare-improving. For revenue-raising policies (like audits), we want MVPF as <em>low</em> as possible, because we're asking: how much burden do we impose per dollar raised?</p>
+        <p><strong>Reference:</strong> Hendren, Nathaniel, and Ben Sprung-Keyser. 2020. "A Unified Welfare Analysis of Government Policies." <em>Quarterly Journal of Economics</em>.</p>
+      </template>
+
+      <template id="dlg-s15-why-burden" data-title="Why Include Taxpayer Burden?">
+        <p><strong>What is "burden" in this context?</strong></p>
+        <p>Being audited is costly for taxpayers beyond just the taxes they pay:</p>
+        <ul>
+          <li>Time spent gathering documents</li>
+          <li>Stress and anxiety</li>
+          <li>Hiring accountants or lawyers</li>
+          <li>Opportunity cost of dealing with the IRS</li>
+        </ul>
+        <p><strong>How is it measured?</strong></p>
+        <p>The paper estimates burden using survey data on audit experiences, combined with estimates of the value of time. For the average audit, burden is roughly 10-30% of the additional tax collected.</p>
+        <p><strong>Why it matters:</strong> If we only counted revenue, we'd ignore these real costs. An audit that raises $1,000 but imposes $500 in burden is worse than one that raises $1,000 with only $100 in burden&mdash;even though the revenue is identical.</p>
+      </template>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

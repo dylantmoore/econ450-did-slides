@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Deterrence Effect</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="slide-container" data-current-slide="14" data-total-slides="18" data-prev-slide="slide-13.html" data-next-slide="slide-15.html">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+      <h2>Audits Have Long-Run Deterrence Effects</h2>
+
+      <div class="fragment">
+        <div style="border: 2px solid #0072B2; border-radius: 8px; padding: 1.2rem; margin: 1rem auto; max-width: 700px; background: rgba(0,114,178,0.04);">
+          <p style="margin: 0 0 0.5rem 0; font-size: 1.1rem; text-align: center;">
+            <strong style="color: #0072B2;">Key Finding from NRP Random Audits</strong>
+          </p>
+          <p style="margin: 0; font-size: 0.95rem; text-align: center;">
+            Audited taxpayers pay <strong>~$300 more per year</strong> for <strong>14+ years</strong> after the audit
+          </p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="display: flex; justify-content: center; gap: 2rem; margin: 1.5rem 0;">
+          <div style="text-align: center; padding: 1rem 1.5rem; background: rgba(230,159,0,0.08); border-radius: 8px; border: 2px solid #E69F00;">
+            <p style="margin: 0; font-size: 2rem; font-weight: bold; color: #E69F00;">3.2x</p>
+            <p style="margin: 0.3rem 0 0 0; font-size: 0.9rem; color: #666;">Deterrence multiplier</p>
+          </div>
+          <div style="text-align: center; padding: 1rem 1.5rem; background: rgba(0,158,115,0.08); border-radius: 8px; border: 2px solid #009E73;">
+            <p style="margin: 0; font-size: 1.1rem; font-weight: bold; color: #009E73;">Present value of future compliance</p>
+            <p style="margin: 0.3rem 0 0 0; font-size: 0.9rem; color: #666;">= 3.2 x initial audit revenue</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #D55E00; padding: 0.8rem 1.2rem; margin: 1rem auto; max-width: 700px; background: rgba(213,94,0,0.04); border-radius: 4px;">
+          <p style="margin: 0; font-size: 0.95rem;">
+            <strong style="color: #D55E00;">Why the RCT matters here:</strong> You <em>cannot</em> estimate deterrence from non-random audits! If the IRS targets people who would have changed behavior anyway, you'd conflate selection with deterrence.
+          </p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #CC79A7; padding: 0.8rem 1.2rem; margin: 1rem auto; max-width: 700px; background: rgba(204,121,167,0.04); border-radius: 4px;">
+          <p style="margin: 0; font-size: 0.95rem;">
+            <strong style="color: #CC79A7;">This is "individual deterrence"</strong>&mdash;the effect on the person who was audited. There may also be "general deterrence" effects on others who hear about audits.
+          </p>
+        </div>
+      </div>
+
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s14-deterrence">Deterrence vs. Compliance</button>
+        <button class="info-btn" data-dialog="dlg-s14-why-rct">Why RCT is Essential</button>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number">14 / 18</span>
+      </footer>
+
+      <template id="dlg-s14-deterrence" data-title="Deterrence vs. Compliance">
+        <p><strong>What's the difference?</strong></p>
+        <ul>
+          <li><strong>Direct compliance:</strong> Revenue recovered from the audit itself (taxpayer pays back taxes, penalties)</li>
+          <li><strong>Individual deterrence:</strong> Increased future compliance by the <em>same</em> taxpayer, fearing future audits</li>
+          <li><strong>General deterrence:</strong> Increased compliance by <em>other</em> taxpayers who observe or hear about audits</li>
+        </ul>
+        <p>The 3.2x multiplier captures individual deterrence only. If audits also create general deterrence (which is hard to measure), the total return could be even higher.</p>
+        <p><strong>Why does deterrence last so long?</strong> Once audited, taxpayers may:</p>
+        <ul>
+          <li>Update their beliefs about detection probability</li>
+          <li>Learn that tax evasion is harder than they thought</li>
+          <li>Change their reporting habits permanently</li>
+        </ul>
+      </template>
+
+      <template id="dlg-s14-why-rct" data-title="Why the RCT is Essential">
+        <p><strong>Could we estimate deterrence with non-random audits?</strong></p>
+        <p>No! Here's why:</p>
+        <ul>
+          <li>The IRS targets taxpayers with suspicious returns</li>
+          <li>These taxpayers may have been in a temporary period of aggressive tax behavior</li>
+          <li>Even without an audit, they might have "regressed to the mean"&mdash;returning to more typical behavior</li>
+        </ul>
+        <p><strong>The DID problem:</strong> With non-random audits, any post-audit increase in reported income could be:</p>
+        <ul>
+          <li>True deterrence (the audit scared them into compliance), OR</li>
+          <li>Mean reversion (they were always going to report more next year)</li>
+        </ul>
+        <p>Only the random NRP audits can distinguish these. Since random audit targets have no special characteristics, any post-audit change must be causal deterrence.</p>
+      </template>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

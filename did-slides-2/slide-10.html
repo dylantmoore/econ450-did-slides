@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The IRS Audit Paper: A Cautionary Tale</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="slide-container" data-current-slide="10" data-total-slides="18" data-prev-slide="slide-09.html" data-next-slide="slide-11.html">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+      <h2>The IRS Audit Paper: A Cautionary Tale</h2>
+
+      <div class="fragment">
+        <p style="margin-bottom: 1rem;">
+          <strong>Boning, Hendren, Sprung-Keyser &amp; Stuart</strong> (Quarterly Journal of Economics, 2025)
+        </p>
+        <p style="color: var(--text-muted); font-style: italic;">
+          "A Welfare Analysis of Tax Audits Across the Income Distribution"
+        </p>
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #D55E00; padding: 1.2rem; margin: 1.5rem 0; background: rgba(213,94,0,0.04); border-radius: 4px;">
+          <p style="margin: 0 0 0.8rem 0;">
+            <strong style="color: #D55E00;">The Comparison:</strong>
+          </p>
+          <p style="margin: 0;">Compared <strong>DID estimates</strong> (using non-random audit selection) vs <strong>RCT estimates</strong> (NRP random audits)</p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #E69F00; padding: 1.2rem; margin: 1.5rem 0; background: rgba(230,159,0,0.04); border-radius: 4px;">
+          <p style="margin: 0 0 0.8rem 0;">
+            <strong style="color: #E69F00;">The Finding:</strong>
+          </p>
+          <p style="margin: 0;">Found <strong class="highlight">DRAMATICALLY different</strong> treatment effects between the two designs</p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="background: #D55E00; color: #fff; padding: 1rem 1.5rem; border-radius: 8px; text-align: center; font-size: 1.1em;">
+          <strong>DID showed much larger effects than the RCT</strong>
+        </div>
+      </div>
+
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s10-citation">Paper Citation</button>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number" id="slide-number">10 / 18</span>
+      </footer>
+
+      <template id="dlg-s10-citation" data-title="Paper Citation">
+        <p><strong>Full Citation:</strong></p>
+        <p style="font-style: italic;">Boning, William C., Nathaniel Hendren, Ben Sprung-Keyser, and Ellen Stuart. "A Welfare Analysis of Tax Audits Across the Income Distribution." <em>Quarterly Journal of Economics</em>, 2025.</p>
+        <p><strong>What the paper does:</strong></p>
+        <ul>
+          <li>Examines the effects of IRS audits on future tax compliance</li>
+          <li>Compares estimates from non-random operational audits (DID design) with randomly assigned National Research Program (NRP) audits (RCT design)</li>
+          <li>Finds that the observational DID estimates substantially overstate the causal effect of audits on compliance</li>
+        </ul>
+        <p>This paper provides a rare opportunity to benchmark a quasi-experimental DID design against a true randomized experiment on the same outcome.</p>
+      </template>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

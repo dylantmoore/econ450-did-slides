@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Pre-Trends Can Mislead</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="slide-container" data-current-slide="8" data-total-slides="18" data-prev-slide="slide-07.html" data-next-slide="slide-09.html">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+      <h2>Why Pre-Trends Can Be Misleading Here</h2>
+
+      <p style="text-align: center; font-size: 0.95rem; color: #666; margin-bottom: 0.8rem; font-style: italic;">
+        Discussion: Is DID appropriate for this setting?
+      </p>
+
+      <div class="fragment">
+        <div style="border: 2px solid #D55E00; border-radius: 8px; padding: 1rem 1.2rem; margin: 0.8rem auto; max-width: 720px; background: rgba(213,94,0,0.03);">
+          <h3 style="color: #D55E00; margin: 0 0 0.5rem 0; font-size: 1rem;">The Core Problem: A Regime Change</h3>
+          <p style="font-size: 0.92rem; line-height: 1.5; margin: 0;">
+            Before the layoff, <strong>everyone still had a job</strong>. The world before layoffs tells us nothing about who will struggle to find new work <em>after</em> the layoff.
+          </p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="max-width: 720px; margin: 0.8rem auto; padding: 0.8rem 1rem; background: #f8f8f6; border-radius: 6px;">
+          <p style="font-size: 0.92rem; line-height: 1.6; margin: 0;">
+            <strong>Think about it:</strong> TAA is given to workers whose layoffs were caused by <em>trade</em>&mdash;imports, offshoring. Program administrators are trying to help workers who they believe will have a <strong>harder time</strong> finding new employment.
+          </p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #0072B2; padding: 0.8rem 1rem; margin: 0.8rem auto; max-width: 720px; background: rgba(0,114,178,0.04); border-radius: 4px;">
+          <p style="font-size: 0.92rem; line-height: 1.5; margin: 0;">
+            <strong style="color: #0072B2;">The selection story:</strong> If TAA goes to workers expected to have <em>worse</em> trajectories post-layoff, then comparing approved to denied workers &mdash; even with parallel pre-trends &mdash; would <strong>understate</strong> the true benefit of the program.
+          </p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #CC79A7; padding: 0.8rem 1rem; margin: 0.8rem auto; max-width: 720px; background: rgba(204,121,167,0.04); border-radius: 4px;">
+          <p style="font-size: 0.92rem; line-height: 1.5; margin: 0;">
+            <strong style="color: #CC79A7;">Key insight:</strong> Parallel trends in the <em>pre-layoff</em> period doesn't imply parallel <em>counterfactual</em> trends in the post-layoff period. The layoff itself is a <strong>regime change</strong> that reshuffles who's advantaged.
+          </p>
+        </div>
+      </div>
+
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s08-intuition">The Intuition</button>
+        <button class="info-btn" data-dialog="dlg-s08-implications">What This Means for DID</button>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number">8 / 18</span>
+      </footer>
+
+      <template id="dlg-s08-intuition" data-title="Building Intuition">
+        <p>Imagine two factory workers with identical earnings histories:</p>
+        <ul>
+          <li><strong>Worker A:</strong> Worked at a textile mill. Skills are highly specific to that industry. Local area has few alternatives.</li>
+          <li><strong>Worker B:</strong> Worked at an electronics plant. Skills transfer to growing sectors. Local tech industry is hiring.</li>
+        </ul>
+        <p>Before the layoff, both workers look identical&mdash;same earnings, same trajectory. But after the layoff, Worker A faces a much harder path.</p>
+        <p>If the TAA program correctly identifies Worker A as needing help (because their layoff was trade-related), then comparing A to B <em>understates</em> how much TAA helped&mdash;because absent the program, A would have done worse anyway.</p>
+        <div class="example-box">
+          <strong>The parallel trends assumption fails</strong> not because of anything we can see in the pre-period, but because the <em>post-layoff counterfactual trajectories</em> differ between groups.
+        </div>
+      </template>
+
+      <template id="dlg-s08-implications" data-title="Implications for DID">
+        <p><strong>This is a fundamental limitation of DID in certain settings:</strong></p>
+        <p>When treatment is assigned based on characteristics that predict <em>post-event outcomes</em> (but not pre-event outcomes), parallel pre-trends tells us nothing.</p>
+        <p>In the TAA case:</p>
+        <ul>
+          <li>Treatment (TAA approval) is assigned based on whether the layoff was trade-related</li>
+          <li>Trade-related layoffs may predict worse post-layoff outcomes (skills less transferable, local economy more distressed)</li>
+          <li>But trade-relatedness doesn't affect pre-layoff earnings&mdash;everyone still had a job!</li>
+        </ul>
+        <p>This is why Hyman uses <strong>instrumental variables</strong> (investigator leniency) rather than naive DID. We'll revisit this paper later in the semester when we learn IV methods.</p>
+      </template>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MVPF of Tax Audits</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="slide-container" data-current-slide="16" data-total-slides="18" data-prev-slide="slide-15.html" data-next-slide="slide-17.html">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+      <h2>MVPF by Income Level</h2>
+
+      <div class="fragment">
+        <div class="two-columns" style="gap: 2rem; max-width: 800px; margin: 1rem auto;">
+          <!-- Low Income Box -->
+          <div style="border: 2px solid #D55E00; border-radius: 8px; padding: 1.2rem; background: rgba(213,94,0,0.03);">
+            <p style="margin: 0 0 0.8rem 0; text-align: center;">
+              <strong style="color: #D55E00; font-size: 1.1rem;">Low-Income (20-30th %ile)</strong>
+            </p>
+            <div style="text-align: center; font-size: 2rem; font-weight: bold; color: #D55E00; margin: 0.5rem 0;">
+              MVPF = 1.30
+            </div>
+            <div style="font-size: 0.85rem; color: #666; margin-top: 0.8rem;">
+              <p style="margin: 0.3rem 0;">Audit revenue: $1.14</p>
+              <p style="margin: 0.3rem 0;">+ Deterrence: $3.63</p>
+              <p style="margin: 0.3rem 0;">= Total revenue: $4.78</p>
+              <p style="margin: 0.3rem 0;">- Cost: $1.00</p>
+              <p style="margin: 0.5rem 0; border-top: 1px solid #ddd; padding-top: 0.3rem;"><strong>Net: $3.78</strong></p>
+              <p style="margin: 0.3rem 0;">Burden: $0.14</p>
+              <p style="margin: 0.3rem 0;">WTP: $4.92</p>
+            </div>
+          </div>
+
+          <!-- High Income Box -->
+          <div style="border: 2px solid #009E73; border-radius: 8px; padding: 1.2rem; background: rgba(0,158,115,0.03);">
+            <p style="margin: 0 0 0.8rem 0; text-align: center;">
+              <strong style="color: #009E73; font-size: 1.1rem;">High-Income (90-99th %ile)</strong>
+            </p>
+            <div style="text-align: center; font-size: 2rem; font-weight: bold; color: #009E73; margin: 0.5rem 0;">
+              MVPF = 1.15
+            </div>
+            <div style="font-size: 0.85rem; color: #666; margin-top: 0.8rem;">
+              <p style="margin: 0.3rem 0;">Audit revenue: $9.49</p>
+              <p style="margin: 0.3rem 0;">+ Deterrence: $11.48</p>
+              <p style="margin: 0.3rem 0;">= Total revenue: $20.97</p>
+              <p style="margin: 0.3rem 0;">- Cost: $1.00</p>
+              <p style="margin: 0.5rem 0; border-top: 1px solid #ddd; padding-top: 0.3rem;"><strong>Net: $19.97</strong></p>
+              <p style="margin: 0.3rem 0;">Burden: $2.99</p>
+              <p style="margin: 0.3rem 0;">WTP: $22.96</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #0072B2; padding: 0.8rem 1.2rem; margin: 1rem auto; max-width: 700px; background: rgba(0,114,178,0.04); border-radius: 4px;">
+          <p style="margin: 0; font-size: 0.95rem;">
+            <strong style="color: #0072B2;">Key insight:</strong> Even though high-income audits impose <em>more burden</em> ($2.99 vs $0.14), they raise <em>so much more revenue</em> that the MVPF is actually <strong>lower</strong> (more efficient).
+          </p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #CC79A7; padding: 0.8rem 1.2rem; margin: 1rem auto; max-width: 700px; background: rgba(204,121,167,0.04); border-radius: 4px;">
+          <p style="margin: 0; font-size: 0.95rem;">
+            <strong style="color: #CC79A7;">Remember:</strong> Lower MVPF = more efficient. Auditing high-income taxpayers is a <em>better</em> way to raise revenue than auditing low-income taxpayers.
+          </p>
+        </div>
+      </div>
+
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s16-calculation">Understanding the Calculation</button>
+        <button class="info-btn" data-dialog="dlg-s16-burden">Why Burden Matters</button>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number">16 / 18</span>
+      </footer>
+
+      <template id="dlg-s16-calculation" data-title="Understanding the MVPF Calculation">
+        <p><strong>Step by step for low-income audits:</strong></p>
+        <ol>
+          <li><strong>Direct revenue:</strong> $1 spent on audit recovers $1.14 in back taxes</li>
+          <li><strong>Deterrence:</strong> Future compliance worth $3.63 (using 3.2x multiplier)</li>
+          <li><strong>Total revenue:</strong> $1.14 + $3.63 = $4.78</li>
+          <li><strong>Net to government:</strong> $4.78 - $1.00 cost = $3.78</li>
+          <li><strong>Burden on taxpayer:</strong> ~$0.14 (time, stress, etc.)</li>
+          <li><strong>WTP to avoid:</strong> $4.78 revenue + $0.14 burden = $4.92</li>
+          <li><strong>MVPF:</strong> $4.92 / $3.78 = 1.30</li>
+        </ol>
+        <p><strong>Interpretation:</strong> For every $1 the government nets from low-income audits, taxpayers lose $1.30 in welfare. The "excess burden" is $0.30 per dollar.</p>
+      </template>
+
+      <template id="dlg-s16-burden" data-title="Why Burden Matters for MVPF">
+        <p>High-income audits impose nearly <strong>20x more burden</strong> than low-income audits ($2.99 vs $0.14). Why is the MVPF still lower?</p>
+        <p><strong>The math:</strong></p>
+        <ul>
+          <li>Low-income: WTP = $4.92, Net = $3.78, MVPF = 1.30</li>
+          <li>High-income: WTP = $22.96, Net = $19.97, MVPF = 1.15</li>
+        </ul>
+        <p>Even though high-income taxpayers suffer more burden in <em>absolute</em> terms, they also generate vastly more revenue. The <em>ratio</em> of burden to revenue is what matters.</p>
+        <p><strong>The lesson:</strong> Focusing only on burden (or only on revenue) misses the point. MVPF captures the full picture: how much welfare cost do we impose per dollar raised?</p>
+      </template>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

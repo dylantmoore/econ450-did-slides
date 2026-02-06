@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trade Adjustment Assistance</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="slide-container" data-current-slide="6" data-total-slides="18" data-prev-slide="slide-05.html" data-next-slide="slide-07.html">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+      <h2>Case Study: Trade Adjustment Assistance</h2>
+
+      <p style="text-align: center; font-size: 0.95rem; color: #666; margin-bottom: 1rem;">
+        Hyman (2018) &mdash; "Can Displaced Labor Be Retrained?"
+      </p>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #0072B2; padding: 0.8rem 1.2rem; margin: 1rem 0; background: rgba(0,114,178,0.04); border-radius: 4px;">
+          <p style="margin: 0; font-size: 0.95rem;">
+            <strong style="color: #0072B2;">The Policy Question:</strong> Does the federal Trade Adjustment Assistance (TAA) program help displaced manufacturing workers?
+          </p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="max-width: 700px; margin: 0 auto;">
+          <h3 style="font-size: 1rem; color: #333; margin-bottom: 0.5rem;">What is TAA?</h3>
+          <ul style="font-size: 0.9rem; line-height: 1.6;">
+            <li>Federal program (since 1962) for workers who lose jobs due to <strong>trade competition</strong></li>
+            <li>Benefits: Up to 2 years of <strong>job retraining</strong> + extended unemployment insurance</li>
+            <li>~$1 billion/year; 230,000+ workers enrolled in 2010</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #D55E00; padding: 0.8rem 1.2rem; margin: 1rem 0; background: rgba(213,94,0,0.04); border-radius: 4px;">
+          <p style="margin: 0; font-size: 0.95rem;">
+            <strong style="color: #D55E00;">The Identification Challenge:</strong> Workers who receive TAA are <em>selected</em>&mdash;their layoffs were caused by trade. Are they comparable to workers denied TAA?
+          </p>
+        </div>
+      </div>
+
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s06-taa-details">How TAA Works</button>
+        <button class="info-btn" data-dialog="dlg-s06-selection">The Selection Problem</button>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number">6 / 18</span>
+      </footer>
+
+      <template id="dlg-s06-taa-details" data-title="How Trade Adjustment Assistance Works">
+        <p>When a manufacturing plant lays off workers, the company, union, or workers themselves can file a <strong>petition</strong> with the Department of Labor claiming the layoffs were due to trade competition (imports or offshoring).</p>
+        <p>A DOL <strong>case investigator</strong> reviews the petition and decides whether to approve or deny it. If approved:</p>
+        <ul>
+          <li>All workers laid off from that plant become eligible for TAA benefits</li>
+          <li>Benefits include: job retraining (up to 2 years), extended UI while training, job search allowances</li>
+          <li>Median benefits: ~$7,500/year for training + ~$15,000/year in extended UI</li>
+        </ul>
+        <p>From 1974-2016, about 8.2 million workers were covered by TAA petitions, with ~63% approved.</p>
+      </template>
+
+      <template id="dlg-s06-selection" data-title="The Selection Problem">
+        <p><strong>Why is this hard to study?</strong></p>
+        <p>Workers who receive TAA are fundamentally different from those who don't:</p>
+        <ul>
+          <li>They worked in industries facing trade pressure (textiles, steel, auto parts)</li>
+          <li>Their skills may be less transferable to growing sectors</li>
+          <li>Their local labor markets may be more distressed</li>
+        </ul>
+        <p>Simply comparing TAA recipients to non-recipients would conflate the <em>effect of the program</em> with the <em>effect of working in a trade-exposed industry</em>.</p>
+      </template>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

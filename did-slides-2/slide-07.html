@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Naive DID Approach</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="slide-container" data-current-slide="7" data-total-slides="18" data-prev-slide="slide-06.html" data-next-slide="slide-08.html">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+      <h2>A Naive DID Approach</h2>
+
+      <p style="text-align: center; font-size: 0.9rem; color: #666; margin-bottom: 0.8rem;">
+        Compare earnings of TAA-approved vs. TAA-denied workers over time
+      </p>
+
+      <div style="text-align: center; margin: 0.5rem 0;">
+        <img src="images/hyman-did-naive.png" alt="Naive DID: TAA Approved vs Denied" style="max-width: 85%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #009E73; padding: 0.6rem 1rem; margin: 0.8rem auto; max-width: 700px; background: rgba(0,158,115,0.04); border-radius: 4px;">
+          <p style="margin: 0; font-size: 0.9rem;">
+            <strong style="color: #009E73;">Looks good!</strong> Pre-trends appear parallel. Both groups have similar earnings trajectories before the layoff event (t = 0).
+          </p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #D55E00; padding: 0.6rem 1rem; margin: 0.8rem auto; max-width: 700px; background: rgba(213,94,0,0.04); border-radius: 4px;">
+          <p style="margin: 0; font-size: 0.9rem;">
+            <strong style="color: #D55E00;">But wait...</strong> Should we trust this? Let's think carefully about what parallel <em>pre</em>-trends tells us here.
+          </p>
+        </div>
+      </div>
+
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s07-reading">Reading This Figure</button>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number">7 / 18</span>
+      </footer>
+
+      <template id="dlg-s07-reading" data-title="Reading This Figure">
+        <p><strong>What you're seeing:</strong></p>
+        <ul>
+          <li><strong>Solid red line:</strong> Average earnings of workers whose TAA petition was <em>approved</em></li>
+          <li><strong>Dashed blue line:</strong> Average earnings of workers whose TAA petition was <em>denied</em></li>
+          <li><strong>X-axis:</strong> Years relative to the TAA petition decision (t = 0 is when the decision was made)</li>
+          <li><strong>Vertical lines:</strong> Mark the "impact date" (layoff), decision date, and eligibility expiry</li>
+        </ul>
+        <p>Before the layoff (t < -1), both groups have nearly identical earnings trajectories&mdash;this is the "parallel pre-trends" that would make us optimistic about DID.</p>
+        <p>After the layoff, there's a dramatic earnings drop for both groups, followed by partial recovery. The approved workers appear to recover slightly better.</p>
+      </template>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

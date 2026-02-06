@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>When Quantitative Methods Aren't Enough</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="slide-container" data-current-slide="5" data-total-slides="18" data-prev-slide="slide-04.html" data-next-slide="slide-06.html">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+      <h2>When Quantitative Methods Aren't Enough</h2>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #56B4E9; padding: 1rem 1.5rem; margin: 1rem 0; background: rgba(86, 180, 233, 0.08); border-radius: 4px;">
+          <p style="margin: 0; font-style: italic;">"Our work does not 'prove drones work', or support any similarly simplistic statements."</p>
+          <p style="margin: 0.5rem 0 0 0; font-size: 0.9em; color: #666;">&mdash; Mir &amp; Moore</p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <p><strong>The analysis rests heavily on qualitative evidence:</strong></p>
+        <ul>
+          <li><strong>66 interviews</strong> with officials, journalists, and former Taliban members</li>
+          <li>The quantitative analysis shows <em>patterns</em></li>
+          <li>The qualitative evidence makes them <em>meaningful</em></li>
+        </ul>
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #009E73; padding: 1rem 1.5rem; margin: 1rem 0; background: rgba(0, 158, 115, 0.08); border-radius: 4px;">
+          <p style="margin: 0;"><strong style="color: #009E73;">Key insight:</strong> When the identifying assumptions of your research design are imperfect, supplementary evidence becomes essential&mdash;not optional.</p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <p>This is a case where <strong>mixed methods</strong> were not just a nice addition&mdash;they were <em>necessary</em> to make credible claims about causality.</p>
+      </div>
+
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s05-qual-role">The Role of Qualitative Evidence</button>
+        <button class="info-btn" data-dialog="dlg-s05-interviews">What the Interviews Showed</button>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number" id="slide-number">5 / 18</span>
+      </footer>
+
+      <template id="dlg-s05-qual-role" data-title="The Role of Qualitative Evidence">
+        <p>Quantitative methods like DID are powerful tools, but they require assumptions that may not always hold. When those assumptions are violated&mdash;as with the parallel trends problem here&mdash;the quantitative estimates become harder to interpret.</p>
+        <p>Qualitative evidence can help in several ways:</p>
+        <ul>
+          <li><strong>Mechanism:</strong> It can explain <em>why</em> and <em>how</em> an effect might occur</li>
+          <li><strong>Context:</strong> It can clarify whether the treatment actually happened as intended</li>
+          <li><strong>Triangulation:</strong> It provides an independent check on quantitative findings</li>
+        </ul>
+        <p>In this paper, the interviews provided crucial evidence about how the drone program actually disrupted militant operations&mdash;something the regression coefficients alone could not reveal.</p>
+      </template>
+
+      <template id="dlg-s05-interviews" data-title="What the Interviews Showed">
+        <p>The 66 interviews conducted for the study revealed several key mechanisms:</p>
+        <ul>
+          <li><strong>Surveillance effects:</strong> The constant presence of drones made it difficult for militants to organize and communicate</li>
+          <li><strong>Leadership disruption:</strong> Targeted killings removed key commanders and created organizational chaos</li>
+          <li><strong>Behavioral changes:</strong> Militants changed their tactics, avoided large gatherings, and limited their movements</li>
+        </ul>
+        <p>These qualitative insights help explain <em>why</em> we might see reduced violence in the treatment area&mdash;and provide evidence that the correlation observed in the data reflects a genuine causal mechanism rather than a statistical artifact.</p>
+      </template>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

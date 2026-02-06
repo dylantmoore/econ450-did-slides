@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DID in Practice: Case Studies - ECON 450</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    body {
+      overflow-y: auto;
+      height: auto;
+    }
+
+    .index-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    .index-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .index-header h1 {
+      font-size: 2.2rem;
+      color: var(--accent-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .index-header .course-info {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+    }
+
+    .start-btn {
+      display: inline-block;
+      background: var(--accent-color);
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      margin-top: 1.5rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .start-btn:hover {
+      background: #005a8f;
+      transform: translateY(-1px);
+    }
+
+    .section {
+      margin-bottom: 2rem;
+    }
+
+    .section h2 {
+      font-size: 1.3rem;
+      color: var(--accent-color);
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 0.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .slide-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .slide-list li {
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.8rem;
+    }
+
+    .slide-num {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      min-width: 2rem;
+      text-align: right;
+    }
+
+    .slide-list a {
+      color: var(--text-color);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .slide-list a:hover {
+      color: var(--accent-color);
+    }
+
+    .nav-help {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: #f5f5f3;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    .nav-help h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+      color: var(--accent-color);
+    }
+
+    .nav-help kbd {
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding: 0.1rem 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.85em;
+    }
+
+    .nav-help ul {
+      margin-left: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="index-container">
+    <div class="index-header">
+      <h1>DID in Practice: Case Studies</h1>
+      <p class="course-info">ECON 450 &mdash; Prof. Dylan T. Moore</p>
+      <a href="slide-01.html" class="start-btn">Start Presentation</a>
+    </div>
+
+    <div class="section">
+      <h2>Section 1 &mdash; Introduction</h2>
+      <ul class="slide-list">
+        <li><span class="slide-num">1</span> <a href="slide-01.html">DID in Practice: Lessons from Real Research</a></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Section 2 &mdash; Drones in Pakistan</h2>
+      <ul class="slide-list">
+        <li><span class="slide-num">2</span> <a href="slide-02.html">Case Study: Drone Strikes in Pakistan</a></li>
+        <li><span class="slide-num">3</span> <a href="slide-03.html">The DID Setup: Border Region Comparison</a></li>
+        <li><span class="slide-num">4</span> <a href="slide-04.html">Checking Parallel Trends</a></li>
+        <li><span class="slide-num">5</span> <a href="slide-05.html">Mixed Methods to the Rescue</a></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Section 3 &mdash; Trade Adjustment Assistance</h2>
+      <ul class="slide-list">
+        <li><span class="slide-num">6</span> <a href="slide-06.html">Case Study: Trade Adjustment Assistance</a></li>
+        <li><span class="slide-num">7</span> <a href="slide-07.html">The Naive DID Approach</a></li>
+        <li><span class="slide-num">8</span> <a href="slide-08.html">Why Pre-Trends Can Be Misleading</a></li>
+        <li><span class="slide-num">9</span> <a href="slide-09.html">Preview: Instrumental Variables</a></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Section 4 &mdash; IRS Tax Audits &amp; MVPF</h2>
+      <ul class="slide-list">
+        <li><span class="slide-num">10</span> <a href="slide-10.html">The IRS Audit Paper: A Cautionary Tale</a></li>
+        <li><span class="slide-num">11</span> <a href="slide-11.html">Clear Departure from Parallel Trends</a></li>
+        <li><span class="slide-num">12</span> <a href="slide-12.html">Why Do DID and RCT Disagree?</a></li>
+        <li><span class="slide-num">13</span> <a href="slide-13.html">Returns to Audits Vary by Income</a></li>
+        <li><span class="slide-num">14</span> <a href="slide-14.html">Audits Have Long-Run Deterrence Effects</a></li>
+        <li><span class="slide-num">15</span> <a href="slide-15.html">The Marginal Value of Public Funds (MVPF)</a></li>
+        <li><span class="slide-num">16</span> <a href="slide-16.html">MVPF by Income Level</a></li>
+        <li><span class="slide-num">17</span> <a href="slide-17.html">How Audits Compare to Tax Rate Changes</a></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Section 5 &mdash; Conclusions</h2>
+      <ul class="slide-list">
+        <li><span class="slide-num">18</span> <a href="slide-18.html">Final Takeaways</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-help">
+      <h3>Navigation</h3>
+      <ul>
+        <li><kbd>&rarr;</kbd> / <kbd>Space</kbd> / <kbd>Enter</kbd> &mdash; Next slide or reveal</li>
+        <li><kbd>&larr;</kbd> / <kbd>Backspace</kbd> &mdash; Previous slide or hide</li>
+        <li><kbd>Escape</kbd> &mdash; Return to this index</li>
+        <li><kbd>Home</kbd> / <kbd>End</kbd> &mdash; First / last slide</li>
+        <li><kbd>F</kbd> &mdash; Toggle fullscreen</li>
+        <li>Click anywhere on a slide to advance</li>
+      </ul>
+    </div>
+  </div>
+</body>
+
+</html>

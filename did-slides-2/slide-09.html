@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview: Instrumental Variables</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="slide-container" data-current-slide="9" data-total-slides="18" data-prev-slide="slide-08.html" data-next-slide="slide-10.html">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+      <h2>Preview: A Better Approach (IV)</h2>
+
+      <p style="text-align: center; font-size: 0.9rem; color: #666; margin-bottom: 0.5rem;">
+        Later this semester, we'll learn about <strong>instrumental variables</strong>
+      </p>
+
+      <div style="text-align: center; margin: 0.5rem 0;">
+        <img src="images/hyman-iv-reduced.png" alt="IV Reduced Form: Leniency Quantiles" style="max-width: 80%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #0072B2; padding: 0.6rem 1rem; margin: 0.6rem auto; max-width: 700px; background: rgba(0,114,178,0.04); border-radius: 4px;">
+          <p style="margin: 0; font-size: 0.88rem;">
+            <strong style="color: #0072B2;">The key insight:</strong> TAA cases are <em>quasi-randomly</em> assigned to investigators who vary in their approval rates ("leniency"). This creates exogenous variation in who gets TAA.
+          </p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #009E73; padding: 0.6rem 1rem; margin: 0.6rem auto; max-width: 700px; background: rgba(0,158,115,0.04); border-radius: 4px;">
+          <p style="margin: 0; font-size: 0.88rem;">
+            <strong style="color: #009E73;">What changes:</strong> When we compare workers by <em>investigator leniency</em> (not TAA status), the pre-trends flatten out&mdash;because leniency is unrelated to worker characteristics.
+          </p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="border: 2px solid #CC79A7; border-radius: 8px; padding: 0.8rem 1rem; margin: 0.8rem auto; max-width: 700px; background: rgba(204,121,167,0.03);">
+          <p style="margin: 0; font-size: 0.92rem; text-align: center;">
+            <strong style="color: #CC79A7;">Coming soon:</strong> We'll revisit this paper and learn how IV solves the selection problem that makes naive DID misleading here.
+          </p>
+        </div>
+      </div>
+
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s09-preview">What is Investigator Leniency?</button>
+        <button class="info-btn" data-dialog="dlg-s09-takeaway">Key Takeaway</button>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number">9 / 18</span>
+      </footer>
+
+      <template id="dlg-s09-preview" data-title="Investigator Leniency as an Instrument">
+        <p>When a TAA petition is filed, it gets assigned to a case investigator at the Department of Labor. The assignment is based on:</p>
+        <ul>
+          <li>Investigator caseload</li>
+          <li>Previous experience with the industry</li>
+          <li>Scheduling factors</li>
+        </ul>
+        <p>Crucially, investigators vary in how likely they are to approve petitions&mdash;some are "lenient" (approve ~70% of cases), others are "strict" (approve ~40%).</p>
+        <p><strong>The IV idea:</strong> Being assigned to a lenient vs. strict investigator affects your <em>probability</em> of getting TAA, but it's essentially random from the worker's perspective. This creates "as-if random" variation we can exploit.</p>
+        <p>This is the same logic as "judge leniency" designs used to study incarceration, bankruptcy, and other settings.</p>
+      </template>
+
+      <template id="dlg-s09-takeaway" data-title="The Key Takeaway">
+        <p><strong>Parallel pre-trends are necessary but not sufficient.</strong></p>
+        <p>In settings where:</p>
+        <ul>
+          <li>Treatment is assigned based on post-event characteristics</li>
+          <li>A "regime change" (like job loss) fundamentally alters the comparison</li>
+          <li>Selection happens on factors invisible in the pre-period</li>
+        </ul>
+        <p>...even perfect-looking pre-trends can be misleading.</p>
+        <div class="example-box">
+          <strong>Remember:</strong> "No causes in, no causes out." The assumptions doing the causal work in DID are about <em>counterfactual</em> post-treatment trends&mdash;which we can never directly test.
+        </div>
+      </template>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

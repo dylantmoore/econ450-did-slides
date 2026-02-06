@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Do DID and RCT Disagree?</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="slide-container" data-current-slide="12" data-total-slides="18" data-prev-slide="slide-11.html" data-next-slide="slide-13.html">
+    <div class="slide">
+      <a href="index.html" class="home-btn" title="Table of Contents">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
+      <h2>Why Do DID and RCT Disagree?</h2>
+
+      <div class="fragment">
+        <div class="two-columns" style="gap: 2rem; margin: 1rem 0;">
+          <!-- Interpretation 1: Selection Bias -->
+          <div style="border: 2px solid #D55E00; border-radius: 8px; padding: 1.2rem; background: rgba(213,94,0,0.03);">
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+              <svg viewBox="0 0 24 24" style="width: 28px; height: 28px; fill: #D55E00;">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+              </svg>
+              <h3 style="color: #D55E00; margin: 0; font-size: 1.1rem;">1. Selection Bias</h3>
+            </div>
+            <p style="font-size: 0.95rem; line-height: 1.5;">
+              The DID estimate is <strong>biased</strong> because parallel trends fails.
+            </p>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.8rem; margin-bottom: 0;">
+              Non-random audits selected people who would have changed their behavior anyway. The DID conflates selection with causation.
+            </p>
+          </div>
+
+          <!-- Interpretation 2: Heterogeneous Effects -->
+          <div style="border: 2px solid #009E73; border-radius: 8px; padding: 1.2rem; background: rgba(0,158,115,0.03);">
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+              <svg viewBox="0 0 24 24" style="width: 28px; height: 28px; fill: #009E73;">
+                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+              </svg>
+              <h3 style="color: #009E73; margin: 0; font-size: 1.1rem;">2. Heterogeneous Effects</h3>
+            </div>
+            <p style="font-size: 0.95rem; line-height: 1.5;">
+              The treatment effect <strong>genuinely differs</strong> between populations.
+            </p>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.8rem; margin-bottom: 0;">
+              Non-randomly selected audit targets may respond differently to audits than randomly selected ones. Both estimates could be "correct" for their populations.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #0072B2; padding: 1rem 1.2rem; margin: 1.2rem 0; background: rgba(0,114,178,0.04); border-radius: 4px;">
+          <p style="margin: 0; font-size: 0.95rem;">
+            <strong style="color: #0072B2;">A third possibility:</strong> Compliance differences at the <em>auditor</em> level, not the taxpayer level...
+          </p>
+        </div>
+      </div>
+
+      <div class="fragment">
+        <div style="border-left: 4px solid #CC79A7; padding: 1rem 1.2rem; margin: 1.2rem 0; background: rgba(204,121,167,0.04); border-radius: 4px;">
+          <p style="margin: 0; font-size: 0.95rem;">
+            <strong style="color: #CC79A7;">Anecdotally:</strong> IRS auditors may treat NRP random audits differently than targeted audits. Random audits are seen as "box-checking"&mdash;auditors know there's often nothing there. Targeted audits are viewed as "real" cases worth pursuing aggressively.
+          </p>
+        </div>
+      </div>
+
+      <div class="info-buttons">
+        <button class="info-btn" data-dialog="dlg-s12-selection-bias">Selection Bias Explained</button>
+        <button class="info-btn" data-dialog="dlg-s12-heterogeneity">Heterogeneous Effects</button>
+        <button class="info-btn" data-dialog="dlg-s12-auditor">Auditor Compliance</button>
+        <button class="info-btn" data-dialog="dlg-s12-implications">Policy Implications</button>
+      </div>
+
+      <footer class="slide-footer">
+        <span class="slide-number" id="slide-number">12 / 18</span>
+      </footer>
+
+      <template id="dlg-s12-selection-bias" data-title="Selection Bias Explained">
+        <p><strong>What is selection bias in this context?</strong></p>
+        <p>The IRS doesn't audit taxpayers randomly. It uses algorithms and human judgment to select taxpayers who are likely to owe additional taxes. This means:</p>
+        <ul>
+          <li>Audited taxpayers are systematically <em>different</em> from non-audited taxpayers</li>
+          <li>They may have been experiencing income changes, life events, or reporting patterns that triggered the audit</li>
+          <li>Those same factors might independently affect future tax compliance</li>
+        </ul>
+        <p><strong>Why this invalidates DID:</strong> If audited taxpayers would have reported higher income anyway (even without the audit), then comparing their post-audit income to a control group overstates the audit's true causal effect.</p>
+      </template>
+
+      <template id="dlg-s12-heterogeneity" data-title="Heterogeneous Treatment Effects">
+        <p><strong>What are heterogeneous treatment effects?</strong></p>
+        <p>Different people may respond differently to the same treatment. In this case:</p>
+        <ul>
+          <li>Taxpayers targeted by IRS algorithms may be more responsive to audits (they have more to hide)</li>
+          <li>Randomly selected taxpayers may be "typical" citizens who respond less dramatically</li>
+          <li>Both effects could be "real"&mdash;they just apply to different populations</li>
+        </ul>
+        <p><strong>The policy question:</strong> If you're interested in the effect of <em>actual IRS auditing policy</em>, the relevant population might be those selected by the algorithm. But if you want to know what would happen under <em>universal random auditing</em>, the RCT estimate is more relevant.</p>
+      </template>
+
+      <template id="dlg-s12-implications" data-title="Policy Implications">
+        <p><strong>Which estimate should policymakers use?</strong></p>
+        <p>This depends on the policy question:</p>
+        <ul>
+          <li><strong>If expanding current targeting:</strong> The DID estimate might be relevant (but still biased if selection effects exist)</li>
+          <li><strong>If implementing random audits:</strong> The RCT estimate is directly applicable</li>
+          <li><strong>If redesigning targeting criteria:</strong> Neither estimate may generalize well</li>
+        </ul>
+        <p><strong>The broader lesson:</strong> Quasi-experimental estimates should be treated with caution, especially when treatment assignment is based on predicted outcomes. The parallel trends assumption is fundamentally untestable&mdash;we can only check <em>pre</em>-trends, not whether trends would have remained parallel in the post-period.</p>
+      </template>
+
+      <template id="dlg-s12-auditor" data-title="Auditor Compliance Effects">
+        <p><strong>It's not just about taxpayers&mdash;auditors matter too.</strong></p>
+        <p>NRP random audits are used primarily to calibrate IRS models and estimate the "tax gap." Auditors know this, and anecdotally they approach these audits differently:</p>
+        <ul>
+          <li>Random audits often turn up nothing&mdash;the taxpayer was selected by chance, not suspicion</li>
+          <li>Auditors may see random audits as bureaucratic box-checking rather than substantive enforcement</li>
+          <li>Targeted audits signal that something is <em>worth finding</em>&mdash;auditors may dig deeper</li>
+        </ul>
+        <p><strong>Implication:</strong> The RCT might <em>underestimate</em> the effect of real-world audits because auditors don't pursue random cases as aggressively. The "treatment" in the RCT is not identical to the treatment in practice.</p>
+      </template>
+    </div>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>
